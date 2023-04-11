@@ -11,12 +11,18 @@ movies_df['imdb_rating'] = ''
 ia = IMDb()
 
 # Iterate over each row in the movies dataframe
-i=0
-for index, row in movies_df.iterrows():
-    i+=1
-    print(i)
-    # Get the movie title
+start = 0 
+end = 10
+for i in range (start, end):
+    index =i
+# for index, row in movies_df.iterrows():
+    print("i = ", index)
+    # print(row)
+    row = movies_df.iloc[index]
+    # print(row)
+        # Get the movie title
     title = row['title']
+    print(title)
     
     # Search for the movie on IMDB
     search_results = ia.search_movie(title)
@@ -27,14 +33,13 @@ for index, row in movies_df.iterrows():
     
     # Get the IMDB rating for the movie
     imdb_rating = movie.get('rating')
+    print(imdb_rating)
     
     # Add the IMDB rating to the movies dataframe
     movies_df.at[index, 'imdb_rating'] = imdb_rating
     
-    if index == 19:
-        break
-    
 # Save the updated movies dataframe to a CSV file
-movies_df.to_csv('csv_files/tmdb_5000_movies_with_imdb_ratings.csv', index=False)
+movies_df.to_csv('csv_files/tmdb_500_movies_with_imdb_ratings.csv', 
+                 index=False)
 
 
