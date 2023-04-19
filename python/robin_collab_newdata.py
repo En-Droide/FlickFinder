@@ -7,6 +7,11 @@ import warnings
 import winerror
 import win32api
 import win32job
+from imdb import IMDb
+
+ia = IMDb()
+black_panther = ia.get_movie('1825683', info='keywords')
+print(black_panther.summary())
 
 g_hjob = None
 movies = None
@@ -206,8 +211,8 @@ def getCorrelations2(movieId=None, movieTitle=None, customPivot=False):
 
 # execLimitMemory(3000)  # x MiB
 
-movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="ml-latest/")
+# movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
+#     readCSVs(resourcePath="ml-latest/")
 
 # matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations2(
 #     movieTitle='Matrix, The (1999)', customPivot=False)
