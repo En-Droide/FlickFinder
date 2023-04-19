@@ -1,7 +1,7 @@
 import datetime
 import pandas as pd
 import numpy as np
-
+from imdb import Cinemagoer
 import sys
 import warnings
 import winerror
@@ -188,11 +188,18 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
     return correlatedMovies, similar_to_movie, user_ratings, movieMat
 
 
-execLimitMemory(2000)  # x MiB
+# execLimitMemory(2000)  # x MiB
 
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="csv_files/ml-latest/")
+    readCSVs(resourcePath="csv_files/ml-latest-small/")
 print("csv read")
-matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-    movieTitle='Matrix, The (1999)', customPivot=True)
-print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+# matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
+#     movieTitle='Matrix, The (1999)', customPivot=True)
+# print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+
+
+ia = Cinemagoer()
+movietest = getMovieImdb(1)
+print(movietest)
+info = ia.get_movie(movietest, info="keywords")["keywords"]
+print(info)
