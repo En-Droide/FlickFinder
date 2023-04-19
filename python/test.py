@@ -1,18 +1,18 @@
 import pandas as pd
-from imdb import IMDb
+from imdb import IMDb,Cinemagoer
 
 # Load the TMDB movies CSV file
-movies_df = pd.read_csv('csv_files/tmdb_5000_movies.csv')
+movies_df = pd.read_csv('csv_files/tmdb_5000_movies_with_imdb_ratings.csv')
 
 # Create a new column for IMDB ratings
-movies_df['imdb_rating'] = ''
+# movies_df['imdb_rating'] = 0.0
 
 # Create an instance of the IMDb class
-ia = IMDb()
+ia = Cinemagoer()
 
 # Iterate over each row in the movies dataframe
-start = 0 
-end = 10
+start = 14410
+end = 14420
 for i in range (start, end):
     index =i
 # for index, row in movies_df.iterrows():
@@ -33,13 +33,13 @@ for i in range (start, end):
     
     # Get the IMDB rating for the movie
     imdb_rating = movie.get('rating')
-    print(imdb_rating)
+    # print(imdb_rating)
     
     # Add the IMDB rating to the movies dataframe
     movies_df.at[index, 'imdb_rating'] = imdb_rating
     
 # Save the updated movies dataframe to a CSV file
-movies_df.to_csv('csv_files/tmdb_500_movies_with_imdb_ratings.csv', 
+movies_df.to_csv('csv_files/tmdb_5000_movies_with_imdb_ratings.csv', 
                  index=False)
 
 
