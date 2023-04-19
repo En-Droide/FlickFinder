@@ -90,7 +90,7 @@ def readRatings(file):
     return df
 
 
-def readCSVs(resourcePath="ml-latest-small/"):
+def readCSVs(resourcePath="csv_files/ml-latest-small/"):
     movies = readBigCSV(resourcePath + "movies.csv")
     # print(movies.info(memory_usage='deep'))
     links = readBigCSV(resourcePath + "links.csv")
@@ -167,24 +167,7 @@ def getMovieMat(frame):
     return movieMat
 
 
-def getCorrelations(movieId=None, movieTitle=None):
-    if movieTitle and not movieId:
-        movieId = getMovieId(movieTitle)
-    if not movieTitle:
-        movieTitle = getMovieTitle(movieId)
-    movieMat = ratingsTemp.pivot_table(
-        index='userId', columns='title', values='rating')
-    user_ratings = movieMat[movieTitle]
-    similar_to_movie = movieMat.corrwith(user_ratings)
-    correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
-    correlatedMovies.dropna(inplace=True)
-    correlatedMovies = correlatedMovies.join(ratings['nb of ratings'])
-    correlatedMovies = correlatedMovies.sort_values('Correlation',
-                                                    ascending=False)
-    return correlatedMovies, similar_to_movie, user_ratings, movieMat
-
-
-def getCorrelations2(movieId=None, movieTitle=None, customPivot=False):
+def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
     if movieTitle and not movieId:
         movieId = getMovieId(movieTitle)
     if not movieTitle:
@@ -193,6 +176,7 @@ def getCorrelations2(movieId=None, movieTitle=None, customPivot=False):
         movieMat = getCustomMovieMat(ratingsTemp, column="movieId")
     else:
         movieMat = getMovieMat(ratingsTemp2)
+    print("MovieMat made")
     user_ratings = movieMat[movieId]
     similar_to_movie = movieMat.corrwith(user_ratings)
     correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
@@ -204,11 +188,11 @@ def getCorrelations2(movieId=None, movieTitle=None, customPivot=False):
     return correlatedMovies, similar_to_movie, user_ratings, movieMat
 
 
-# execLimitMemory(3000)  # x MiB
+execLimitMemory(2000)  # x MiB
 
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="ml-latest/")
-
-# matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations2(
-#     movieTitle='Matrix, The (1999)', customPivot=False)
-# print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+    readCSVs(resourcePath="csv_files/ml-latest/")
+print("csv read")
+matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
+    movieTitle='Matrix, The (1999)', customPivot=True)
+print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
