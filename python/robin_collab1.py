@@ -216,10 +216,12 @@ print("csv read")
 movies["keywords"] = ''
 # movies["synopsis"] = ''
 movies["cast"] = ''
-for i in range(1, len(movies) + 1):  # 
+for i, rows in movies.iterrows():  # 
+    
     print(i, "/", len(movies))
     keywords, cast = getInfos(i)
     movies.at[i, "keywords"] = keywords
     # movies.at[i, "synopsis"] = synopsis
     cast = [actor["name"] for actor in cast]
     movies.at[i, "cast"] = cast
+movies.to_csv("out.csv")
