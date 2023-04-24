@@ -1,12 +1,12 @@
 import datetime
 import pandas as pd
 import numpy as np
-
+from imdb import Cinemagoer
 import sys
 import warnings
-import winerror
-import win32api
-import win32job
+# import winerror
+# import win32api  # pip install pywin32
+# import win32job
 
 g_hjob = None
 movies = None
@@ -18,59 +18,59 @@ ratingsTemp = None
 ratingsTemp2 = None
 
 
-def create_job(job_name='', breakaway='silent'):
-    hjob = win32job.CreateJobObject(None, job_name)
-    if breakaway:
-        info = win32job.QueryInformationJobObject(hjob,
-                                  win32job.JobObjectExtendedLimitInformation)
-        if breakaway == 'silent':
-            info['BasicLimitInformation']['LimitFlags'] |= (
-                win32job.JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK)
-        else:
-            info['BasicLimitInformation']['LimitFlags'] |= (
-                win32job.JOB_OBJECT_LIMIT_BREAKAWAY_OK)
-        win32job.SetInformationJobObject(hjob,
-            win32job.JobObjectExtendedLimitInformation, info)
-    return hjob
+# def create_job(job_name='', breakaway='silent'):
+#     hjob = win32job.CreateJobObject(None, job_name)
+#     if breakaway:
+#         info = win32job.QueryInformationJobObject(hjob,
+#                                   win32job.JobObjectExtendedLimitInformation)
+#         if breakaway == 'silent':
+#             info['BasicLimitInformation']['LimitFlags'] |= (
+#                 win32job.JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK)
+#         else:
+#             info['BasicLimitInformation']['LimitFlags'] |= (
+#                 win32job.JOB_OBJECT_LIMIT_BREAKAWAY_OK)
+#         win32job.SetInformationJobObject(hjob,
+#             win32job.JobObjectExtendedLimitInformation, info)
+#     return hjob
 
 
-def assign_job(hjob):
-    global g_hjob
-    hprocess = win32api.GetCurrentProcess()
-    try:
-        win32job.AssignProcessToJobObject(hjob, hprocess)
-        g_hjob = hjob
-    except win32job.error as e:
-        if (e.winerror != winerror.ERROR_ACCESS_DENIED or
-            sys.getwindowsversion() >= (6, 2) or
-            not win32job.IsProcessInJob(hprocess, None)):
-            raise
-        warnings.warn('The process is already in a job. Nested jobs are not '
-            'supported prior to Windows 8.')
+# def assign_job(hjob):
+#     global g_hjob
+#     hprocess = win32api.GetCurrentProcess()
+#     try:
+#         win32job.AssignProcessToJobObject(hjob, hprocess)
+#         g_hjob = hjob
+#     except win32job.error as e:
+#         if (e.winerror != winerror.ERROR_ACCESS_DENIED or
+#             sys.getwindowsversion() >= (6, 2) or
+#             not win32job.IsProcessInJob(hprocess, None)):
+#             raise
+#         warnings.warn('The process is already in a job. Nested jobs are not '
+#             'supported prior to Windows 8.')
 
 
-def limit_memory(memory_limit):
-    if g_hjob is None:
-        return
-    info = win32job.QueryInformationJobObject(g_hjob,
-                win32job.JobObjectExtendedLimitInformation)
-    info['ProcessMemoryLimit'] = memory_limit
-    info['BasicLimitInformation']['LimitFlags'] |= (
-        win32job.JOB_OBJECT_LIMIT_PROCESS_MEMORY)
-    win32job.SetInformationJobObject(g_hjob,
-        win32job.JobObjectExtendedLimitInformation, info)
+# def limit_memory(memory_limit):
+#     if g_hjob is None:
+#         return
+#     info = win32job.QueryInformationJobObject(g_hjob,
+#                 win32job.JobObjectExtendedLimitInformation)
+#     info['ProcessMemoryLimit'] = memory_limit
+#     info['BasicLimitInformation']['LimitFlags'] |= (
+#         win32job.JOB_OBJECT_LIMIT_PROCESS_MEMORY)
+#     win32job.SetInformationJobObject(g_hjob,
+#         win32job.JobObjectExtendedLimitInformation, info)
 
-def execLimitMemory(memory=2000):
-    assign_job(create_job())
-    memory_limit = memory * 1024 * 1024 # memory MiB
-    limit_memory(memory_limit)
-    try:
-        bytearray(memory_limit)
-    except MemoryError:
-        print('Success: available memory is limited.')
-    else:
-        print('Failure: available memory is not limited.')
-    return 0
+# def execLimitMemory(memory=2000):
+#     assign_job(create_job())
+#     memory_limit = memory * 1024 * 1024 # memory MiB
+#     limit_memory(memory_limit)
+#     try:
+#         bytearray(memory_limit)
+#     except MemoryError:
+#         print('Success: available memory is limited.')
+#     else:
+#         print('Failure: available memory is not limited.')
+#     return 0
 
 
 def readBigCSV(file):
@@ -188,11 +188,44 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
     return correlatedMovies, similar_to_movie, user_ratings, movieMat
 
 
-execLimitMemory(2000)  # x MiB
+def getInfos(movieId):
+    try:
+        imdbId = getMovieImdb(movieId)
+        ia = Cinemagoer()
+        # print(ia.get_movie_infoset())
+        movie = ia.get_movie(imdbId , info=["keywords", "main"])  #
+        # print(movie.infoset2keys)
+        # print(movie.current_info)
+        # print(movie.get("main"))
+        keywords = movie["keywords"]
+        # print(keywords, "\n\n")
+        # print(movie["relevant keywords"])
+        # synopsis = movie.get("plot")
+        cast = movie["cast"]
+    except:
+        keywords = ["_error"]
+        cast = ["_error"]
+    return keywords, cast
+
+
+# execLimitMemory(2000)  # x MiB
 
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="csv_files/ml-latest/")
+    readCSVs(resourcePath="csv_files/ml-latest-small/")
 print("csv read")
-matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-    movieTitle='Matrix, The (1999)', customPivot=True)
-print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+# matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
+#     movieTitle='Matrix, The (1999)', customPivot=True)
+# print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+
+movies["keywords"] = ''
+# movies["synopsis"] = ''
+movies["cast"] = ''
+for i in movies.index:  # 
+    print(i, "/", len(movies))
+    keywords, cast = getInfos(i)
+    movies.at[i, "keywords"] = keywords
+    # movies.at[i, "synopsis"] = synopsis
+    if "_error" not in cast:
+        cast = [actor["name"] for actor in cast]
+    movies.at[i, "cast"] = cast
+movies.to_csv("out.csv")
