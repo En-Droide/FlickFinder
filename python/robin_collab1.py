@@ -189,18 +189,22 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
 
 
 def getInfos(movieId):
-    imdbId = getMovieImdb(movieId)
-    ia = Cinemagoer()
-    # print(ia.get_movie_infoset())
-    movie = ia.get_movie(imdbId , info=["keywords", "main"])  #
-    # print(movie.infoset2keys)
-    # print(movie.current_info)
-    # print(movie.get("main"))
-    keywords = movie["keywords"]
-    # print(keywords, "\n\n")
-    # print(movie["relevant keywords"])
-    # synopsis = movie.get("plot")
-    cast = movie["cast"]
+    try:
+        imdbId = getMovieImdb(movieId)
+        ia = Cinemagoer()
+        # print(ia.get_movie_infoset())
+        movie = ia.get_movie(imdbId , info=["keywords", "main"])  #
+        # print(movie.infoset2keys)
+        # print(movie.current_info)
+        # print(movie.get("main"))
+        keywords = movie["keywords"]
+        # print(keywords, "\n\n")
+        # print(movie["relevant keywords"])
+        # synopsis = movie.get("plot")
+        cast = movie["cast"]
+    except:
+        keywords = ["_error"]
+        cast = ["_error"]
     return keywords, cast
 
 
@@ -216,12 +220,12 @@ print("csv read")
 movies["keywords"] = ''
 # movies["synopsis"] = ''
 movies["cast"] = ''
-for i, rows in movies.iterrows():  # 
-    
+for i in movies.index:  # 
     print(i, "/", len(movies))
     keywords, cast = getInfos(i)
     movies.at[i, "keywords"] = keywords
     # movies.at[i, "synopsis"] = synopsis
-    cast = [actor["name"] for actor in cast]
+    if "_error" not in cast:
+        cast = [actor["name"] for actor in cast]
     movies.at[i, "cast"] = cast
 movies.to_csv("out.csv")
