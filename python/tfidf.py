@@ -66,9 +66,9 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
         movie_index = similarity_scores_list[i][0]
         movie_indices.append(movie_index)
 
-    similar_movies = df.loc[movie_indices, 'title_wt_date'].tolist()
+    similar_movies = df.loc[movie_indices, 'title'].tolist()
 
-    return similar_movies,similarity_scores_list
+    return similar_movies
 
 
 if __name__ == '__main__':
