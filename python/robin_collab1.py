@@ -114,12 +114,13 @@ def getCustomMovieMat_old(frame, column):
 
 
 def getCustomMovieMat_test(frame, chunk_size, file_path):
-    chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
-    tot=pd.DataFrame()
-    for i in tqdm(range(0, len(chunker) - 1)):
-        tot=tot.add(chunker[i].pivot('userId', 'movieId', 'rating'), fill_value=0)
-    tot.to_csv(file_path)
-    return pd.read_csv(file_path)
+    if not os.path.exists(file_path):
+        chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+        tot=pd.DataFrame()
+        for i in tqdm(range(0, len(chunker) - 1)):
+            tot=tot.add(chunker[i].pivot('userId', 'movieId', 'rating'), fill_value=0)
+        tot.to_csv(file_path)
+    return pd.read_csv(file_path, index_col="userId")
 
 
 def getCustomMovieMat(frame, chunk_size, file_path):
@@ -149,15 +150,16 @@ def getCustomMovieMat(frame, chunk_size, file_path):
     # return pd.read_csv(file_path, sep=",", index_col="userId")
     
 
-def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
+def getCorrelations(movieId=None, movieTitle=None, customPivot=False, filepath="small_pivotTable.csv"):
     if movieTitle and not movieId:
         movieId = getMovieId(movieTitle)
     if not movieTitle:
         movieTitle = getMovieTitle(movieId)
     if customPivot:
-        movieMat = getCustomMovieMat(ratingsTemp, 10000, "full_pivotTable")
+        movieMat = getCustomMovieMat_test(ratingsTemp, 5000, filepath)
     else:
         movieMat = getMovieMat(ratingsTemp)
+    movieMat.columns = movieMat.columns.astype("int64")
     print("\nMovieMat made")
     user_ratings = movieMat[movieId]
     similar_to_movie = movieMat.corrwith(user_ratings)
@@ -173,11 +175,11 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
     readCSVs(resourcePath="csv_files/ml-latest/")
 print("csv read")
-movmat = getCustomMovieMat_test(ratingsTemp, 10000, "full_pivotTable.csv")
+# movmat = pd.read_csv("full_pivotTable.csv", index_col="userId")  # getCustomMovieMat_test(ratingsTemp, 10000, "full_pivotTable.csv")
 # getCustomMovieMat(ratingsTemp, 10000, "full_pivotTable.csv")
-# matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-#     movieTitle='Matrix, The (1999)', customPivot=True)
-# print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
+    movieTitle='Matrix, The (1999)', customPivot=True, filepath="full_pivotTable.csv")
+print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
 
 # testdf = ratingsTemp[["userId", "movieId", "rating"]]
 # testdf = testdf.set_index("userId").stack(level=0)
