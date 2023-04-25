@@ -14,6 +14,7 @@ userRatings = None
 ratings = None
 ratingsTemp = None
 ratingsTemp2 = None
+pd.set_option('io.hdf.default_format', 'table')
 
 
 def readBigCSV(file):
@@ -29,8 +30,8 @@ def readRatings(file):
     for chunk in pd.read_csv(file, chunksize=20000, encoding='utf8',
                              usecols=["userId", "movieId", "rating"]):
         mylist.append(chunk)
-    df = pd.concat(mylist, axis=0)
-    return df
+    ratings = pd.concat(mylist, axis=0)
+    return ratings
 
 
 def readCSVs(resourcePath="csv_files/ml-latest-small/"):
@@ -43,7 +44,7 @@ def readCSVs(resourcePath="csv_files/ml-latest-small/"):
     tags = readBigCSV(resourcePath + "tags.csv")
     print("movies df made")
     # print(tags.info(memory_usage='deep'))
-    userRatings = readRatings(resourcePath + "ratings.csv")
+    userRatings= readRatings(resourcePath + "ratings.csv")
     print("userRatings df made")
     # print(userRatings.info(memory_usage='deep'))
 
@@ -100,65 +101,81 @@ def getMovieMat(frame):
     return movieMat
 
 
-def getCustomMovieMat_old(frame, column):
-    pivoted_table = pd.DataFrame(index=np.sort(frame["userId"].unique()),
-                                 columns=np.sort(frame["movieId"].unique()),
-                                 dtype=np.float64)
-    # pivoted_table = pivoted_table.astype(np.float64)
-    if column == "title":
-        pivoted_table.columns = frame["title"].unique()
-    for user in frame["userId"].unique():
-        for index, rating in frame[frame["userId"] == user].iterrows():
-            pivoted_table.loc[user][rating["movieId"]] = rating["rating"]
-    return pivoted_table
-
-
 def getCustomMovieMat_test(frame, chunk_size, file_path):
-    if not os.path.exists(file_path):
-        chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
-        tot=pd.DataFrame()
-        for i in tqdm(range(0, len(chunker) - 1)):
-            tot=tot.add(chunker[i].pivot('userId', 'movieId', 'rating'), fill_value=0)
-        tot.to_csv(file_path)
+    # if not os.path.exists(file_path):
+    # print(pd.read_hdf("store.h5").dtypes)
+    store = pd.HDFStore("store.h5")
+    chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+    for i in tqdm(range(0, len(chunker) - 1)):
+        # print(i)
+        dummy = pd.DataFrame()
+        dummy["movieId"] = np.sort(userRatings["movieId"].unique())
+        dummy["userId"] = 0
+        dummy["rating"] = 0
+        # print(dummy)
+        chunker[i] = pd.concat([chunker[i], dummy])
+        data=chunker[i].pivot_table(values='rating',
+                                    index='userId',
+                                    columns="movieId",
+                                    fill_value=0).reset_index()
+        data.columns = data.columns.astype(np.int)
+        print(data.info)
+        store.append("df", data)
+    df = store["df"]
+    df.to_csv(file_path)
+    store.close()
     return pd.read_csv(file_path, index_col="userId")
 
 
-def getCustomMovieMat(frame, chunk_size, file_path):
-    chunks = [x for x in range(0, frame.shape[0], chunk_size)]
-    
-    # for i in range(0, len(chunks) - 1):
-    #     print(chunks[i], chunks[i + 1] - 1)
-    print("\nCustom Pivot Table : created", len(chunks), "chunks")
-    # pivot_df = pd.DataFrame()
-    if os.path.exists(file_path):
-        os.remove(file_path)
-    for i in tqdm(range(0, len(chunks) - 1)):
-        print(chunks[i], ":", chunks[i + 1] - 1)
-        chunk_df = frame.iloc[chunks[i]:chunks[i + 1] - 1]
-        interactions = (
-        chunk_df.groupby(["userId", "title"])["rating"]
-        .sum()
-        .unstack()
-        .reset_index()
-        .fillna(0)
-        .set_index("userId")
-        )
-        print("\n\n",interactions.columns)
-        interactions.to_csv(file_path+str(i)+".csv", mode="a", index=False, header=not os.path.exists(file_path))
-        # print (interactions.shape)
-        # pivot_df = pd.concat([pivot_df, interactions], axis=0, join='outer') 
-    # return pd.read_csv(file_path, sep=",", index_col="userId")
-    
+def pivotSegment(segmentNumber, passedFrame, segmentSize):
+    pass
 
-def getCorrelations(movieId=None, movieTitle=None, customPivot=False, filepath="small_pivotTable.csv"):
+
+def getCustomMovieMat(frame, chunk_size, file_path):
+    # if not os.path.exists(file_path):
+        chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+        store = pd.HDFStore("store.h5")
+        for i in tqdm(range(0, len(chunker) - 1)):
+            data = chunker[i].pivot('userId', 'movieId', 'rating')
+            print(data)
+            store.append("df", data)
+        store.close()
+        
+        
+def getCustomMovieMat2(frame, chunk_size, file_path):
+    ratings = pd.read_csv(file_path,
+                          usecols=["userId", "movieId", "rating"],
+                          chunksize=50000,
+                          dtype={"movieId": np.int64,
+                                 "rating": np.float64,
+                                 "userId": np.int64})
+    store = pd.HDFStore("store2.h5", mode="w")
+    for chunk in ratings:
+        data = chunk.pivot(index='userId', columns='movieId', values='rating')
+        print(data.dtypes)
+        data.columns = data.columns.astype(np.int64)
+        store.append("pivot", data)
+    store.close()
+
+
+def getCustomMovieMat_memoryloss(frame, chunk_size, file_path):  # seems fine, slows gradually and memory dies at 60%
+    chunker = [frame[i:i+chunk_size] for i in range(0, frame.shape[0], chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+    tot=pd.DataFrame()
+    for i in tqdm(range(0, len(chunker) - 1)):
+        tot=tot.add(chunker[i].pivot(index='userId', columns='movieId', values='rating'), fill_value=0)
+    tot.to_csv(file_path)
+    return tot
+
+
+def getCorrelations(movieId=None, movieTitle=None, customPivot=False, file_path="small_pivotTable.csv"):
     if movieTitle and not movieId:
         movieId = getMovieId(movieTitle)
     if not movieTitle:
         movieTitle = getMovieTitle(movieId)
     if customPivot:
-        movieMat = getCustomMovieMat_test(ratingsTemp, 5000, filepath)
+        movieMat = getCustomMovieMat_memoryloss(userRatings, 5000, file_path)
     else:
-        movieMat = getMovieMat(ratingsTemp)
+        movieMat = getMovieMat(userRatings)
     movieMat.columns = movieMat.columns.astype("int64")
     print("\nMovieMat made")
     user_ratings = movieMat[movieId]
@@ -173,14 +190,13 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False, filepath="
 
 
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="csv_files/ml-latest/")
+    readCSVs(resourcePath="csv_files/ml-latest-small/")
 print("csv read")
 # movmat = pd.read_csv("full_pivotTable.csv", index_col="userId")  # getCustomMovieMat_test(ratingsTemp, 10000, "full_pivotTable.csv")
-# getCustomMovieMat(ratingsTemp, 10000, "full_pivotTable.csv")
+# getCustomMovieMat2(userRatings, 10000, "csv_files/ml-latest-small/ratings.csv")
+# movmat = pd.read_hdf("store2.h5")
+# print(pd.read_hdf("store.h5").dtypes)
 matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-    movieTitle='Matrix, The (1999)', customPivot=True, filepath="full_pivotTable.csv")
+    movieTitle='Matrix, The (1999)', customPivot=True, file_path="small_pivotTable.csv")
 print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
-
-# testdf = ratingsTemp[["userId", "movieId", "rating"]]
-# testdf = testdf.set_index("userId").stack(level=0)
-
+movieMat2 = getMovieMat(userRatings)
