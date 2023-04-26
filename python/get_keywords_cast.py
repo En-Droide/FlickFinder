@@ -125,8 +125,8 @@ print("csv read")
 
 movies["keywords"] = ''
 movies["cast"] = ''
-for i in movies.index:  # 
-    print(i, "/", len(movies))
+for i in tqdm(movies.index):  # 
+    # print(i, "/", len(movies))
     keywords, cast = getInfos(i)
     movies.at[i, "keywords"] = keywords
     if "_error" not in cast:
