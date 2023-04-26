@@ -39,8 +39,8 @@ def getCustomMovieMat_memoryloss(frame, chunk_size, file_path):  # seems fine, s
     return tot
 
 
-file_path = "csv_files/ml-latest-small/ratings.csv"
+file_path = "csv_files/ml-latest/ratings.csv"
 ratings = readRatings(file_path)
 
 # getCustomMovieMat2(10000, file_path)
-movieMat = getCustomMovieMat_memoryloss(ratings, 10000, "moviemat.csv")
+movieMat = getCustomMovieMat_memoryloss(ratings, 100000, "moviemat.csv")

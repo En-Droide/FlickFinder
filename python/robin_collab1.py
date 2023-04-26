@@ -190,13 +190,13 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False, file_path=
 
 
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="csv_files/ml-latest-small/")
+    readCSVs(resourcePath="csv_files/ml-latest/")
 print("csv read")
 # movmat = pd.read_csv("full_pivotTable.csv", index_col="userId")  # getCustomMovieMat_test(ratingsTemp, 10000, "full_pivotTable.csv")
 # getCustomMovieMat2(userRatings, 10000, "csv_files/ml-latest-small/ratings.csv")
 # movmat = pd.read_hdf("store2.h5")
 # print(pd.read_hdf("store.h5").dtypes)
 matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-    movieTitle='Matrix, The (1999)', customPivot=True, file_path="small_pivotTable.csv")
+    movieTitle='Matrix, The (1999)', customPivot=False, file_path="small_pivotTable.csv")
 print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
 movieMat2 = getMovieMat(userRatings)
