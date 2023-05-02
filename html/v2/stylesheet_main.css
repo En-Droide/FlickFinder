@@ -25,6 +25,7 @@ body {
 
 /* Links inside the navigation bar */
 .topnav a {
+    display: flex;
     color: #f2f2f2;
     float: left;
     font-size: 16px;
@@ -36,11 +37,53 @@ body {
     color:#165c96;
 }
 .right {
-    float: right;
+    position: absolute;
+    left: 95%;
+    transform: translateX(-50%);
+    padding: 14px 16px;
+    text-align: center;
+    text-decoration: none;   
+}
+.box{
+    margin-left: 40%;
+    margin-right: 40%;
+    display: flex;
+    margin-top: 80px;
+    justify-content: center;
 }
 
+.input {
+    padding: 10px;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: 2px solid #165c96;
+    border-radius: 50px;
+    box-sizing: border-box;
+    font-family: "Karma", sans-serif;
+    font-size: 26px;
+    color: #ffffff;
+    outline: none;
+    transition: .5s;
+}
+.box:hover input{
+    width: 550px;
+    background: #fffeff21;
+    border-radius: 5px;
+}
+.box i{
+    position: absolute;
+    transform: translate(-50%,-50%);
+    font-size: 26px;
+    color: #165c96;
+    transition: .2s;
+}
+.box:hover i{
+    opacity: 0;
+    z-index: -1;
+}
 
-/* Search bar */
+/* Search bar
 .search-container {
     display: flex;
     margin-top: 80px;
@@ -65,7 +108,7 @@ body {
     font-size: 16px;
     margin-left: 10px;
     padding: 10px;
-}
+} */
 
 /* Movie recommendations grid */
 .movie-grid {
