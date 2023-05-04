@@ -11,6 +11,14 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 
 
+def genre_popularity(csv_file):
+    popularity = (csv_file.genres.str.split('|').explode().value_counts()
+     .sort_values(ascending=False))
+    
+    return popularity.head(10)
+
+
+
 def process_data(csv_file):
     # .fillna('')
     df = csv_file
@@ -73,10 +81,12 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
 
 if __name__ == '__main__':
     csv_file = pd.read_csv('out.csv')
+    most_popular_movies = genre_popularity(csv_file)
     df = process_data(csv_file)
     tfidf_matrix = get_tfidf_matrix(df)
     similar_movies = get_similar_movies('Bad Boys', df,
                                         tfidf_matrix, number_movies=10)
 
-    print(similar_movies)
+    print(most_popular_movies, similar_movies)
+    
     
