@@ -116,6 +116,7 @@ algo = SVD()
 cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=3)
 print("\nSVD done\n")
 userRatings_pred = userRatings
+userRatings_pred["isPredicted"] = False
 # userId = input("enter user id : ")
 # userId = 1
 users = userRatings["userId"].unique()
@@ -129,7 +130,7 @@ with tqdm(total=len(users) * len(movies)) as pbar:
                                            (userRatings_pred["movieId"] == movieId)]["rating"]
             # print(rating)
             if rating.empty:
-                new_rows.append([userId, movieId, algo.predict(userId, movieId)[3]])
+                new_rows.append([userId, movieId, algo.predict(userId, movieId)[3], True])
             pbar.update(1)
 userRatings_pred = pd.concat([userRatings_pred, pd.DataFrame(data=new_rows, columns=userRatings_pred.columns)])
 userRatings_pred.to_csv("ratings_predicted.csv")
