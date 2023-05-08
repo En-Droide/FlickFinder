@@ -6,10 +6,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous">
     <link rel="stylesheet" href="stylesheet_main.css">
-	<style>
-	</style>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="autocomplete.js"></script> 
+
+	
 </head>
-<body>
+
+<header>
 	<!-- Top navigation bar -->
 	<div class="topnav">
 		<a href="main.html">Home</a>
@@ -17,18 +23,21 @@
         <div class="Flickfinder">FlickFinder</div>
         <a href="account.html" class="right">Account</a>
 	</div>
-
+</header>
+<body>
 	<!-- Search bar -->
-	<!-- <div class="search-container">
-		<input type="text" placeholder="Search for a movie...">
+	<div class="search-container">
+		<input id="tags" type="text" placeholder="Search for a movie...">
 		<button type="submit">Search</button>
-	</div> -->
-    <div class="box">
+	</div>
+    <!-- <div class="box">
         <form name="search">
-            <input type="text" class="input" name="txt" onmouseout="this.value = ''; this.blur();">
-            <i class="fas fa-search"></i></form>
-        
+            <input id="tags" type="text" class="input" name="txt" placeholder ='' autocomplete = 'off' onmouseout="this.value = ''; this.blur(); ">    
+            <i class="fas fa-search"></i>
+        </form>
     </div>
+    <div class ="result-box"></div> -->
+   
 	
     <!-- Movie recommendations grid -->
     <div class="movie-grid">
@@ -95,7 +104,7 @@
         <a href="#">4</a>
         <a href="#">5</a>
     </div>
-
+</body>
     <footer>
         <div class="container">
             <h3>About Us, The Recommandation website</h3><br>

@@ -1,3 +1,8 @@
+/* *{
+    border: 1px solid red;
+}  */
+
+
 body {
     background-color: #131212;
     color: #f2f2f2;
@@ -41,6 +46,136 @@ body {
     transform: translateX(-50%);
     padding: 14px 16px;
     text-align: center;
-    text-decoration: none;
-    
+    text-decoration: none;   
 }
+/* Genres movie */
+  
+  .tag_comedy {
+    background: rgb(22, 91, 23);
+    border-radius: 10px;
+    padding: 3px 8px;
+    font-size: 14px;
+    margin-right: 4px;
+    line-height: 35px;
+    cursor: pointer;
+  }
+  
+  .tag_comedy:hover {
+    background: rgb(35, 146, 37);;
+  }
+  
+  .tag_horror {
+    background: rgb(66, 64, 64);
+    border-radius: 10px;
+    padding: 3px 8px;
+    font-size: 14px;
+    margin-right: 4px;
+    line-height: 35px;
+    cursor: pointer;
+  }
+  
+  .tag_horror:hover {
+    background: rgb(99, 95, 95);
+  }
+  .tag_thriller {
+    background: rgb(24, 45, 146);
+    border-radius: 10px;
+    padding: 3px 8px;
+    font-size: 14px;
+    margin-right: 4px;
+    line-height: 35px;
+    cursor: pointer;
+  }
+  
+  .tag_thriller:hover {
+    background: rgb(31, 56, 185);
+  }
+ 
+/* Image movie */
+.container {
+    position: relative;
+    margin-top: 150px;
+    margin-left: 150px;
+    display: flex;
+}
+
+.img-container img {
+    float: right;
+    max-width: 450px;
+    max-height: auto;
+    border : 8px solid #7294a4;
+}
+
+.synopsis-container {
+    margin-left: 20%;
+    margin-right: 20%;
+    flex: 2;
+    text-align: justify;
+}
+.synopsis-container h2 {
+    font-size: 28px;
+    margin-top: 0;
+}
+.cast{
+    margin-left: 10%;
+}
+.cast p{
+  color: #f2f2f2;
+}
+/* movie rating */
+div.stars{
+  width: 170px;
+  display: inline-block;
+}
+.rate {
+  float: left;
+  height: 46px;  
+}
+
+.rate:not(:checked) > input {
+  position:absolute;
+  top:-9999px;
+}
+.rate:not(:checked) > label {
+  float:right;
+  width:1em;
+  overflow:hidden;
+  white-space:nowrap;
+  cursor:pointer;
+  font-size:30px;
+  color:#a4a4a4;
+}
+.rate:not(:checked) > label:before {
+  content: '★ ';
+ 
+}
+.rate > input:checked ~ label {
+  color: #fffb00; 
+  text-shadow: 0 0 6px #ffef61;   
+}
+
+.rate:not(:checked) > label:hover,
+.rate:not(:checked) > label:hover ~ label {
+  color: #ffef61;  
+  transform: rotate(-15deg) scale(1.3);
+  transition: all .25s;
+}
+
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label,
+.rate > label:hover ~ input:checked ~ label {
+  color: #f4e55c;
+  
+}
+
+
+.additional-text {
+    margin-left: 700px;
+    margin-right: 300px;
+    margin-top: 50px;
+    padding: 20px;
+    text-align: justify;
+}
+
