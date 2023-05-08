@@ -6,6 +6,7 @@ import sys
 import warnings
 from tqdm import tqdm
 import os
+import surprise
 
 movies = None
 links = None
@@ -100,7 +101,7 @@ def getMovieMat(frame):
         index='userId', columns='movieId', values='rating')
     return movieMat
 
-
+"""
 def getCustomMovieMat_test(frame, chunk_size, file_path):
     # if not os.path.exists(file_path):
     # print(pd.read_hdf("store.h5").dtypes)
@@ -165,17 +166,17 @@ def getCustomMovieMat_memoryloss(frame, chunk_size, file_path):  # seems fine, s
         tot=tot.add(chunker[i].pivot(index='userId', columns='movieId', values='rating'), fill_value=0)
     tot.to_csv(file_path)
     return tot
+"""
 
-
-def getCorrelations(movieId=None, movieTitle=None, customPivot=False, file_path="small_pivotTable.csv"):
+def getMovieCorrelations(movieId=None, movieTitle=None, customPivot=False, file_path="small_pivotTable.csv"):
     if movieTitle and not movieId:
         movieId = getMovieId(movieTitle)
     if not movieTitle:
         movieTitle = getMovieTitle(movieId)
-    if customPivot:
-        movieMat = getCustomMovieMat_memoryloss(userRatings, 5000, file_path)
-    else:
-        movieMat = getMovieMat(userRatings)
+    # if customPivot:
+    #     movieMat = getCustomMovieMat_memoryloss(userRatings, 5000, file_path)
+    # else:
+    movieMat = getMovieMat(userRatings)
     movieMat.columns = movieMat.columns.astype("int64")
     print("\nMovieMat made")
     user_ratings = movieMat[movieId]
@@ -189,14 +190,38 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False, file_path=
     return correlatedMovies, similar_to_movie, user_ratings, movieMat
 
 
+
+def find_correlation_between_two_users(movieMat: pd.DataFrame, user1: str, user2: str):
+    """Find correlation between two users based on their rated movies using Pearson correlation"""
+    rated_movies_by_both = movieMat.loc[[user1, user2]].dropna(axis=1).T
+    print(rated_movies_by_both.corr())
+    user1_ratings = rated_movies_by_both.iloc[0]
+    user2_ratings = rated_movies_by_both.iloc[1]
+    print(np.corrcoef(user1_ratings.tolist(), user2_ratings.tolist()))
+    # print(user1_ratings.corrwith(user2_ratings))
+    # return np.corrcoef(user1_ratings, user2_ratings)[0, 1]
+    # return pd.Series(user1_ratings).corr(pd.Series(user2_ratings))
+    return rated_movies_by_both.corr().at[0, 1]
+
+
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="csv_files/ml-latest/")
+    readCSVs(resourcePath="csv_files/ml-latest-small/")
 print("csv read")
 # movmat = pd.read_csv("full_pivotTable.csv", index_col="userId")  # getCustomMovieMat_test(ratingsTemp, 10000, "full_pivotTable.csv")
 # getCustomMovieMat2(userRatings, 10000, "csv_files/ml-latest-small/ratings.csv")
 # movmat = pd.read_hdf("store2.h5")
 # print(pd.read_hdf("store.h5").dtypes)
-matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-    movieTitle='Matrix, The (1999)', customPivot=False, file_path="small_pivotTable.csv")
+matrixCorr, matrixSimilar, usrat, movieMat = getMovieCorrelations(
+    movieTitle='Toy Story (1995)', customPivot=False, file_path="small_pivotTable.csv")
 print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
-movieMat2 = getMovieMat(userRatings)
+print("\n")
+# print(find_correlation_between_two_users(movieMat, 1, 2))
+users = userRatings["userId"].unique()
+# similarity_matrix = np.empty((len(users), len(users)), dtype=float)
+# for user1 in tqdm(users, desc='user1', position=0):
+#     for user2 in tqdm(users, desc='user2', position=1):
+#         similarity_matrix += find_correlation_between_two_users(movieMat, user1, user2)
+# # similarity_matrix = np.array([[find_correlation_between_two_users(movieMat, user1, user2) for user1 in users] for user2 in users])
+# similarity_df = pd.DataFrame(similarity_matrix, columns=users, index=users)
+# print(similarity_df)
+# surprise.similarities.pearson(len(users), )
