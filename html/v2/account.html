@@ -1,39 +1,48 @@
 <!DOCTYPE html>
 <html>
-<head>
-	<title>Slide Navbar</title>
-	<link rel="stylesheet" href="stylesheet_account.css">
-</head>
+  <head>
+    <title>Slide Navbar</title>
+    <link rel="stylesheet" href="stylesheet_account.css" />
+  </head>
 
-<body>
-  <div class="topnav">
-    <a href="main.html">Home</a>
-    <a href="about.html">About</a>
-    <div class="Flickfinder">FlickFinder</div>
-    <a href="account.html" class="right">Account</a>
-  </div>
+  <body>
+    <div class="topnav">
+      <a href="main.html">Home</a>
+      <a href="about.html">About</a>
+      <div class="Flickfinder">FlickFinder</div>
+      <a href="account.html" class="right">Account</a>
+    </div>
 
-	<div class="main">  	
-		<input type="checkbox" id="chk" aria-hidden="true">
-			<div class="signup">
-				<form method="POST" action="main.html">
-					<label for="chk" aria-hidden="true">Sign up</label>
-					<input type="text" name="txt" placeholder="Username" required="">
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button type="submit" name="signup">Sign up</button>
-				</form>
-			</div>
+    <div class="main">
+      <input type="checkbox" id="chk" aria-hidden="true" />
+      <div class="signup">
+        <form method="POST" action="main.html">
+          <label for="chk" aria-hidden="true">Sign up</label>
+          <input type="text" name="txt" placeholder="Username" required="" />
+          <input type="email" name="email" placeholder="Email" required="" />
+          <input
+            type="password"
+            name="pswd"
+            placeholder="Password"
+            required=""
+          />
+          <button type="submit" name="signup">Sign up</button>
+        </form>
+      </div>
 
-			<div class="login">
-				<form method="POST" action="main.html">
-					<label for="chk" aria-hidden="true">Login</label>
-					<input type="email" name="email" placeholder="Email" required="">
-					<input type="password" name="pswd" placeholder="Password" required="">
-					<button type="submit" name="login">Login</button>
-				</form>
-			</div>
-	</div>
-
-</body>
+      <div class="login">
+        <form method="POST" action="main.html">
+          <label for="chk" aria-hidden="true">Login</label>
+          <input type="email" name="email" placeholder="Email" required="" />
+          <input
+            type="password"
+            name="pswd"
+            placeholder="Password"
+            required=""
+          />
+          <button type="submit" name="login">Login</button>
+        </form>
+      </div>
+    </div>
+  </body>
 </html>

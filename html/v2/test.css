@@ -1,41 +1,33 @@
-div.stars{
-    width: 270px;
-    display: inline-block;
-  }
+body {
+  margin:0;
+  padding:0;
+  background: #3d3d3d;
+}
 
-.rate {
-    float: left;
-    height: 46px;
-    padding: 0 10px;
+button {
+  position: relative;
+  margin-top: 200px;
+  margin-left: 300px;
+  background: #444;
+  color: #fff;
+  text-decoration: none;
+  text-transform: uppercase;
+  border: none;
+  letter-spacing: 0.1rem;
+  font-size: 1rem;
+  padding: 1rem 3rem;
+  transition: 0.2s;
 }
-.rate:not(:checked) > input {
-    position:absolute;
-    top:-9999px;
+.buttonwatchlist {
+  color: black; 
+  border: 2px solid #165c96;
 }
-.rate:not(:checked) > label {
-    float:right;
-    width:1em;
-    overflow:hidden;
-    white-space:nowrap;
-    cursor:pointer;
-    font-size:30px;
-    color:#afaaaa;
+
+.buttonwatchlist:hover {
+  background-color: #3d3d3d;
+  box-shadow: 0 0 20px 0 rgba(22, 92, 150, 1);
+  color: #1c75be;
+  letter-spacing: 0.2rem;
+  padding: 1.1rem 3.1rem;
 }
-.rate:not(:checked) > label:before {
-    content: '★ ';
-}
-.rate > input:checked ~ label {
-    color: #fffb00;    
-}
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-    color: #b3de17;  
-    text-shadow: 0 0 5px #952;
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-    color: #c59308;
-}
+
