@@ -4,11 +4,10 @@ import numpy as np
 from imdb import Cinemagoer
 import sys
 import warnings
-# import winerror
-# import win32api  # pip install pywin32
-# import win32job
+from tqdm import tqdm
+import os
+import surprise
 
-g_hjob = None
 movies = None
 links = None
 tags = None
@@ -16,61 +15,7 @@ userRatings = None
 ratings = None
 ratingsTemp = None
 ratingsTemp2 = None
-
-
-# def create_job(job_name='', breakaway='silent'):
-#     hjob = win32job.CreateJobObject(None, job_name)
-#     if breakaway:
-#         info = win32job.QueryInformationJobObject(hjob,
-#                                   win32job.JobObjectExtendedLimitInformation)
-#         if breakaway == 'silent':
-#             info['BasicLimitInformation']['LimitFlags'] |= (
-#                 win32job.JOB_OBJECT_LIMIT_SILENT_BREAKAWAY_OK)
-#         else:
-#             info['BasicLimitInformation']['LimitFlags'] |= (
-#                 win32job.JOB_OBJECT_LIMIT_BREAKAWAY_OK)
-#         win32job.SetInformationJobObject(hjob,
-#             win32job.JobObjectExtendedLimitInformation, info)
-#     return hjob
-
-
-# def assign_job(hjob):
-#     global g_hjob
-#     hprocess = win32api.GetCurrentProcess()
-#     try:
-#         win32job.AssignProcessToJobObject(hjob, hprocess)
-#         g_hjob = hjob
-#     except win32job.error as e:
-#         if (e.winerror != winerror.ERROR_ACCESS_DENIED or
-#             sys.getwindowsversion() >= (6, 2) or
-#             not win32job.IsProcessInJob(hprocess, None)):
-#             raise
-#         warnings.warn('The process is already in a job. Nested jobs are not '
-#             'supported prior to Windows 8.')
-
-
-# def limit_memory(memory_limit):
-#     if g_hjob is None:
-#         return
-#     info = win32job.QueryInformationJobObject(g_hjob,
-#                 win32job.JobObjectExtendedLimitInformation)
-#     info['ProcessMemoryLimit'] = memory_limit
-#     info['BasicLimitInformation']['LimitFlags'] |= (
-#         win32job.JOB_OBJECT_LIMIT_PROCESS_MEMORY)
-#     win32job.SetInformationJobObject(g_hjob,
-#         win32job.JobObjectExtendedLimitInformation, info)
-
-# def execLimitMemory(memory=2000):
-#     assign_job(create_job())
-#     memory_limit = memory * 1024 * 1024 # memory MiB
-#     limit_memory(memory_limit)
-#     try:
-#         bytearray(memory_limit)
-#     except MemoryError:
-#         print('Success: available memory is limited.')
-#     else:
-#         print('Failure: available memory is not limited.')
-#     return 0
+pd.set_option('io.hdf.default_format', 'table')
 
 
 def readBigCSV(file):
@@ -86,19 +31,22 @@ def readRatings(file):
     for chunk in pd.read_csv(file, chunksize=20000, encoding='utf8',
                              usecols=["userId", "movieId", "rating"]):
         mylist.append(chunk)
-    df = pd.concat(mylist, axis=0)
-    return df
+    ratings = pd.concat(mylist, axis=0)
+    return ratings
 
 
 def readCSVs(resourcePath="csv_files/ml-latest-small/"):
     movies = readBigCSV(resourcePath + "movies.csv")
     # print(movies.info(memory_usage='deep'))
+    print("movies df made")
     links = readBigCSV(resourcePath + "links.csv")
+    print("links df made")
     # print(links.info(memory_usage='deep'))
     tags = readBigCSV(resourcePath + "tags.csv")
+    print("movies df made")
     # print(tags.info(memory_usage='deep'))
-    userRatings = readRatings(
-        resourcePath + "ratings.csv")
+    userRatings= readRatings(resourcePath + "ratings.csv")
+    print("userRatings df made")
     # print(userRatings.info(memory_usage='deep'))
 
     movies = movies.set_index("movieId")
@@ -148,35 +96,89 @@ def convertTimestamp(timestamp):
     return datetime.datetime.utcfromtimestamp(timestamp)
 
 
-def getCustomMovieMat(frame, column):
-    pivoted_table = pd.DataFrame(index=np.sort(frame["userId"].unique()),
-                                 columns=np.sort(frame["movieId"].unique()),
-                                 dtype=np.float64)
-    # pivoted_table = pivoted_table.astype(np.float64)
-    if column == "title":
-        pivoted_table.columns = frame["title"].unique()
-    for user in frame["userId"].unique():
-        for index, rating in frame[frame["userId"] == user].iterrows():
-            pivoted_table.loc[user][rating["movieId"]] = rating["rating"]
-    return pivoted_table
-
-
 def getMovieMat(frame):
     movieMat = frame.pivot_table(
         index='userId', columns='movieId', values='rating')
     return movieMat
 
+"""
+def getCustomMovieMat_test(frame, chunk_size, file_path):
+    # if not os.path.exists(file_path):
+    # print(pd.read_hdf("store.h5").dtypes)
+    store = pd.HDFStore("store.h5")
+    chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+    for i in tqdm(range(0, len(chunker) - 1)):
+        # print(i)
+        dummy = pd.DataFrame()
+        dummy["movieId"] = np.sort(userRatings["movieId"].unique())
+        dummy["userId"] = 0
+        dummy["rating"] = 0
+        # print(dummy)
+        chunker[i] = pd.concat([chunker[i], dummy])
+        data=chunker[i].pivot_table(values='rating',
+                                    index='userId',
+                                    columns="movieId",
+                                    fill_value=0).reset_index()
+        data.columns = data.columns.astype(np.int)
+        print(data.info)
+        store.append("df", data)
+    df = store["df"]
+    df.to_csv(file_path)
+    store.close()
+    return pd.read_csv(file_path, index_col="userId")
 
-def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
+
+def pivotSegment(segmentNumber, passedFrame, segmentSize):
+    pass
+
+
+def getCustomMovieMat(frame, chunk_size, file_path):
+    # if not os.path.exists(file_path):
+        chunker = [frame[i:i+chunk_size] for i in range(0,frame.shape[0],chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+        store = pd.HDFStore("store.h5")
+        for i in tqdm(range(0, len(chunker) - 1)):
+            data = chunker[i].pivot('userId', 'movieId', 'rating')
+            print(data)
+            store.append("df", data)
+        store.close()
+        
+        
+def getCustomMovieMat2(frame, chunk_size, file_path):
+    ratings = pd.read_csv(file_path,
+                          usecols=["userId", "movieId", "rating"],
+                          chunksize=50000,
+                          dtype={"movieId": np.int64,
+                                 "rating": np.float64,
+                                 "userId": np.int64})
+    store = pd.HDFStore("store2.h5", mode="w")
+    for chunk in ratings:
+        data = chunk.pivot(index='userId', columns='movieId', values='rating')
+        print(data.dtypes)
+        data.columns = data.columns.astype(np.int64)
+        store.append("pivot", data)
+    store.close()
+
+
+def getCustomMovieMat_memoryloss(frame, chunk_size, file_path):  # seems fine, slows gradually and memory dies at 60%
+    chunker = [frame[i:i+chunk_size] for i in range(0, frame.shape[0], chunk_size)]  # pd.read_csv(file_path, chunksize=chunk_size)
+    tot=pd.DataFrame()
+    for i in tqdm(range(0, len(chunker) - 1)):
+        tot=tot.add(chunker[i].pivot(index='userId', columns='movieId', values='rating'), fill_value=0)
+    tot.to_csv(file_path)
+    return tot
+"""
+
+def getMovieCorrelations(movieId=None, movieTitle=None, customPivot=False, file_path="small_pivotTable.csv"):
     if movieTitle and not movieId:
         movieId = getMovieId(movieTitle)
     if not movieTitle:
         movieTitle = getMovieTitle(movieId)
-    if customPivot:
-        movieMat = getCustomMovieMat(ratingsTemp, column="movieId")
-    else:
-        movieMat = getMovieMat(ratingsTemp2)
-    print("MovieMat made")
+    # if customPivot:
+    #     movieMat = getCustomMovieMat_memoryloss(userRatings, 5000, file_path)
+    # else:
+    movieMat = getMovieMat(userRatings)
+    movieMat.columns = movieMat.columns.astype("int64")
+    print("\nMovieMat made")
     user_ratings = movieMat[movieId]
     similar_to_movie = movieMat.corrwith(user_ratings)
     correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
@@ -188,44 +190,38 @@ def getCorrelations(movieId=None, movieTitle=None, customPivot=False):
     return correlatedMovies, similar_to_movie, user_ratings, movieMat
 
 
-def getInfos(movieId):
-    try:
-        imdbId = getMovieImdb(movieId)
-        ia = Cinemagoer()
-        # print(ia.get_movie_infoset())
-        movie = ia.get_movie(imdbId , info=["keywords", "main"])  #
-        # print(movie.infoset2keys)
-        # print(movie.current_info)
-        # print(movie.get("main"))
-        keywords = movie["keywords"]
-        # print(keywords, "\n\n")
-        # print(movie["relevant keywords"])
-        # synopsis = movie.get("plot")
-        cast = movie["cast"]
-    except:
-        keywords = ["_error"]
-        cast = ["_error"]
-    return keywords, cast
 
+def find_correlation_between_two_users(movieMat: pd.DataFrame, user1: str, user2: str):
+    """Find correlation between two users based on their rated movies using Pearson correlation"""
+    rated_movies_by_both = movieMat.loc[[user1, user2]].dropna(axis=1).T
+    print(rated_movies_by_both.corr())
+    user1_ratings = rated_movies_by_both.iloc[0]
+    user2_ratings = rated_movies_by_both.iloc[1]
+    print(np.corrcoef(user1_ratings.tolist(), user2_ratings.tolist()))
+    # print(user1_ratings.corrwith(user2_ratings))
+    # return np.corrcoef(user1_ratings, user2_ratings)[0, 1]
+    # return pd.Series(user1_ratings).corr(pd.Series(user2_ratings))
+    return rated_movies_by_both.corr().at[0, 1]
 
-# execLimitMemory(2000)  # x MiB
 
 movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
     readCSVs(resourcePath="csv_files/ml-latest-small/")
 print("csv read")
-# matrixCorr, matrixSimilar, usrat, movieMat = getCorrelations(
-#     movieTitle='Matrix, The (1999)', customPivot=True)
-# print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
-
-movies["keywords"] = ''
-# movies["synopsis"] = ''
-movies["cast"] = ''
-for i in movies.index:  # 
-    print(i, "/", len(movies))
-    keywords, cast = getInfos(i)
-    movies.at[i, "keywords"] = keywords
-    # movies.at[i, "synopsis"] = synopsis
-    if "_error" not in cast:
-        cast = [actor["name"] for actor in cast]
-    movies.at[i, "cast"] = cast
-movies.to_csv("out.csv")
+# movmat = pd.read_csv("full_pivotTable.csv", index_col="userId")  # getCustomMovieMat_test(ratingsTemp, 10000, "full_pivotTable.csv")
+# getCustomMovieMat2(userRatings, 10000, "csv_files/ml-latest-small/ratings.csv")
+# movmat = pd.read_hdf("store2.h5")
+# print(pd.read_hdf("store.h5").dtypes)
+matrixCorr, matrixSimilar, usrat, movieMat = getMovieCorrelations(
+    movieTitle='Toy Story (1995)', customPivot=False, file_path="small_pivotTable.csv")
+print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+print("\n")
+# print(find_correlation_between_two_users(movieMat, 1, 2))
+users = userRatings["userId"].unique()
+# similarity_matrix = np.empty((len(users), len(users)), dtype=float)
+# for user1 in tqdm(users, desc='user1', position=0):
+#     for user2 in tqdm(users, desc='user2', position=1):
+#         similarity_matrix += find_correlation_between_two_users(movieMat, user1, user2)
+# # similarity_matrix = np.array([[find_correlation_between_two_users(movieMat, user1, user2) for user1 in users] for user2 in users])
+# similarity_df = pd.DataFrame(similarity_matrix, columns=users, index=users)
+# print(similarity_df)
+# surprise.similarities.pearson(len(users), )
