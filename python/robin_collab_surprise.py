@@ -45,9 +45,7 @@ def readCSVs(resourcePath="csv_files/ml-latest-small/"):
     print("links df made")
     # print(links.info(memory_usage='deep'))
     tags = readBigCSV(resourcePath + "tags.csv")
-    print("movies df made")
     # print(tags.info(memory_usage='deep'))
-    userRatings= readRatings(resourcePath + "ratings.csv")
     print("userRatings df made")
     # print(userRatings.info(memory_usage='deep'))
 
@@ -98,39 +96,87 @@ def convertTimestamp(timestamp):
     return datetime.datetime.utcfromtimestamp(timestamp)
 
 
+def searchTitle(title: str):
+    return movies[movies["title"].str.contains(title, case=False)].drop("genres", axis=1)
+
+
 def getMovieMat(frame):
     movieMat = frame.pivot_table(
         index='userId', columns='movieId', values='rating')
     return movieMat
 
 
+def addRowsToDataframe(df: pd.DataFrame, new_rows: list):
+    return pd.concat([df, pd.DataFrame(data=new_rows, columns=df.columns)])
 
-movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2 =\
-    readCSVs(resourcePath="csv_files/ml-latest-small/")
-print("csv read")
 
-reader = Reader(rating_scale=(1, 5))
-data = Dataset.load_from_df(userRatings, reader)
+def predictRatings(df: pd.DataFrame, userId: int):
+    reader = Reader(rating_scale=(0.5, 5.0))
+    print("reader done")
+    data = Dataset.load_from_df(df, reader)
+    print("data done")
+    algo = SVD(verbose=True)
+    print("algo created")
+    trainset = data.build_full_trainset()
+    algo.fit(trainset)
+    # cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=3)
+    print("fit done")
+    movieTitles = df["movieId"].unique()
+    new_rows = []
+    print("\nPredicting...")
+    for movieId in tqdm(movieTitles):
+        rating = df[(df["userId"] == userId) & 
+                                       (df["movieId"] == movieId)]["rating"]
+        if rating.empty:
+            new_rows.append([userId, movieId, algo.predict(userId, movieId)[3]])
+    return new_rows
 
-algo = SVD()
-cross_validate(algo, data, measures=['RMSE', 'MAE'], cv=3)
-print("\nSVD done\n")
-userRatings_pred = userRatings
-userRatings_pred["isPredicted"] = False
-# userId = input("enter user id : ")
-# userId = 1
-users = userRatings["userId"].unique()
-movies = userRatings["movieId"].unique()
-new_rows = []
-with tqdm(total=len(users) * len(movies)) as pbar:
-    for userId in users:
-        for movieId in movies:
-            # print("movie " + str(movieId))
-            rating = userRatings_pred[(userRatings_pred["userId"] == userId) & 
-                                           (userRatings_pred["movieId"] == movieId)]["rating"]
-            # print(rating)
-            if rating.empty:
-                new_rows.append([userId, movieId, algo.predict(userId, movieId)[3], True])
-            pbar.update(1)
-userRatings_pred = pd.concat([userRatings_pred, pd.DataFrame(data=new_rows, columns=userRatings_pred.columns)])
-userRatings_pred.to_csv("ratings_predicted.csv")
+
+def getPredictedRatings(old_df: pd.DataFrame, new_df: pd.DataFrame, userId: int):
+    predictedRatings = new_df[~(new_df["movieId"].isin(old_df[old_df["userId"] == userId]["movieId"].values)) & (new_df["userId"] == userId)].sort_values("movieId")
+    return predictedRatings
+
+
+def getTopRatings(df: pd.DataFrame, userId: int, nb: int, thresh: float, minCount: int):
+    ratingsWithCounts = df.merge(movieRatings, left_on="movieId", right_index=True)
+    ratingsWithCounts = ratingsWithCounts[ratingsWithCounts["nb of ratings"] >= minCount]
+    result = ratingsWithCounts[(ratingsWithCounts["userId"] == userId) & (ratingsWithCounts["rating"] >= thresh)].sort_values("rating", ascending=False)[: nb]
+    return result
+
+
+def getTopRatingsByCount(df: pd.DataFrame, userId: int, nb: int, thresh: float, minCount: int):
+    ratingsWithCounts = df.merge(movieRatings, left_on="movieId", right_index=True)
+    ratingsWithCounts = ratingsWithCounts[ratingsWithCounts["nb of ratings"] >= minCount]
+    result = ratingsWithCounts[(ratingsWithCounts["userId"] == userId) & (ratingsWithCounts["rating"] >= thresh)].sort_values(["rating", "nb of ratings"], ascending=[False, False])[: nb]
+    return result
+
+
+def getRecommandations(userId: int, ratings_df: pd.DataFrame, nb_results: int, thresh: float, minCount: int):
+    preds = predictRatings(ratings_df, userId)
+    print("predictions done")
+    new_ratings = addRowsToDataframe(ratings_df, preds)
+    print("new predicted ratings added")
+    pred_ratings = getPredictedRatings(ratings_df, new_ratings, userId)
+    pred_ratings["title"] = pred_ratings["movieId"].map(getMovieTitle)
+    top10 = getTopRatings(pred_ratings, userId, nb_results, thresh, minCount)
+    top10Weighted = getTopRatingsByCount(pred_ratings, userId, nb_results, thresh, minCount)
+    result = top10  # top10 or top10Weighted
+    print("top 10 :\n", result[["movieId", "title", "rating"]])
+    return preds, pred_ratings, top10, top10Weighted
+
+
+movies, links, tags, userRatings, movieRatings =\
+    readCSVs(resourcePath="csv_files/ml-latest/", size=1000000)
+print("csv read\n")
+
+custom_ratings = [
+    [999999, 1, 5],  # Toy Story 1
+    [999999, 3114, 5],   # Toy Story 2
+    [999999, 4306, 5],   # Shrek 1
+    # [999999, 6365, 0.5],   # Matrix Reloaded
+    # [999999, 858, 0.5],   # The Godfather
+    ]
+custom_df = addRowsToDataframe(userRatings, custom_ratings)
+print("custom ratings added")
+preds, pred_ratings, top10, top10Weighted = getRecommandations(userId=999999, ratings_df=custom_df, nb_results=10, thresh=0, minCount=5)
+print("\n\n", pred_ratings["rating"].describe())
