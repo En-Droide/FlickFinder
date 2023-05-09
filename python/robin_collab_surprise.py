@@ -7,17 +7,8 @@ import warnings
 from tqdm import tqdm
 from tqdm.contrib import itertools
 import os
-from surprise import accuracy, Dataset, SVD, Reader, KNNBasic
+from surprise import accuracy, Dataset, Reader, SVD, KNNBasic, KNNWithMeans, SVDpp, SlopeOne
 from surprise.model_selection import train_test_split, cross_validate
-
-movies = None
-links = None
-tags = None
-userRatings = None
-ratings = None
-ratingsTemp = None
-ratingsTemp2 = None
-pd.set_option('io.hdf.default_format', 'table')
 
 
 def readBigCSV(file):
@@ -37,7 +28,7 @@ def readRatings(file):
     return ratings
 
 
-def readCSVs(resourcePath="csv_files/ml-latest-small/"):
+def readCSVs(resourcePath, size):
     movies = readBigCSV(resourcePath + "movies.csv")
     # print(movies.info(memory_usage='deep'))
     print("movies df made")
@@ -45,22 +36,20 @@ def readCSVs(resourcePath="csv_files/ml-latest-small/"):
     print("links df made")
     # print(links.info(memory_usage='deep'))
     tags = readBigCSV(resourcePath + "tags.csv")
+    print("tags df made")
     # print(tags.info(memory_usage='deep'))
+    userRatings = readRatings(resourcePath + "ratings.csv")[:size]
     print("userRatings df made")
     # print(userRatings.info(memory_usage='deep'))
 
     movies = movies.set_index("movieId")
     # tags["datetime"] = tags["timestamp"].apply(convertTimestamp)
     # userRatings["datetime"] = userRatings["timestamp"].apply(convertTimestamp)
-
     ratingsTemp = pd.merge(userRatings, movies, on='movieId')
-    ratings = pd.DataFrame(ratingsTemp.groupby('title')['rating'].mean())
-
-    ratings["nb of ratings"] = pd.DataFrame(
-        ratingsTemp.groupby('title')['rating'].count())
-
-    ratingsTemp2 = ratingsTemp[["userId", "movieId", "rating"]]
-    return movies, links, tags, userRatings, ratings, ratingsTemp, ratingsTemp2
+    movieRatings = pd.DataFrame(ratingsTemp.groupby('movieId')['rating'].mean()).rename(columns={"rating": "mean rating"})
+    movieRatings["nb of ratings"] = pd.DataFrame(
+        ratingsTemp.groupby('movieId')['rating'].count())
+    return movies, links, tags, userRatings, movieRatings
 
 
 def getMovieTitle(movieId):
