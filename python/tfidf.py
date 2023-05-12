@@ -32,9 +32,9 @@ def process_data(csv_file):
 
 
 def get_tfidf_matrix(df):
-
+    # print(df.genres.str.split('|').dtypes)
     tfidf = TfidfVectorizer(stop_words='english')
-    df['keywords_cast'] = df['keywords'] + ' ' + df['cast']
+    df['keywords_cast'] = df['keywords'] + ' ' + df['cast'] + ' ' + str(df.genres.str.split('|'))
     tfidf_matrix = tfidf.fit_transform(df['keywords_cast'])
     tfidf_matrix = csr_matrix(tfidf_matrix)
     return tfidf_matrix
@@ -80,13 +80,13 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
 
 
 if __name__ == '__main__':
-    csv_file = pd.read_csv('out.csv')
-    most_popular_movies = genre_popularity(csv_file)
+    csv_file = pd.read_csv('out_big_data.csv')
+    # most_popular_movies = genre_popularity(csv_file)
     df = process_data(csv_file)
     tfidf_matrix = get_tfidf_matrix(df)
-    similar_movies = get_similar_movies('Bad Boys', df,
+    similar_movies = get_similar_movies('Toy Story', df,
                                         tfidf_matrix, number_movies=10)
 
-    print(most_popular_movies, similar_movies)
+    print(similar_movies)
     
     

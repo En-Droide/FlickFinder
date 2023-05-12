@@ -2,6 +2,11 @@
     border: 1px solid red;
 }   */
 
+*{
+  font-family: "Montserrat";
+}
+
+
 body {
   /* background-color: #131212; */
   background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);

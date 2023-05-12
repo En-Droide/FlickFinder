@@ -33,15 +33,26 @@
     <!-- Search bar -->
     <div class="search-container">
       <input id="tags" type="text" placeholder="Search for a movie..." />
-      <button type="submit">Search</button>
+      <button id="search-btn" type="submit">Search</button>
+      <script>
+        document
+          .getElementById("search-btn")
+          .addEventListener("click", function () {
+            var movieTitle = document.getElementById("movie-search").value;
+            $.ajax({
+              url: "v2/tfidf.py",
+              data: { title: movieTitle },
+              success: function (result) {
+                // Write the result to the h1 element on the result.html page
+                var resultElement = document.getElementsByTagName("h1")[0];
+                resultElement.innerHTML = result;
+                // Redirect the user to the result.html page
+                window.location.href = "result.html";
+              },
+            });
+          });
+      </script>
     </div>
-    <!-- <div class="box">
-        <form name="search">
-            <input id="tags" type="text" class="input" name="txt" placeholder ='' autocomplete = 'off' onmouseout="this.value = ''; this.blur(); ">    
-            <i class="fas fa-search"></i>
-        </form>
-    </div>
-    <div class ="result-box"></div> -->
 
     <!-- Movie recommendations grid -->
     <div class="movie-grid">
@@ -151,11 +162,23 @@
       <h4><b>hello</b></h4>
       <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
       <ul>
-        <li><a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a></li>
-        <li><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-        <li><a href="#"><i class="fab fa-google-plus-g" aria-hidden="true"></i></a></li>
-        <li><a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a></li>
-        <li><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+        <li>
+          <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <a href="#"
+            ><i class="fab fa-google-plus-g" aria-hidden="true"></i
+          ></a>
+        </li>
+        <li>
+          <a href="#"><i class="fab fa-linkedin" aria-hidden="true"></i></a>
+        </li>
+        <li>
+          <a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+        </li>
       </ul>
     </div>
   </footer>

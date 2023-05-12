@@ -1,4 +1,10 @@
+*{
+  font-family: "Montserrat";
+}
+
+
 body {
+  font-family: "Montserrat";
   margin: 0;
   padding: 0;
   display: flex;
@@ -93,6 +99,7 @@ input {
   border-radius: 5px;
 }
 button {
+  font-family: "Montserrat";
   width: 60%;
   height: 40px;
   margin: 100px auto;
