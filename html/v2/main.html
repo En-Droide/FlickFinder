@@ -34,24 +34,7 @@
     <div class="search-container">
       <input id="tags" type="text" placeholder="Search for a movie..." />
       <button id="search-btn" type="submit">Search</button>
-      <script>
-        document
-          .getElementById("search-btn")
-          .addEventListener("click", function () {
-            var movieTitle = document.getElementById("movie-search").value;
-            $.ajax({
-              url: "v2/tfidf.py",
-              data: { title: movieTitle },
-              success: function (result) {
-                // Write the result to the h1 element on the result.html page
-                var resultElement = document.getElementsByTagName("h1")[0];
-                resultElement.innerHTML = result;
-                // Redirect the user to the result.html page
-                window.location.href = "result.html";
-              },
-            });
-          });
-      </script>
+      
     </div>
 
     <!-- Movie recommendations grid -->

@@ -1,61 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Flick Finder</title>
-    <meta charset="UTF-8" />
+    <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link
-      rel="stylesheet"
-      href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
-      crossorigin="anonymous"
-    />
-    <link rel="stylesheet" href="stylesheet_main.css" />
-    <link
-      rel="stylesheet"
-      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
-    />
-    <link rel="stylesheet" href="/resources/demos/style.css" />
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="autocomplete.js"></script>
+    <title>Greetings!</title>
+   <link rel="stylesheet" href="https://pyscript.net/releases/2022.12.1/pyscript.css" />
+   <script defer src="https://pyscript.net/releases/2022.12.1/pyscript.js"></script>
+   <py-env>
+      - pandas
+    </py-env>
   </head>
-
-  <header>
-    <!-- Top navigation bar -->
-    <div class="topnav">
-      <a href="main.html">Home</a>
-      <a href="about.html">About</a>
-      <div class="Flickfinder">FlickFinder</div>
-      <a href="account.html" class="right">Account</a>
-    </div>
-  </header>
   <body>
-    <!-- Search bar -->
-    <div class="search-container">
-      <input id="tags" type="text" placeholder="Search for a movie..." />
-      <button id="search-btn" type="submit" onclick="searchMovies()">Search</button>
-    </div>
-    
-    <!-- Search results -->
-    <p id="search-results"></p>
-    
-    <!-- JavaScript code to handle the search -->
-    <script>
-      function searchMovies() {
-        // Get the user input from the search bar
-        var userInput = document.getElementById("tags").value;
-        
-        // Send the user input to your Python script using AJAX
-        $.ajax({
-          url: "result.py",
-          type: "POST",
-          data: { userInput: userInput },
-          success: function(response) {
-            // Display the search results in the paragraph element
-            document.getElementById("search-results").innerHTML = response;
-          }
-        });
-      }
-    </script>
+   add the following line
+  <py-script src="./tfidf.py">
+    import sys
+    !{sys.executable} -m pip install pandas
+  </py-script>
   </body>
 </html>
