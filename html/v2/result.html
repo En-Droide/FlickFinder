@@ -13,18 +13,17 @@
       src="https://pyscript.net/releases/2022.12.1/pyscript.js"
     ></script>
     <py-env> 
-      - pandas - scikit-learn
+      - pandas 
+      - scikit-learn
     </py-env>
     <py-config>
-      packages = ["pandas"]
+      packages = ["pandas","scikit-learn"]
     </py-config>
   </head>
   <body>
-    
     <py-script src="./tfidf.py">
       import sys 
-      import scikit-learn
-      import pandas
+      !{sys.executable} -m pip install pandas scikit-learn
     </py-script>
   </body>
 </html>
