@@ -4,17 +4,27 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Greetings!</title>
-   <link rel="stylesheet" href="https://pyscript.net/releases/2022.12.1/pyscript.css" />
-   <script defer src="https://pyscript.net/releases/2022.12.1/pyscript.js"></script>
-   <py-env>
-      - pandas
+    <link
+      rel="stylesheet"
+      href="https://pyscript.net/releases/2022.12.1/pyscript.css"
+    />
+    <script
+      defer
+      src="https://pyscript.net/releases/2022.12.1/pyscript.js"
+    ></script>
+    <py-env> 
+      - pandas - scikit-learn
     </py-env>
+    <py-config>
+      packages = ["pandas"]
+    </py-config>
   </head>
   <body>
-   add the following line
-  <py-script src="./tfidf.py">
-    import sys
-    !{sys.executable} -m pip install pandas
-  </py-script>
+    
+    <py-script src="./tfidf.py">
+      import sys 
+      import scikit-learn
+      import pandas
+    </py-script>
   </body>
 </html>
