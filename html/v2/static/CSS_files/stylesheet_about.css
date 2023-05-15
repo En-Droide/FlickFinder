@@ -1,0 +1,117 @@
+@font-face{
+  font-family: Montserrat;
+  src: url('Montserrat-Light.ttf');
+  font-weight:lighter;
+}
+*{
+  font-family: Montserrat;
+  /* border: 1px solid red; */
+}
+
+body {
+  background-color: #131212;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+/* Top navigation bar */
+.topnav {
+  background-color: #1d1c1a;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.Flickfinder {
+  color: #fff;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+/* Links inside the navigation bar */
+.topnav a {
+  color: #f2f2f2;
+  float: left;
+  font-size: 16px;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+.topnav a:hover {
+  color: #165c96;
+}
+.right {
+  position: absolute;
+  left: 95%;
+  transform: translateX(-50%);
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+.timeline {
+  margin-top: 20px;
+  margin-left: 120px;
+  margin-right: 140px;
+  /* width:800px; */
+  width: 100%;
+  background-color: #131212;
+  /* background: linear-gradient(to top, #072736, #093245, #0c415a); */
+  color: #fff;
+  padding: 30px 20px;
+  /* box-shadow:0px 0px 10px rgba(0,0,0,.5); */
+}
+/* ligne */
+.timeline ul {
+  list-style-type: none;
+  border-left: 2px solid #094a68;
+  padding: 10px 5px;
+}
+.timeline ul li {
+  padding: 20px 20px;
+  position: relative;
+  cursor: pointer;
+  transition: 0.5s;
+}
+/* date */
+.timeline ul li span {
+  display: inline-block;
+  background-color: #1685b8;
+  border-radius: 25px;
+  padding: 2px 5px;
+  font-size: 15px;
+  text-align: center;
+}
+/* titre */
+.timeline ul li .content h3 {
+  color: #34ace0;
+  font-size: 17px;
+  padding-top: 5px;
+}
+.timeline ul li .content p {
+  padding: 5px 0px 15px 0px;
+  font-size: 15px;
+}
+.timeline ul li:before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #34ace0;
+  border-radius: 50%;
+  left: -11px;
+  top: 28px;
+  transition: 0.5s;
+}
+.timeline ul li:hover {
+  background: linear-gradient(to right, #071f2a, #131212);
+  /* background-color:#071f2a; */
+}
+.timeline ul li:hover:before {
+  background-color: #0f0;
+  box-shadow: 0px 0px 10px 2px #0f0;
+}
