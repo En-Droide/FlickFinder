@@ -1,0 +1,233 @@
+@font-face{
+  font-family: Montserrat;
+  src: url('Montserrat-Light.ttf');
+  font-weight:lighter;
+}
+*{
+  font-family: Montserrat;
+  /* border: 1px solid red; */
+}
+
+header {
+  z-index: 4;
+}
+
+body {
+  background-color: #131212;
+  color: #f2f2f2;
+  margin: 0;
+  padding: 0;
+}
+
+/* Top navigation bar */
+.topnav {
+  background-color: #1d1c1a;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+.Flickfinder {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Links inside the navigation bar */
+.topnav a {
+  display: flex;
+  color: #f2f2f2;
+  float: left;
+  font-size: 16px;
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+.topnav a:hover {
+  color: #165c96;
+}
+.right {
+  position: absolute;
+  left: 95%;
+  transform: translateX(-50%);
+  padding: 14px 16px;
+  text-align: center;
+  text-decoration: none;
+}
+
+/* Search bar */
+.search-container {
+  display: flex;
+  margin-top: 80px;
+  justify-content: center;
+}
+
+.search-container input[type="text"] {
+  background-color: #f2f2f2;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 10px;
+  width: 500px;
+}
+
+.search-container button {
+  background-color: #165c96;
+  border: none;
+  border-radius: 20px;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  margin-left: 10px;
+  padding: 10px;
+}
+.search-container button:hover {
+  background-color: #1f81d1;
+}
+
+/* Movie recommendations grid */
+.movie-grid {
+  display: grid;
+  grid-gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  margin: 50px auto;
+  max-width: 1200px;
+  padding: 0 20px;
+}
+
+.movie-grid img {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 100%;
+}
+
+.movie-grid img:hover {
+  transform: scale(1.1) translateZ(0);
+  z-index: 2; /* ensure the hovered image appears on top of the others */
+}
+
+.movie-grid h3,
+.movie-grid h6,
+.movie-grid p {
+  margin: 10px 0;
+  text-align: center;
+}
+/* Pagination style */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.pagination a {
+  color: #ffffff;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+  border-radius: 5px;
+  margin: 0 5px;
+}
+
+.pagination a.active {
+  background-color: #165c96;
+  color: #fff;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+footer {
+  padding: 50px 0;
+}
+
+.container {
+  position: relative;
+  max-width: 60%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.container h2 {
+  justify-content: center;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.container p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 0;
+}
+
+/* social icons */
+.container ul {
+  position: relative;
+  justify-content: center;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  margin-top: 7%;
+  display: flex;
+}
+
+.container ul li {
+  list-style: none;
+}
+
+.container ul li a {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: block;
+  text-align: center;
+  margin: 0 10px;
+  border-radius: 50%;
+  padding: 6px;
+  box-sizing: border-box;
+  text-decoration: none;
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(0deg, #ddd, #fff);
+  transition: 0.5s;
+}
+
+.container ul li a:hover {
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  text-decoration: none;
+}
+
+.container ul li a .fab {
+  width: 100%;
+  height: 100%;
+  display: block;
+  background: linear-gradient(0deg, #fff, #ddd);
+  border-radius: 50%;
+  line-height: calc(60px - 12px);
+  font-size: 24px;
+  color: #262626;
+  transition: 0.5s;
+}
+
+.container ul li:nth-child(1) a:hover .fab {
+  color: #3b5998;
+}
+
+.container ul li:nth-child(2) a:hover .fab {
+  color: #00aced;
+}
+
+.container ul li:nth-child(3) a:hover .fab {
+  color: #dd4b39;
+}
+
+.container ul li:nth-child(4) a:hover .fab {
+  color: #007bb6;
+}
+
+.container ul li:nth-child(5) a:hover .fab {
+  color: #e4405f;
+}
