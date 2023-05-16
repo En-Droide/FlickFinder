@@ -8,41 +8,38 @@
       rel="stylesheet"
       href="https://pyscript.net/releases/2022.12.1/pyscript.css"
     />
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
   </head>
   <body>
     <input type="text" name="message" />
     <button class="send">Send Message</button>
   </body>
   <script>
-    $(document).ready(function(){
-        $('.send').click(function(){
+    $(document).ready(function () {
+      $(".send").click(function () {
+        const message = $("[name=message]").val();
+        var formData = {
+          myMessage: message,
+        };
 
-            const message =$('[name=message]').val();
-            var formData = {
-              myMessage: message
-            };
-
-            if(message == "")
-            {
-
-
-            }
-            else
-            {
-                $.ajax({
-                  url:"/_postExemple",
-                  type:"POST",
-                  crossDomain: true,
-                  data : formData,
-                  dataType : 'text',
-                    success: function(data)
-                      {
-                          alert(data);
-                      }
-                });
-            }
-        });
+        if (message == "") {
+        } else {
+          $.ajax({
+            url: "/_postExemple",
+            type: "POST",
+            crossDomain: true,
+            data: formData,
+            dataType: "text",
+            success: function (data) {
+              alert(data);
+            },
+          });
+        }
+      });
     });
   </script>
 </html>
