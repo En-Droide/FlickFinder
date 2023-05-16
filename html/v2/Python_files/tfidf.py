@@ -12,12 +12,12 @@ from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 
 
-file_name = ('C:/Users/MatyG/Documents/Annee_2022_2023/Projet_films/FlickFinder/python/out_big_data.csv')
-def genre_popularity(csv_file):
-    popularity = (csv_file.genres.str.split('|').explode().value_counts()
-     .sort_values(ascending=False))
+
+# def genre_popularity(csv_file):
+#     popularity = (csv_file.genres.str.split('|').explode().value_counts()
+#      .sort_values(ascending=False))
     
-    return popularity.head(10)
+#     return popularity.head(10)
 
 
 
@@ -81,14 +81,19 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
     return similar_movies
 
 
-if __name__ == '__main__':
+
+def start_tfidf(file_name,moviename):
+    
     csv_file = pd.read_csv(file_name)
+    print("csv done")
     # most_popular_movies = genre_popularity(csv_file)
     df = process_data(csv_file)
+    print("df done")
     tfidf_matrix = get_tfidf_matrix(df)
-    similar_movies = get_similar_movies('Toy Story', df,
+    print("get matrix done")
+    similar_movies = get_similar_movies(moviename, df,
                                         tfidf_matrix, number_movies=10)
 
-    print(similar_movies)
+    return(similar_movies)
     
-    
+# print(start_tfidf("C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv","Toy Story"))

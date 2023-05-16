@@ -1,10 +1,5 @@
 <!DOCTYPE html>
 <html>
-  <style>
-    * {
-      font-family: "Montserrat";
-    }
-  </style>
   <head>
     <title>Flick Finder</title>
     <meta charset="UTF-8" />
@@ -18,15 +13,16 @@
       rel="stylesheet"
       href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
     <script
       src="https://code.jquery.com/jquery-3.7.0.js"
       integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
       crossorigin="anonymous"
     ></script>
-    <link
-      rel="stylesheet"
-      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
-    />
+    
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
   </head>
@@ -66,9 +62,9 @@
                 crossDomain: true,
                 data: formData,
                 dataType: "text",
-                success: function (data) {
-                  alert(data);
-                },
+                // success: function (data) {
+                //   alert(data);
+                // },
               });
             }
           });
@@ -190,7 +186,10 @@
           <a href="#"><i class="fab fa-facebook" aria-hidden="true"></i></a>
         </li>
         <li>
-          <a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+          <a href="#"><i 
+            class="fab fa-twitter" 
+            aria-hidden="true">
+          </i></a>
         </li>
         <li>
           <a href="#"
