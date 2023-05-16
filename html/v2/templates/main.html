@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
-  <style>*{
-    font-family: "Montserrat"
-  }</style>
+  <style>
+    * {
+      font-family: "Montserrat";
+    }
+  </style>
   <head>
     <title>Flick Finder</title>
     <meta charset="UTF-8" />
@@ -12,9 +14,19 @@
       href="https://use.fontawesome.com/releases/v5.12.1/css/all.css"
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
-    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"/>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.0.js"
+      integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css"
+    />
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
     <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
   </head>
@@ -31,16 +43,46 @@
   <body>
     <!-- Search bar -->
     <div class="search-container">
-      <input id="tags" type="text" placeholder="Search for a movie..." />
-      <button id="search-btn" type="submit">Search</button>
-      
+      <input
+        id="tags"
+        type="text"
+        name="searchText"
+        placeholder="Search for a movie..."
+      />
+      <button class="searchFilm" id="search-btn" type="submit">Search</button>
+      <script>
+        $(document).ready(function () {
+          $(".searchFilm").click(function () {
+            const message = $("[name=searchText]").val();
+            var formData = {
+              myMessage: message,
+            };
+
+            if (message == "") {
+            } else {
+              $.ajax({
+                url: "/_postExemple",
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                dataType: "text",
+                success: function (data) {
+                  alert(data);
+                },
+              });
+            }
+          });
+        });
+      </script>
     </div>
 
     <!-- Movie recommendations grid -->
     <div class="movie-grid">
       <div>
         <a href="movie_page.html"
-          ><img src="{{ url_for('static',filename='PNG/Themenu.webp') }}" alt="Movie 1"
+          ><img
+            src="{{ url_for('static',filename='PNG/Themenu.webp') }}"
+            alt="Movie 1"
         /></a>
         <h3>The Menu</h3>
         <h6>Thriller</h6>
@@ -51,7 +93,7 @@
         </p>
       </div>
       <div>
-        <img src="./PNG/TheFabelmans.webp" alt="Movie 2" />
+        <img src="{{ url_for('static',filename='PNG/TheFabelmans.webp') }}" alt="Movie 2" />
         <h3>The Fabelmans</h3>
         <h6>Biopic, Drame &ensp; i &emsp;test</h6>
         <p>
@@ -61,7 +103,7 @@
         </p>
       </div>
       <div>
-        <img src="./PNG/TheWhale.webp" alt="Movie 3" />
+        <img src="{{ url_for('static',filename='PNG/TheWhale.webp') }}" alt="Movie 3" />
         <h3>The Wale</h3>
         <h6>Drame</h6>
         <p>
@@ -70,7 +112,7 @@
         </p>
       </div>
       <div>
-        <img src="./PNG/JohnWick.webp" alt="Movie 4" />
+        <img src="{{ url_for('static',filename='PNG/JohnWick.webp') }}" alt="Movie 4" />
         <h3>John Wick: Chapter 4</h3>
         <h6>Action</h6>
         <p>
@@ -82,7 +124,7 @@
 
     <div class="movie-grid">
       <div>
-        <img src="./PNG/creedIII.jpg" alt="Movie 5" />
+        <img src="{{ url_for('static',filename='PNG/creedIII.jpg') }}" alt="Movie 5" />
         <h3>creedIII</h3>
         <h6>Drame</h6>
         <p>
@@ -92,7 +134,7 @@
         </p>
       </div>
       <div>
-        <img src="./PNG/le_bonheur_des_uns.webp" alt="Movie 6" />
+        <img src="{{ url_for('static',filename='PNG/le_bonheur_des_uns.webp') }}" alt="Movie 6" />
         <h3>Le bonheur des uns...</h3>
         <h6>Comédie</h6>
         <p>
@@ -102,7 +144,7 @@
         </p>
       </div>
       <div>
-        <img src="./PNG/everything_everywhere_all_at_once.webp" alt="Movie 7" />
+        <img src="{{ url_for('static',filename='PNG/everything_everywhere_all_at_once.webp') }}" alt="Movie 7" />
         <h3>Everything Everywhere all at Once</h3>
         <h6>Action, Comédie, Drame</h6>
         <p>
@@ -111,7 +153,7 @@
         </p>
       </div>
       <div>
-        <img src="./PNG/quantum.jpg" alt="Movie 8" />
+        <img src="{{ url_for('static',filename='PNG/quantum.jpg') }}" alt="Movie 8" />
         <h3>Ant-Man et la guêpe: Quantumania</h3>
         <h6>Action, Aventure, Science fiction</h6>
         <p>
