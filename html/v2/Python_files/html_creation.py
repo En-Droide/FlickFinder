@@ -12,6 +12,7 @@ def NumberOfGrid(movies):
 
 
 def PageCreation(movies,file_path):
+    delete_file(file_path)
     air = Airium()
 
     air('<!DOCTYPE html>')
@@ -56,14 +57,15 @@ def PageCreation(movies,file_path):
                             if (message == "") {
                             } else {
                             $.ajax({
-                                url: "/_postExemple",
+                                url: "/_createPage",
                                 type: "POST",
                                 crossDomain: true,
                                 data: formData,
                                 dataType: "text",
-                                // success: function (data) {
-                                //   alert(data);
-                                // },
+                                 success: function (data) {
+                                    alert(data);
+                                    window.location.href = "/output.html"; 
+                                },
                             });
                             }
                         });
@@ -74,30 +76,25 @@ def PageCreation(movies,file_path):
                 with air.div(klass="movie-grid"):
                     if imgLeft >= 4:
                         for img_grid in range(4):
+                            movieTitle = str(movies[(grids*4)+img_grid]).replace("'", "&quot;")
                             with air.div():
                                 with air.a(href="movie_page.html"):
                                     
-                                    air.img(src=f"{{{{ url_for('static', filename='PNG/{movies[(grids*4)+img_grid]}.webp') }}}}", alt=f"Movie: {movies[(grids*4)+img_grid]}")
+                                    air.img(src=f"{{{{ url_for('static', filename='PNG/{movieTitle}.webp') }}}}", alt=f"Movie: {movieTitle}")
                                 air.h3(_t="Title")
                                 air.h6(_t="Genre")
                                 air.p(_t="Synopsys")
                     else : 
                         for img_grid in range(imgLeft):
+                            movieTitle = str(movies[(grids*4)+img_grid]).replace("'", "&quot;")
                             with air.div():
                                 with air.a(href="movie_page.html"):
-                                    air.img(src=f"{{{{ url_for('static', filename='PNG/{movies[(grids*4)+img_grid]}.webp') }}}}", alt=f"Movie: {movies[(grids*4)+img_grid]}")
+                                    air.img(src=f"{{{{ url_for('static', filename='PNG/{movieTitle}.webp') }}}}", alt=f"Movie: {movieTitle}")
                                 air.h3(_t="Title")
                                 air.h6(_t="Genre")
                                 air.p(_t="Synopsys")
                 imgLeft-=4
 
-            air.append("<!-- Pagination links -->")
-            with air.div(klass="pagination"):
-                air.a(_t="1", href="#", klass="active")
-                air.a(_t="2", href="#")
-                air.a(_t="3", href="#")
-                air.a(_t="4", href="#")
-                air.a(_t="5", href="#")
         with air.footer():
             with air.div(klass="container"):
                 air.h3(_t="About Us, The Recommendation website")
@@ -128,7 +125,7 @@ def PageCreation(movies,file_path):
     # or directly to UTF-8 encoded bytes:
     html_bytes = bytes(air)  # casting to bytes is a shortcut to str(a).encode('utf-8')
 
-    with open(file_path, 'w') as file:
+    with open(file_path, 'w', encoding="utf-8") as file:
         file.write(html)
 
     print("HTML page created successfully.")

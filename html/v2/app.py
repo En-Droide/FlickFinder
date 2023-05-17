@@ -2,15 +2,17 @@ from flask import Flask, render_template, request
 import os
 import sys
 
-# sys.path.insert(1, 'C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2\\Python_files')
-# file_name = ('C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\python\\out_big_data.csv')
-# my_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2"
+sys.path.insert(1, 'C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2\\Python_files')
+file_name = ('C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\python\\out_big_data.csv')
+instance_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2"
+outputHtml_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2\\templates\\output.html"
 
-sys.path.insert(1, 'C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\Python_files')
-file_name = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv"
-my_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2"
+# sys.path.insert(1, 'C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\Python_files')
+# file_name = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv"
+# instance_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2"
+# outputHtml_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\templates\\output.html"
 
-app = Flask(__name__, instance_path=my_path)
+app = Flask(__name__, instance_path=instance_path)
 
 from tfidf import start_tfidf
 from html_creation import PageCreation
@@ -35,12 +37,13 @@ def account():
 def moviePage():
     return render_template("movie_page.html")
 
-@app.route("/_postExemple", methods=["POST"])
-def test():
+@app.route("/_createPage", methods=["POST"])
+def createPage():
     message = request.form.get("myMessage")
-    movieFilmList = start_tfidf(file_name,message)
-    PageCreation(movieFilmList,"C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\templates\\output.html")
-    return movieFilmList
+    movieFilmList = start_tfidf(file_name, message)
+    PageCreation(movieFilmList, outputHtml_path)
+    print(movieFilmList)
+    return str(movieFilmList)
 
 @app.route('/output.html')
 def output():

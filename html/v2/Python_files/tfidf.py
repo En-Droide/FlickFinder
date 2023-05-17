@@ -99,8 +99,7 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
 
 
 def start_tfidf(file_name,moviename):
-    
-    csv_file = pd.read_csv(file_name)
+    csv_file = pd.read_csv(file_name, encoding="utf-8")
     print("csv done")
     # most_popular_movies = genre_popularity(csv_file)
     df = process_data(csv_file)
@@ -110,8 +109,8 @@ def start_tfidf(file_name,moviename):
     Film_title = match_title(moviename,df)
     print(Film_title)
     similar_movies = get_similar_movies(Film_title, df,
-                                        tfidf_matrix, number_movies=9)
-
+                                        tfidf_matrix, number_movies=20)
+    
     return(similar_movies)
     
 # print(start_tfidf("C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv","Toy Story"))
