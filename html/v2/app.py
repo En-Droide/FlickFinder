@@ -48,10 +48,10 @@ def moviePage():
 def createPage():
     movieTitle = request.form.get("searchText")
     movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=20)
-    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", row_size=4)
+    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     print(movieFilmList)
     for movie in movieFilmList[:3]:
-        if not(os.path.exists(images_path+"scrap\\"+movie)):
+        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg")):
             movieId = getMovieId(movie, movies_df)
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
@@ -79,4 +79,4 @@ if __name__ == '__main__':
             print("making MovieMatrix...")
             movieMatrix = getMovieMatrix(userRatings_df)
             print("movieMatrix done!\n")
-    app.run(debug=False)
+    app.run(debug=True)

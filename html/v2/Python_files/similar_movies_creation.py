@@ -11,7 +11,7 @@ def NumberOfGrid(movies):
     return ceil(len(movies)/4)
 
 
-def PageCreation(movies, file_path, row_size = ROW_SIZE):
+def PageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
     delete_file(file_path)
     air = Airium()
 
@@ -73,7 +73,7 @@ def PageCreation(movies, file_path, row_size = ROW_SIZE):
         """)
             for i in range(len(movies)):
                 movieTitle = movies[i].replace("'", "&quot;")
-                if(os.path.exists('Images\\scrap\\'+movieTitle+'.jpg')):
+                if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
                     print("\nyes\n")
                     imPath = f'Images/scrap/{movieTitle}.jpg'
                 else:
