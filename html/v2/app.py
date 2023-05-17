@@ -8,6 +8,7 @@ import sys
 
 sys.path.insert(1, 'C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\Python_files')
 from tfidf import start_tfidf
+from html_creation import PageCreation
 file_name = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv"
 my_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2"
 
@@ -37,8 +38,8 @@ def moviePage():
 def test():
     message = request.form.get("myMessage")
     movieFilmList = start_tfidf(file_name,message)
+    PageCreation(movieFilmList,"C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\HTML_files\\output.html")
     return movieFilmList
-    print(movieFilmList)
 
 if __name__ == '__main__':
     app.run(debug=True)

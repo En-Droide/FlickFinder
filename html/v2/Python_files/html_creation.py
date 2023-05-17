@@ -2,8 +2,8 @@ from airium import Airium
 import os
 from math import *
 
-file_path ='C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\HTML_files\\output.html'
-movies = ["The Shawshank Redemption","The Godfather","The Dark Knight","Pulp Fiction","Fight Club","Goodfellas","Inception","The Matrix","Interstellar","Forrest Gump"]
+# file_path ='C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\HTML_files\\output.html'
+# movies = ["The Shawshank Redemption","The Godfather","The Dark Knight","Pulp Fiction","Fight Club","Goodfellas","Inception","The Matrix","Interstellar","Forrest Gump"]
 
 
 def NumberOfGrid(movies):
@@ -11,7 +11,7 @@ def NumberOfGrid(movies):
 
 
 
-def PageCreation():
+def PageCreation(movies,file_path):
     air = Airium()
 
     air('<!DOCTYPE html>')
@@ -140,5 +140,5 @@ def delete_file(file_path):
         print("File deleted successfully.")
     except OSError as e:
         print(f"Error deleting the file: {e}")
-PageCreation()
+# PageCreation()
 #delete_file(file_path)

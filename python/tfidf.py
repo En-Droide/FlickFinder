@@ -9,7 +9,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
-
+from difflib import get_close_matches
 
 def genre_popularity(csv_file):
     popularity = (csv_file.genres.str.split('|').explode().value_counts()
@@ -78,15 +78,25 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
 
     return similar_movies
 
+def get_right_title(movie_title):
+    movieList= (df['title_wt_date'].values).tolist()
+    closest_matches = get_close_matches(movie_title, movieList)
+    if closest_matches:
+        # Return the first closest match
+        return closest_matches[0]
+    else:
+        return "No match found"
+
 
 if __name__ == '__main__':
     csv_file = pd.read_csv('out_big_data.csv')
     # most_popular_movies = genre_popularity(csv_file)
     df = process_data(csv_file)
+    print(get_right_title(""))
     tfidf_matrix = get_tfidf_matrix(df)
     similar_movies = get_similar_movies('Toy Story', df,
-                                        tfidf_matrix, number_movies=10)
-
-    print(similar_movies)
+                                 tfidf_matrix, number_movies=10)
     
+    print(similar_movies)
+     
     

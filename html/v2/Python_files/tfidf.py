@@ -10,7 +10,7 @@ import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
-
+from difflib import get_close_matches
 
 
 # def genre_popularity(csv_file):
@@ -41,6 +41,19 @@ def get_tfidf_matrix(df):
     tfidf_matrix = csr_matrix(tfidf_matrix)
     return tfidf_matrix
 
+def match_title(movie_title,df):
+    movieList= (df['title_wt_date'].values).tolist()
+    closest_matches = get_close_matches(movie_title, movieList)
+    if closest_matches:
+        # Return the first closest match
+        return closest_matches[0]
+    else:
+        return "No match found"
+
+def titleDateSearch(movie_title,df):
+    movie_id= df.loc[df['title_wt_date'] == movie_title, 'movieId'].iloc[0]
+    movie_index = df.loc[df['movieId'] == movie_id].index[0]
+    return df.loc[movie_index, 'title']
 
 def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
 
@@ -76,7 +89,10 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
         movie_index = similarity_scores_list[i][0]
         movie_indices.append(movie_index)
 
+    
     similar_movies = df.loc[movie_indices, 'title'].tolist()
+
+    similar_movies.insert(0,titleDateSearch(movie_title,df))
 
     return similar_movies
 
@@ -91,8 +107,10 @@ def start_tfidf(file_name,moviename):
     print("df done")
     tfidf_matrix = get_tfidf_matrix(df)
     print("get matrix done")
-    similar_movies = get_similar_movies(moviename, df,
-                                        tfidf_matrix, number_movies=10)
+    Film_title = match_title(moviename,df)
+    print(Film_title)
+    similar_movies = get_similar_movies(Film_title, df,
+                                        tfidf_matrix, number_movies=9)
 
     return(similar_movies)
     

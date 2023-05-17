@@ -58100,16 +58100,6 @@ $(function () {
     "Flora",
     "Leal",
   ];
-
-  $.getJSON(
-    "https://raw.githubusercontent.com/privacy-tech-lab/gretel-demo/main/ml-latest-small/movies.json",
-    function (data) {
-      $.each(data, function (index, movie) {
-        movieTitles.push(movie.title);
-      });
-    }
-  );
-
   // Define a custom search function to return the top 10 best matches
   $.ui.autocomplete.filter = function (array, term) {
     var matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
