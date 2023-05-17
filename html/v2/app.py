@@ -1,21 +1,28 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, g
 import os
 import sys
 
-sys.path.insert(1, 'C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2\\Python_files')
-file_name = ('C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\python\\out_big_data.csv')
-instance_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2"
-outputHtml_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\html\\v2\\templates\\output.html"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# projectPath = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
-# sys.path.insert(1, 'C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\Python_files')
-# file_name = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv"
-# instance_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2"
-# outputHtml_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\templates\\output.html"
+is_setup_tfidf_onStart = True
+is_handle_movielens_onStart = True
+is_getMovieMatrix_onStart = False
+
+instance_path = project_path + "html\\v2\\"
+sys.path.insert(1, instance_path + "Python_files")
+templates_path = instance_path + "templates\\"
+images_path = instance_path + "static\\Images\\"
+outBigData_path = project_path + "python\\out_big_data.csv"
+
+
+from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink
+from tfidf import start_tfidf, setup_tfidf
+from similar_movies_creation import PageCreation
+from scrap_image import scrap
 
 app = Flask(__name__, instance_path=instance_path)
-
-from tfidf import start_tfidf
-from html_creation import PageCreation
+app.config["TEMPLATES_AUTO_RELOAD"] = True
 
 @app.route("/")
 def home():
@@ -37,18 +44,39 @@ def account():
 def moviePage():
     return render_template("movie_page.html")
 
-@app.route("/_createPage", methods=["POST"])
+@app.route("/_tfidf", methods=["POST"])
 def createPage():
-    message = request.form.get("myMessage")
-    movieFilmList = start_tfidf(file_name, message)
-    PageCreation(movieFilmList, outputHtml_path)
+    movieTitle = request.form.get("searchText")
+    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=20)
+    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", row_size=4)
     print(movieFilmList)
-    return str(movieFilmList)
+    for movie in movieFilmList[:3]:
+        if not(os.path.exists(images_path+"scrap\\"+movie)):
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            try:
+                scrap(movieLink, path=images_path+"scrap\\"+movie.replace("'", "&quot;"))
+            except:
+                print("error scraping", movie)
+    return "Done!"
 
-@app.route('/output.html')
+@app.route('/similar_movies.html')
 def output():
-    return render_template('output.html')
+    return render_template('similar_movies.html')
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    with app.app_context():
+        if is_setup_tfidf_onStart:
+            tfidf_matrix, tfidf_df = setup_tfidf(outBigData_path)
+            print("tfidf setup !")
+        if is_handle_movielens_onStart:
+            print("\nsetting up movielens dataset...")
+            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=project_path+"python\\csv_files\\ml-latest\\", size=1000000)
+            print("movielens dataset setup!")
+        if is_getMovieMatrix_onStart:
+            print("making MovieMatrix...")
+            movieMatrix = getMovieMatrix(userRatings_df)
+            print("movieMatrix done!\n")
+    app.run(debug=False)
