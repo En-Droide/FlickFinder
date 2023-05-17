@@ -43,7 +43,7 @@ def PageCreation(movies,file_path):
             air.append("<!-- Search bar -->")
             with air.div(klass="search-container"):
                 air.input(id="tags", type="text", name="searchText", placeholder="Search for a movie...")
-                air.button("Search", klass="searchFilm", id="search-btn", type="submit")
+                air.button(_t="Search", klass="searchFilm", id="search-btn", type="submit")
                 with air.script():
                     air.append("""
                         $(document).ready(function () {
@@ -90,6 +90,7 @@ def PageCreation(movies,file_path):
                                 air.h6(_t="Genre")
                                 air.p(_t="Synopsys")
                 imgLeft-=4
+
             air.append("<!-- Pagination links -->")
             with air.div(klass="pagination"):
                 air.a(_t="1", href="#", klass="active")
