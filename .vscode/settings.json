@@ -1,0 +1,5 @@
+{
+    "python.analysis.extraPaths": [
+        "./html/v2/Python_files"
+    ]
+}
