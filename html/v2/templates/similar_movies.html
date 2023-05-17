@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
+  </head>
+  <!-- Top navigation bar -->
+  <header>
+    <div class="topnav">
+      <a href="main.html">
+        Home
+      </a>
+      <a href="about.html">
+        About
+      </a>
+      <div class="Flickfinder">
+        FlickFinder
+      </div>
+      <a href="account.html" class="right">
+        Account
+      </a>
+    </div>
+  </header>
+  <body>
+    <!-- Search bar -->
+    <div class="search-container">
+      <input id="tags" type="text" name="searchText" placeholder="Search for a movie..." />
+      <button class="searchFilm" id="search-btn" type="submit">Search</button>
+      <script>
+        
+        $(document).ready(function () {
+        $(".searchFilm").click(function () {
+            const message = $("[name=searchText]").val();
+            var formData = {
+            searchText: message,
+            };
+
+            if (message == "") {
+            } else {
+            $.ajax({
+                url: "/_tfidf",
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                dataType: "text",
+                    success: function (data) {
+                    alert(data);
+                    window.location.href = "/similar_movies.html"; 
+                },
+            });
+            }
+        });
+        });
+        
+      </script>
+    </div>
+    <div class="movie-grid">
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Matrix, The (1999)" />
+      </a>
+      <h3>Matrix, The (1999)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Matrix Reloaded, The (2003)" />
+      </a>
+      <h3>Matrix Reloaded, The (2003)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Matrix Revolutions, The (2003)" />
+      </a>
+      <h3>Matrix Revolutions, The (2003)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator 2: Judgment Day (1991)" />
+      </a>
+      <h3>Terminator 2: Judgment Day (1991)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Gen-Y Cops (Te jing xin ren lei 2) (Gen-X Cops 2: Metal Mayhem) (Metal Mayhem) (2000)" />
+      </a>
+      <h3>Gen-Y Cops (Te jing xin ren lei 2) (Gen-X Cops 2: Metal Mayhem) (Metal Mayhem) (2000)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Tron (1982)" />
+      </a>
+      <h3>Tron (1982)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Ghost in the Shell 2.0 (2008)" />
+      </a>
+      <h3>Ghost in the Shell 2.0 (2008)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Resident Evil: Retribution (2012)" />
+      </a>
+      <h3>Resident Evil: Retribution (2012)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Total Recall (1990)" />
+      </a>
+      <h3>Total Recall (1990)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator 3: Rise of the Machines (2003)" />
+      </a>
+      <h3>Terminator 3: Rise of the Machines (2003)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Resident Evil: The Final Chapter (2017)" />
+      </a>
+      <h3>Resident Evil: The Final Chapter (2017)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator, The (1984)" />
+      </a>
+      <h3>Terminator, The (1984)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Ghost in the Shell (Kôkaku kidôtai) (1995)" />
+      </a>
+      <h3>Ghost in the Shell (Kôkaku kidôtai) (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator Genisys (2015)" />
+      </a>
+      <h3>Terminator Genisys (2015)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Ghost in the Shell (2017)" />
+      </a>
+      <h3>Ghost in the Shell (2017)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator Salvation (2009)" />
+      </a>
+      <h3>Terminator Salvation (2009)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Thirteenth Floor, The (1999)" />
+      </a>
+      <h3>Thirteenth Floor, The (1999)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Fair Game (1995)" />
+      </a>
+      <h3>Fair Game (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Hands of Steel (1986)" />
+      </a>
+      <h3>Hands of Steel (1986)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Johnny Mnemonic (1995)" />
+      </a>
+      <h3>Johnny Mnemonic (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div>
+      <a href="movie_page.html">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Expect No Mercy (1995)" />
+      </a>
+      <h3>Expect No Mercy (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+  </body>
+  <footer>
+    <div class="container">
+      <h3>About Us, The Recommendation website</h3>
+
+      <img src="{{ url_for('static',filename='Images/ESME.jpg') }}" alt="Me" class="w3-image" style="display: block; margin: auto" width="100" height="100" />
+      <h4><b>hello</b></h4>
+      <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-twitter" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-google-plus-g" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+</html>
