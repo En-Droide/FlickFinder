@@ -91,7 +91,9 @@
         </p>
       </div>
       <div class="moviecontainer">
-        <img id="TheFabelmans" src="{{ url_for('static',filename='Images/TheFabelmans.webp') }}" alt="Movie 2" />
+        <a href="/_movie/fabelmans">
+          <img id="TheFabelmans" src="{{ url_for('static',filename='Images/TheFabelmans.webp') }}" alt="Movie 2" />
+        </a>
         <h3>The Fabelmans</h3>
         <h6>Biopic, Drame &ensp; i &emsp;test</h6>
         <p>
@@ -100,7 +102,7 @@
           professionnelle...
         </p>
       </div>
-      <script>
+      <!-- <script>
         $(document).ready(function () {
           $(".TheFabelmans").click(function () {
               $.ajax({
@@ -116,7 +118,7 @@
               });
           });
         });
-      </script>
+      </script> -->
 
       <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/TheWhale.webp') }}" alt="Movie 3" />

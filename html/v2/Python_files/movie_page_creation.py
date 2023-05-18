@@ -28,17 +28,17 @@ def open_movie_page(file_path):
                 with air.div(class_="img-container"):
                     air.img(src="{{ url_for('static', filename='Images/Themenu.webp') }}", alt="Movie Title")
                 with air.div(class_="synopsis-container"):
-                    air.h1("The Menu")
-                    air.span("Comedy", class_="tag_comedy")
-                    air.span("Horror", class_="tag_horror")
-                    air.span("Thriller", class_="tag_thriller")
-                    air.p("2022&emsp;-&emsp;1h47m")
-                    air.p("A young couple travels to a remote island to eat at an exclusive restaurant where the chef has prepared a lavish menu, with some shocking surprises.")
+                    air.h1(_t="The Menu")
+                    air.span(_t="Comedy", class_="tag_comedy")
+                    air.span(_t="Horror", class_="tag_horror")
+                    air.span(_t="Thriller", class_="tag_thriller")
+                    air.p(_t="2022&emsp;-&emsp;1h47m")
+                    air.p(_t="A young couple travels to a remote island to eat at an exclusive restaurant where the chef has prepared a lavish menu, with some shocking surprises.")
                     air.hr()
-                    air.p("Director :")
+                    air.p(_t="Director :")
                     air.hr()
-                    air.p("Cast:&emsp; Ralph Fiennes | Anya Taylor-Joy | Nicolas Hoult")
-                    air.h3("Rating :&ensp;4.2&ensp;", class_="stars_rating")
+                    air.p(_t="Cast:&emsp; Ralph Fiennes | Anya Taylor-Joy | Nicolas Hoult")
+                    air.h3(_t="Rating :&ensp;4.2&ensp;", class_="stars_rating")
                     
                     with air.div(class_="rate"):
                         air.p("Your rating:", class_="rating-label")
@@ -56,7 +56,7 @@ def open_movie_page(file_path):
                     # air.button("Watchlist&ensp;+", class_="buttonwatchlist")  # Commented out as per your example
                     
             with air.div(class_="additional-text"):
-                air.p("Additional text goes here...")
+                air.p(_t="Additional text goes here...")
 
     html = str(air)  # casting to string extracts the value
     # or directly to UTF-8 encoded bytes:
@@ -65,4 +65,4 @@ def open_movie_page(file_path):
     with open(file_path, 'w', encoding="utf-8") as file:
         file.write(html)
 
-    print("HTML page created successfully.")    
+    print("HTML page created successfully.")
