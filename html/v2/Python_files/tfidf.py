@@ -27,8 +27,6 @@ def process_data(csv_file):
         df["title_wt_date"] = df["title"].str.replace(r"\s\(\d{4}\)$", "",
                                                       regex=True)
     # df.to_csv("out.csv", index=False)
-    df['keywords'] = df['keywords']
-    df['cast'] = df['cast']
     return df
 
 

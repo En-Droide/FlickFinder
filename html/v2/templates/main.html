@@ -76,7 +76,7 @@
 
     <!-- Movie recommendations grid -->
     <div class="movie-grid">
-      <div>
+      <div class="moviecontainer">
         <a href="movie_page.html"
           ><img
             src="{{ url_for('static',filename='Images/Themenu.webp') }}"
@@ -90,8 +90,8 @@
           triés sur le volet...
         </p>
       </div>
-      <div>
-        <img src="{{ url_for('static',filename='Images/TheFabelmans.webp') }}" alt="Movie 2" />
+      <div class="moviecontainer">
+        <img id="TheFabelmans" src="{{ url_for('static',filename='Images/TheFabelmans.webp') }}" alt="Movie 2" />
         <h3>The Fabelmans</h3>
         <h6>Biopic, Drame &ensp; i &emsp;test</h6>
         <p>
@@ -100,7 +100,25 @@
           professionnelle...
         </p>
       </div>
-      <div>
+      <script>
+        $(document).ready(function () {
+          $(".TheFabelmans").click(function () {
+              $.ajax({
+                url: "/movie_page",
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                dataType: "text",
+                success: function (data) {
+                  alert(data);
+                  window.location.href = "/charac_movie.html"; 
+                },
+              });
+          });
+        });
+      </script>
+
+      <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/TheWhale.webp') }}" alt="Movie 3" />
         <h3>The Wale</h3>
         <h6>Drame</h6>
@@ -109,7 +127,7 @@
           sa fille adolescente pour une ultime chance de rédemption...
         </p>
       </div>
-      <div>
+      <div class="moviecontainer"iv>
         <img src="{{ url_for('static',filename='Images/JohnWick.webp') }}" alt="Movie 4" />
         <h3>John Wick: Chapter 4</h3>
         <h6>Action</h6>
@@ -121,7 +139,7 @@
     </div>
 
     <div class="movie-grid">
-      <div>
+      <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/creedIII.jpg') }}" alt="Movie 5" />
         <h3>creedIII</h3>
         <h6>Drame</h6>
@@ -131,7 +149,7 @@
           boxe lui aussi, refait surface...
         </p>
       </div>
-      <div>
+      <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/le_bonheur_des_uns.webp') }}" alt="Movie 6" />
         <h3>Le bonheur des uns...</h3>
         <h6>Comédie</h6>
@@ -141,7 +159,7 @@
           dans le groupe...
         </p>
       </div>
-      <div>
+      <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/everything_everywhere_all_at_once.webp') }}" alt="Movie 7" />
         <h3>Everything Everywhere all at Once</h3>
         <h6>Action, Comédie, Drame</h6>
@@ -150,7 +168,7 @@
           et croule sous les impôts…
         </p>
       </div>
-      <div>
+      <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/quantum.jpg') }}" alt="Movie 8" />
         <h3>Ant-Man et la guêpe: Quantumania</h3>
         <h6>Action, Aventure, Science fiction</h6>
