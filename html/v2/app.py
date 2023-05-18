@@ -17,10 +17,10 @@ rating_path = project_path + "\\python\\csv_files\\ml-latest\\ratings.csv"
 outBigData_path = project_path + "python\\out_big_data.csv"
 
 
-from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink
-from tfidf import start_tfidf, setup_tfidf, movie_genres_cast
+from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex
+from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
 from similar_movies_creation import PageCreation
-from scrap_image import scrap
+from scrap import scrap_image
 from movie_page_creation import open_movie_page
 
 app = Flask(__name__, instance_path=instance_path)
@@ -58,7 +58,7 @@ def createPage():
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
             try:
-                scrap(movieLink, path=images_path+"scrap\\"+movie.replace("'", "&quot;"))
+                scrap_image(movieLink, path=images_path+"scrap\\"+movie.replace("'", "&quot;"))
             except:
                 print("error scraping", movie)
     return "Done!"
@@ -70,9 +70,11 @@ def similar_movies():
 @app.route('/_movie/<movieTitle>')
 def movie_page(movieTitle):
     print(movieTitle)
-    movieTitle="Toy Story (1995)"
-    list_movie_genres, list_movie_cast  = movie_genres_cast(tfidf_df, movieTitle)
-    open_movie_page(file_path=templates_path+"charac_movie.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast)
+    # movieTitle="Toy Story (1995)"
+    list_movie_genres, list_movie_cast = get_movie_genres_cast(tfidf_df, movieTitle)
+    movieId = getMovieId(movieTitle=movieTitle, movies_df=tfidf_df)
+    mean_rating_movie = round(getMovieRatingsByIndex(movieId, movieRatings_df)["mean rating"], 1)
+    open_movie_page(file_path=templates_path+"charac_movie.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
     return render_template('charac_movie.html')
 
 if __name__ == '__main__':

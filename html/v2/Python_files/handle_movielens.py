@@ -66,6 +66,10 @@ def getMovieRatings(movieId, ratings_df):
     return ratings_df[ratings_df["movieId"] == movieId]
 
 
+def getMovieRatingsByIndex(movieId, ratings_df):
+    return ratings_df.iloc[movieId]
+
+
 def convertTimestamp(timestamp):
     return datetime.datetime.utcfromtimestamp(timestamp)
 
@@ -88,3 +92,4 @@ def read_movielens(path, size):
     movies, links, tags, userRatings, movieRatings =\
         readCSVs(resourcePath=path, size=size)
     return movies, links, tags, userRatings, movieRatings
+
