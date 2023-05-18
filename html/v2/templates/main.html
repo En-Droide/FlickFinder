@@ -29,10 +29,10 @@
   <header>
     <!-- Top navigation bar -->
     <div class="topnav">
-      <a href="main.html">Home</a>
-      <a href="about.html">About</a>
+      <a href="/main.html">Home</a>
+      <a href="/about.html">About</a>
       <div class="Flickfinder">FlickFinder</div>
-      <a href="account.html" class="right">Account</a>
+      <a href="/account.html" class="right">Account</a>
     </div>
   </header>
   <body>
@@ -77,7 +77,7 @@
     <!-- Movie recommendations grid -->
     <div class="movie-grid">
       <div class="moviecontainer">
-        <a href="movie_page.html"
+        <a href="/movie_page.html"
           ><img
             src="{{ url_for('static',filename='Images/Themenu.webp') }}"
             alt="Movie 1"
@@ -102,24 +102,6 @@
           professionnelle...
         </p>
       </div>
-      <!-- <script>
-        $(document).ready(function () {
-          $(".TheFabelmans").click(function () {
-              $.ajax({
-                url: "/movie_page",
-                type: "POST",
-                crossDomain: true,
-                data: formData,
-                dataType: "text",
-                success: function (data) {
-                  alert(data);
-                  window.location.href = "/charac_movie.html"; 
-                },
-              });
-          });
-        });
-      </script> -->
-
       <div class="moviecontainer">
         <img src="{{ url_for('static',filename='Images/TheWhale.webp') }}" alt="Movie 3" />
         <h3>The Wale</h3>

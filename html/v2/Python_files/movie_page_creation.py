@@ -3,7 +3,7 @@ import os
 
 
 air = Airium()
-def open_movie_page(file_path,movieTitle,listgenre,listcast):
+def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
     air('<!DOCTYPE html>')
     with air.html(lang="en"):
         with air.head():
@@ -15,13 +15,13 @@ def open_movie_page(file_path,movieTitle,listgenre,listcast):
         air.append("<!-- Top navigation bar -->") 
         with air.header():
             with air.div(klass="topnav"):
-                with air.a(href="main.html"):
+                with air.a(href="/main.html"):
                     air("Home")
-                with air.a(href="about.html"):
+                with air.a(href="/about.html"):
                     air("About")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
-                with air.a(href="account.html", klass="right"):
+                with air.a(href="/account.html", klass="right"):
                     air("Account")
         with air.body():
             with air.div(class_="container"):
@@ -36,8 +36,12 @@ def open_movie_page(file_path,movieTitle,listgenre,listcast):
                     air.hr()
                     air.p(_t="Director :")
                     air.hr()
-                    air.p(_t=f"Cast:&emsp; {listcast[0]} | {listcast[1]} | {listcast[2]}")
-                    air.h3(_t="Rating :&ensp;4.2&ensp;", class_="stars_rating")
+                    cast_output = "Cast:&emsp;| "
+                    for cast in listcast:
+                        cast_output += f" {cast} |"
+                    air.p(_t=cast_output)
+                    # air.p(_t=f"Cast:&emsp; {listcast[0]} | {listcast[1]} | {listcast[2]}")
+                    air.h3(_t=f"Rating :&ensp;{meanRating}&ensp;", class_="stars_rating")
                     
                     with air.div(class_="rate"):
                         air.p("Your rating:", class_="rating-label")

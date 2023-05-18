@@ -31,13 +31,13 @@ def PageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         air.append("<!-- Top navigation bar -->") 
         with air.header():
             with air.div(klass="topnav"):
-                with air.a(href="main.html"):
+                with air.a(href="/main.html"):
                     air("Home")
-                with air.a(href="about.html"):
+                with air.a(href="/about.html"):
                     air("About")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
-                with air.a(href="account.html", klass="right"):
+                with air.a(href="/account.html", klass="right"):
                     air("Account")
         
         with air.body():

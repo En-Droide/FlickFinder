@@ -94,16 +94,11 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
 
     return similar_movies
 
-def movie_genres_cast(df, movieTitle):
+def get_movie_genres_cast(df, movieTitle):
     movieId = df.index[df["title"] == movieTitle][0]
     cast_str = df.loc[movieId]["cast"]
     cast_list = ast.literal_eval(cast_str)[:3]
     return [x.lower() for x in df.loc[movieId]["genres"].split('|')], cast_list
-
-def rating(rating_path, movieTitle):
-    csv_file = pd.read_csv()
-    #AFINIR
-
 
 def start_tfidf(df, tfidf_matrix, moviename, size):
     Film_title = match_title(moviename,df)
@@ -117,6 +112,7 @@ def start_tfidf(df, tfidf_matrix, moviename, size):
 def setup_tfidf(file_name):
     print("setting up tfidf...")
     csv_file = pd.read_csv(file_name, encoding="utf-8")
+    
     print(" csv done")
     # most_popular_movies = genre_popularity(csv_file)
     df = process_data(csv_file)
