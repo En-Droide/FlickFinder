@@ -26,7 +26,7 @@ def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
         with air.body():
             with air.div(class_="container"):
                 with air.div(class_="img-container"):
-                    air.img(src="{{ url_for('static', filename='Images/Themenu.webp') }}", alt="Movie Title")
+                    air.img(src=f"{{ url_for('static', filename='Images/{movieTitle}.png') }}", alt="Movie Image")
                 with air.div(class_="synopsis-container"):
                     air.h1(_t=f"{movieTitle}")
                     for genre in listgenre:

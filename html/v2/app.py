@@ -1,30 +1,36 @@
-from flask import Flask, render_template, request, g
+from flask import Flask, render_template, request, abort
+import logging
 import os
 import sys
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
 is_getMovieMatrix_onStart = False
 
 instance_path = project_path + "html\\v2\\"
-sys.path.insert(1, instance_path + "Python_files")
 templates_path = instance_path + "templates\\"
 images_path = instance_path + "static\\Images\\"
-rating_path = project_path + "\\python\\csv_files\\ml-latest\\ratings.csv"
-outBigData_path = project_path + "python\\out_big_data.csv"
+python_path = instance_path + "Python_files\\"
+sys.path.insert(1, python_path)
+movieLens_path = python_path + "csv_files\\ml-latest\\"
+rating_path = movieLens_path + "ratings.csv"
+outBigData_path = python_path + "csv_files\\out_big_data.csv"
 
 
-from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex
+from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
-from similar_movies_creation import PageCreation
+from create_similar_movies import PageCreation
 from scrap import scrap_image
-from movie_page_creation import open_movie_page
+from create_movie_page import open_movie_page
+
 
 app = Flask(__name__, instance_path=instance_path)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
@@ -42,25 +48,24 @@ def about():
 def account():
     return render_template("account.html")
 
-@app.route("/movie_page.html")
+@app.route("/exemple_movie_page.html")
 def moviePage():
-    return render_template("movie_page.html")
+    return render_template("exemple_movie_page.html")
 
 @app.route("/_tfidf", methods=["POST"])
 def createPage():
     movieTitle = request.form.get("searchText")
     movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=20)
-    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     print(movieFilmList)
-    for movie in movieFilmList[:3]:
-        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg")):
+    global failed_scraps
+    for movie in movieFilmList[:4]:
+        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
             movieId = getMovieId(movie, movies_df)
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
-            try:
-                scrap_image(movieLink, path=images_path+"scrap\\"+movie.replace("'", "&quot;"))
-            except:
-                print("error scraping", movie)
+            response = scrap_image(movieLink, images_path=images_path, movieTitle=movie)
+            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     return "Done!"
 
 @app.route('/similar_movies.html')
@@ -71,11 +76,17 @@ def similar_movies():
 def movie_page(movieTitle):
     print(movieTitle)
     # movieTitle="Toy Story (1995)"
+    if not(isMovieInDataset(movieTitle, movies_df)):
+        abort(404)
     list_movie_genres, list_movie_cast = get_movie_genres_cast(tfidf_df, movieTitle)
     movieId = getMovieId(movieTitle=movieTitle, movies_df=tfidf_df)
-    mean_rating_movie = round(getMovieRatingsByIndex(movieId, movieRatings_df)["mean rating"], 1)
-    open_movie_page(file_path=templates_path+"charac_movie.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
-    return render_template('charac_movie.html')
+    try:
+        mean_rating_movie = round(getMovieRatingsByIndex(movieId, movieRatings_df)["mean rating"], 1)
+    except IndexError:
+        print("ERROR : no ratings found in current sample")
+        mean_rating_movie = "error"
+    open_movie_page(file_path=templates_path+"movie_page.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
+    return render_template('movie_page.html')
 
 if __name__ == '__main__':
     with app.app_context():
@@ -84,10 +95,13 @@ if __name__ == '__main__':
             print("tfidf setup !")
         if is_handle_movielens_onStart:
             print("\nsetting up movielens dataset...")
-            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=project_path+"python\\csv_files\\ml-latest\\", size=1000000)
+            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, size=1000000)
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
             print("making MovieMatrix...")
             movieMatrix = getMovieMatrix(userRatings_df)
             print("movieMatrix done!\n")
+        with open(images_path+"failed_images_scraps.txt", "r") as reader:
+            failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
+        print("link : http://127.0.0.1:5000/")
     app.run(debug=True)

@@ -63,7 +63,7 @@ def PageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                 data: formData,
                 dataType: "text",
                     success: function (data) {
-                    alert(data);
+                    // alert(data);
                     window.location.href = "/similar_movies.html"; 
                 },
             });
