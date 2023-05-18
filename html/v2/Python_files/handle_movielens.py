@@ -88,6 +88,10 @@ def addRowsToDataframe(df: pd.DataFrame, new_rows: list):
     return pd.concat([df, pd.DataFrame(data=new_rows, columns=df.columns)])
 
 
+def isMovieInDataset(movieTitle, movies_df):
+    return len(movies_df[movies_df["title"] == movieTitle]) == 1
+
+
 def read_movielens(path, size):
     movies, links, tags, userRatings, movieRatings =\
         readCSVs(resourcePath=path, size=size)

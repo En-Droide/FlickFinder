@@ -64,7 +64,7 @@
                 data: formData,
                 dataType: "text",
                 success: function (data) {
-                  alert(data);
+                  // alert(data);
                   window.location.href = "/similar_movies.html"; 
                 },
               });
@@ -77,7 +77,7 @@
     <!-- Movie recommendations grid -->
     <div class="movie-grid">
       <div class="moviecontainer">
-        <a href="/movie_page.html"
+        <a href="exemple_movie_page.html"
           ><img
             src="{{ url_for('static',filename='Images/Themenu.webp') }}"
             alt="Movie 1"
