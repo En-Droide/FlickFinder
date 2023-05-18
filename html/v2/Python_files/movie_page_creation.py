@@ -3,7 +3,7 @@ import os
 
 
 air = Airium()
-def open_movie_page(file_path):
+def open_movie_page(file_path,movieTitle,listgenre,listcast):
     air('<!DOCTYPE html>')
     with air.html(lang="en"):
         with air.head():
@@ -28,16 +28,15 @@ def open_movie_page(file_path):
                 with air.div(class_="img-container"):
                     air.img(src="{{ url_for('static', filename='Images/Themenu.webp') }}", alt="Movie Title")
                 with air.div(class_="synopsis-container"):
-                    air.h1(_t="The Menu")
-                    air.span(_t="Comedy", class_="tag_comedy")
-                    air.span(_t="Horror", class_="tag_horror")
-                    air.span(_t="Thriller", class_="tag_thriller")
+                    air.h1(_t=f"{movieTitle}")
+                    for genre in listgenre:
+                        air.span(_t=f"{genre}", class_=f"tag_{genre}")
                     air.p(_t="2022&emsp;-&emsp;1h47m")
                     air.p(_t="A young couple travels to a remote island to eat at an exclusive restaurant where the chef has prepared a lavish menu, with some shocking surprises.")
                     air.hr()
                     air.p(_t="Director :")
                     air.hr()
-                    air.p(_t="Cast:&emsp; Ralph Fiennes | Anya Taylor-Joy | Nicolas Hoult")
+                    air.p(_t=f"Cast:&emsp; {listcast[0]} | {listcast[1]} | {listcast[2]}")
                     air.h3(_t="Rating :&ensp;4.2&ensp;", class_="stars_rating")
                     
                     with air.div(class_="rate"):
