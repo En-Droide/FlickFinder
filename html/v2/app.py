@@ -2,8 +2,8 @@ from flask import Flask, render_template, request, g
 import os
 import sys
 
-project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -13,11 +13,12 @@ instance_path = project_path + "html\\v2\\"
 sys.path.insert(1, instance_path + "Python_files")
 templates_path = instance_path + "templates\\"
 images_path = instance_path + "static\\Images\\"
+rating_path = project_path + "\\python\\csv_files\\ml-latest\\ratings.csv"
 outBigData_path = project_path + "python\\out_big_data.csv"
 
 
 from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink
-from tfidf import start_tfidf, setup_tfidf
+from tfidf import start_tfidf, setup_tfidf, movie_genres_cast
 from similar_movies_creation import PageCreation
 from scrap_image import scrap
 from movie_page_creation import open_movie_page
@@ -69,7 +70,9 @@ def similar_movies():
 @app.route('/_movie/<movieTitle>')
 def movie_page(movieTitle):
     print(movieTitle)
-    open_movie_page(file_path=templates_path+"charac_movie.html")
+    movieTitle="Toy Story (1995)"
+    list_movie_genres, list_movie_cast  = movie_genres_cast(tfidf_df, movieTitle)
+    open_movie_page(file_path=templates_path+"charac_movie.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast)
     return render_template('charac_movie.html')
 
 if __name__ == '__main__':

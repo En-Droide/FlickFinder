@@ -13,13 +13,16 @@ from scipy.sparse import csr_matrix
 from difflib import get_close_matches
 
 
-# def genre_popularity(csv_file):
-#     popularity = (csv_file.genres.str.split('|').explode().value_counts()
-#      .sort_values(ascending=False))
+def genre_popularity(csv_file):
+    popularity = (csv_file.genres.str.split('|').explode().value_counts()
+      .sort_values(ascending=False))
     
-#     return popularity.head(10)
+    return popularity
 
-
+def genre(df,movie_title):
+    movieId = df.index[df["title_wt_date"] == movie_title][0]
+    return df.loc[movieId]["genres"].split('|')
+    
 
 def process_data(csv_file):
     # .fillna('')
@@ -102,7 +105,8 @@ def start_tfidf(file_name,moviename):
     
     csv_file = pd.read_csv(file_name)
     print("csv done")
-    # most_popular_movies = genre_popularity(csv_file)
+    most_popular_movies = genre_popularity(csv_file)
+    print(most_popular_movies)
     df = process_data(csv_file)
     print("df done")
     tfidf_matrix = get_tfidf_matrix(df)
@@ -111,7 +115,11 @@ def start_tfidf(file_name,moviename):
     print(Film_title)
     similar_movies = get_similar_movies(Film_title, df,
                                         tfidf_matrix, number_movies=9)
-
+    print(genre(df,"Toy Story"))
     return(similar_movies)
-    
-# print(start_tfidf("C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv","Toy Story"))
+  # csv_file = pd.read_csv("C:/Users/MatyG/Documents/Annee_2022_2023/Projet_films/FlickFinder/python/csv_files/ml-latest/ratings.csv")
+
+  # rating = csv_file.loc[csv_file["movieId"] == 1, "rating"]
+  # mean_rating = round(rating.mean(),1)
+  # print(mean_rating)  
+print(start_tfidf("C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv","Toy Story"))

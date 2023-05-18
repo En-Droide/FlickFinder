@@ -11,7 +11,7 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 from scipy.sparse import csr_matrix
 from difflib import get_close_matches
-
+import ast
 
 # def genre_popularity(csv_file):
 #     popularity = (csv_file.genres.str.split('|').explode().value_counts()
@@ -93,6 +93,16 @@ def get_similar_movies(movie_title, df, tfidf_matrix, number_movies=10):
     similar_movies.insert(0, titleDateSearch(movie_title, df))
 
     return similar_movies
+
+def movie_genres_cast(df, movieTitle):
+    movieId = df.index[df["title"] == movieTitle][0]
+    cast_str = df.loc[movieId]["cast"]
+    cast_list = ast.literal_eval(cast_str)[:3]
+    return [x.lower() for x in df.loc[movieId]["genres"].split('|')], cast_list
+
+def rating(rating_path, movieTitle):
+    csv_file = pd.read_csv()
+    #AFINIR
 
 
 def start_tfidf(df, tfidf_matrix, moviename, size):

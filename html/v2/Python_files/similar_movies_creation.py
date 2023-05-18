@@ -80,7 +80,7 @@ def PageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                 if(i % row_size == 0): air.append('<div class="movie-grid">')
                 # with air.div(klass="movie-grid"):
                 with air.div(klass="moviecontainer"):
-                    with air.a(href="/movie_page"):
+                    with air.a(href=f"/_movie/{movieTitle}"):
                         air.img(src=f"{{{{ url_for('static', filename='{imPath}') }}}}", alt=f"Movie: {movieTitle}")
                     air.h3(_t=movieTitle)
                     air.h6(_t="Genre")
