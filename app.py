@@ -10,7 +10,7 @@ is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
 is_getMovieMatrix_onStart = False
 
-instance_path = project_path + "html\\v2\\"
+instance_path = project_path
 templates_path = instance_path + "templates\\"
 images_path = instance_path + "static\\Images\\"
 python_path = instance_path + "Python_files\\"

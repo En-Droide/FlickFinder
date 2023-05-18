@@ -1,6 +1,6 @@
 # Resources
-html/v2/Python_files/csv_files/ml-latest/
-html/v2/Python_files/csv_files/ml-latest-small/
+Python_files/csv_files/ml-latest/
+Python_files/csv_files/ml-latest-small/
 # python/csv_files/
 *.h5  # Pandas.HDFStore files
 

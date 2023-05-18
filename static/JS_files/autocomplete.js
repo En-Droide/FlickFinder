@@ -1,7 +1,8 @@
 $(function () {
   // Fetch the movie titles from the server
-  $.getJSON("movieList.json", function(json) {
+  $.getJSON("./static/JS_files/movieList.json", function(json) {
     var movieTitles = json; // this will show the info it in firebug console
+    alert("test")
     return movieTitles;
 });
 
