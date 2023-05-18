@@ -1,6 +1,4 @@
-$(function () {
-  // Fetch the movie titles from the server
-  var movieTitles = [
+[
     "Toy Story",
     "Jumanji",
     "Grumpier Old Men",
@@ -11703,7 +11701,7 @@ $(function () {
     "Family Law (Derecho de familia)",
     "Emil i Lönneberga",
     "Citizen X",
-    '"Great Performances" Cats',
+    "'Great Performances' Cats",
     "Canterbury Tales, The (I racconti di Canterbury)",
     "Forest for the Trees, The (Der Wald vor lauter Bäumen)",
     "Next",
@@ -24226,7 +24224,7 @@ $(function () {
     "EMR",
     "I Origins",
     "Gunbuster (Top wo Narae)",
-    'Diebuster "Top wo Narae 2"',
+    "Diebuster 'Top wo Narae 2'",
     "Front Line, The (Go-ji-jeon)",
     "Wrestling for Jesus: The Tale of T-Money",
     "One Man Up (L'uomo in più)",
@@ -24647,7 +24645,7 @@ $(function () {
     "Hori Smoku Sailor Jerry: The Life of Norman K. Collins (2008) ",
     "Men Without Women",
     "Below Sea Level",
-    "Hollywood and The\xa0Pentagon: A Dangerous Liaison",
+    "Hollywood and The Pentagon: A Dangerous Liaison",
     "Power and Terror: Noam Chomsky in Our Times",
     "Noam Chomsky: Distorted Morality",
     "Beast at Bay, A",
@@ -33943,7 +33941,7 @@ $(function () {
     "The Ninja Immovable Heart",
     "Finding Fanny",
     "The Blue Lamp",
-    'The Death of "Superman Lives": What Happened?',
+    "The Death of 'Superman Lives': What Happened?",
     "Impasse",
     "Dead Innocent",
     "In Heaven There Is No Beer?",
@@ -49401,7 +49399,7 @@ $(function () {
     "Out of Time",
     "The Bewitched Inn",
     "After the Ball",
-    'Divers at Work on the Wreck of the "Maine"',
+    "Divers at Work on the Wreck of the 'Maine'",
     "Patchwork",
     "The Killing Season",
     "BoJack Horseman Christmas Special: Sabrina's Christmas Wish",
@@ -53378,7 +53376,7 @@ $(function () {
     "Butterfly",
     "Rudy Habibie",
     "Sgt Pepper's Musical Revolution with Howard Goodall",
-    'How Viktor "The Garlic" Took Alexey "The Stud" to the Nursing Home',
+    "How Viktor 'The Garlic' Took Alexey 'The Stud' to the Nursing Home",
     "Time Under Fire",
     "Star Wars: The Legacy Revealed",
     "My Journey Through French Cinema",
@@ -54827,7 +54825,7 @@ $(function () {
     "Killer nurse",
     "The Wiggles Movie",
     "The 414s",
-    "Lumière\xa0! L'aventure commence",
+    "Lumière ! L'aventure commence",
     "Captain Clegg",
     "Paranoiac",
     "Night of Fear",
@@ -55314,7 +55312,7 @@ $(function () {
     "Falkenberg Farewell",
     "Blinky Bill",
     "Manieggs - Revenge of the Hard Egg",
-    "Transit\xa0",
+    "Transit",
     "Pushing Dead",
     "The Time of Their Lives",
     "Linha de Montagem",
@@ -58051,7 +58049,7 @@ $(function () {
     "We Have Always Lived in the Castle",
     "Matangi / Maya / M.I.A.",
     "The Society of the Spectacle",
-    'Refutation of All the Judgements, Pro or Con, Thus Far Rendered on the Film "The Society of the Spectacle"',
+    "Refutation of All the Judgements, Pro or Con, Thus Far Rendered on the Film 'The Society of the Spectacle'",
     "On the Passage of a Few People through a Relatively Short Period of Time",
     "Hurlements en faveur de Sade",
     "Empowered",
@@ -58098,38 +58096,5 @@ $(function () {
     "Les tribulations d'une caissière",
     "Her Name Was Mumu",
     "Flora",
-    "Leal",
-  ];
-
-  // $.getJSON(
-  //   "https://raw.githubusercontent.com/privacy-tech-lab/gretel-demo/main/ml-latest-small/movies.json",
-  //   function (data) {
-  //     $.each(data, function (index, movie) {
-  //       movieTitles.push(movie.title);
-  //     });
-  //   }
-  // );
-
-  // Define a custom search function to return the top 10 best matches
-  $.ui.autocomplete.filter = function (array, term) {
-    var matcher = new RegExp($.ui.autocomplete.escapeRegex(term), "i");
-    return $.grep(array, function (value) {
-      return matcher.test(value);
-    })
-      .sort(function (a, b) {
-        // Sort the matches by the index of the match in the title string
-        var aIndex = a.toLowerCase().indexOf(term.toLowerCase());
-        var bIndex = b.toLowerCase().indexOf(term.toLowerCase());
-        return aIndex - bIndex;
-      })
-      .slice(0, 5);
-  };
-
-  // Initialize the autocomplete widget with the movie titles and custom search function
-  $("#tags").autocomplete({
-    source: movieTitles,
-    minLength: 2,
-    autoFocus: true,
-    delay: 500,
-  });
-});
+    "Leal"
+]

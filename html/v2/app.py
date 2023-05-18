@@ -55,7 +55,7 @@ def moviePage():
 @app.route("/_tfidf", methods=["POST"])
 def createPage():
     movieTitle = request.form.get("searchText")
-    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=20)
+    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=19)
     print(movieFilmList)
     global failed_scraps
     for movie in movieFilmList[:4]:
@@ -104,4 +104,4 @@ if __name__ == '__main__':
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
         print("link : http://127.0.0.1:5000/")
-    app.run(debug=True)
+    app.run(debug=False)
