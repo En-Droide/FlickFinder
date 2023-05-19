@@ -3,7 +3,7 @@ import os
 
 
 air = Airium()
-def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
+def open_movie_page(file_path,images_path, movieTitle, listgenre, listcast, meanRating):
     delete_file(file_path)
     air('<!DOCTYPE html>')
     with air.html(lang="en"):
@@ -27,7 +27,11 @@ def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
         with air.body():
             with air.div(class_="container"):
                 with air.div(class_="img-container"):
-                    air.img(src=f"{{ url_for('static', filename='Images/{movieTitle}.png') }}", alt="Movie Image")
+                    if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
+                        imPath = f'Images/scrap/{movieTitle}.jpg'
+                    else:
+                        imPath = 'Images/placeholder.png'
+                    air.img(src=f"{{{{ url_for('static', filename='{imPath}') }}}}", alt=f"Movie: {movieTitle}")   
                 with air.div(class_="synopsis-container"):
                     air.h1(_t=f"{movieTitle}")
                     for genre in listgenre:
@@ -41,7 +45,6 @@ def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
                     for cast in listcast:
                         cast_output += f" {cast} |"
                     air.p(_t=cast_output)
-                    # air.p(_t=f"Cast:&emsp; {listcast[0]} | {listcast[1]} | {listcast[2]}")
                     air.h3(_t=f"Rating :&ensp;{meanRating}&ensp;", class_="stars_rating")
                     
                     with air.div(class_="rate"):
@@ -70,9 +73,11 @@ def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
         file.write(html)
 
     print("HTML page created successfully.")
+
+
 def delete_file(file_path):
     try:
         os.remove(file_path)
-        print("Html File deleted successfully.")
+        print(f"Html File deleted successfully.{file_path}")
     except OSError as e:
         print(f"Error deleting the file: {e}")

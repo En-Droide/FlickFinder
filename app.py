@@ -3,8 +3,8 @@ import logging
 import os
 import sys
 
-project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -85,8 +85,8 @@ def movie_page(movieTitle):
     except IndexError:
         print("ERROR : no ratings found in current sample")
         mean_rating_movie = "error"
-    open_movie_page(file_path=templates_path+"movie_page.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
-    return render_template('movie_page.html')
+    open_movie_page(file_path=templates_path+"movie_page.html",images_path=images_path, movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
+    return render_template('movie_page.html', movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
 
 if __name__ == '__main__':
     with app.app_context():

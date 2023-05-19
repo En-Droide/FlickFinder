@@ -236,7 +236,7 @@ body {
   background: rgb(255, 183, 92);
 }
 
-.tag_scifi {
+.tag_sci-fi {
   background: rgb(0, 123, 255);
   border-radius: 10px;
   padding: 3px 8px;
@@ -246,7 +246,7 @@ body {
   cursor: pointer;
 }
 
-.tag_scifi:hover {
+.tag_sci-fi:hover {
   background: rgb(92, 155, 255);
 }
 
