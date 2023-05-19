@@ -23,7 +23,33 @@
       crossorigin="anonymous"
     ></script>
     <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
+    <script src="{{ url_for('static',filename='./JS_files/autocomplete.js') }}"></script>
+
+    <script>
+      $(document).ready(function () {
+        $(".searchFilm").click(function () {
+          const message = $("[name=searchText]").val();
+          var formData = {
+            searchText: message,
+          };
+
+          if (message == "") {
+          } else {
+            $.ajax({
+              url: "/_tfidf",
+              type: "POST",
+              crossDomain: true,
+              data: formData,
+              dataType: "text",
+              success: function (data) {
+                // alert(data);
+                window.location.href = "/similar_movies.html"; 
+              },
+            });
+          }
+        });
+      });
+    </script>
   </head>
 
   <header>
@@ -45,33 +71,6 @@
         placeholder="Search for a movie..."
       />
       <button class="searchFilm" id="search-btn" type="submit">Search</button>
-      
-
-      <script>
-        $(document).ready(function () {
-          $(".searchFilm").click(function () {
-            const message = $("[name=searchText]").val();
-            var formData = {
-              searchText: message,
-            };
-
-            if (message == "") {
-            } else {
-              $.ajax({
-                url: "/_tfidf",
-                type: "POST",
-                crossDomain: true,
-                data: formData,
-                dataType: "text",
-                success: function (data) {
-                  // alert(data);
-                  window.location.href = "/similar_movies.html"; 
-                },
-              });
-            }
-          });
-        });
-      </script>
     </div>
 
     <!-- Movie recommendations grid -->

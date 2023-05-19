@@ -4,6 +4,7 @@ import os
 
 air = Airium()
 def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
+    delete_file(file_path)
     air('<!DOCTYPE html>')
     with air.html(lang="en"):
         with air.head():
@@ -69,3 +70,9 @@ def open_movie_page(file_path, movieTitle, listgenre, listcast, meanRating):
         file.write(html)
 
     print("HTML page created successfully.")
+def delete_file(file_path):
+    try:
+        os.remove(file_path)
+        print("Html File deleted successfully.")
+    except OSError as e:
+        print(f"Error deleting the file: {e}")
