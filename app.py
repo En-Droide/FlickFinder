@@ -3,8 +3,8 @@ import logging
 import os
 import sys
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -15,8 +15,7 @@ templates_path = instance_path + "templates\\"
 images_path = instance_path + "static\\Images\\"
 python_path = instance_path + "Python_files\\"
 sys.path.insert(1, python_path)
-# movieLens_path = python_path + "csv_files\\ml-latest\\"
-movieLens_path = python_path + "python\\csvfiles\\ml-latest\\"
+movieLens_path = python_path + "csv_files\\ml-latest\\"
 rating_path = movieLens_path + "ratings.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
 
