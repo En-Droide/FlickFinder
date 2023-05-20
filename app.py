@@ -20,7 +20,7 @@ rating_path = movieLens_path + "ratings.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
 
 
-from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
+from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
 from create_similar_movies import PageCreation
 from scrap import scrap_image
@@ -109,7 +109,7 @@ if __name__ == '__main__':
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
             print("making MovieMatrix...")
-            movieMatrix = getMovieMatrix(userRatings_df)
+            userRatingsMatrix = getUserRatingsMatrix(userRatings_df)
             print("movieMatrix done!\n")
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]

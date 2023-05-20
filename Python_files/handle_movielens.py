@@ -10,10 +10,11 @@ def readBigCSV(file):
     return df
 
 
-def readRatings(file):
+def readRatings(file, size):
     mylist = []
     for chunk in pd.read_csv(file, chunksize=20000, encoding='utf8',
-                             usecols=["userId", "movieId", "rating"]):
+                             usecols=["userId", "movieId", "rating"],
+                             nrows=size):
         mylist.append(chunk)
     ratings = pd.concat(mylist, axis=0)
     return ratings
@@ -26,7 +27,7 @@ def readCSVs(resourcePath, size):
     print(" links df made")
     tags = readBigCSV(resourcePath + "tags.csv")
     print(" tags df made")
-    userRatings = readRatings(resourcePath + "ratings.csv")[:size]
+    userRatings = readRatings(resourcePath + "ratings.csv", size)
     print(" userRatings df made")
 
     movies = movies.set_index("movieId")
@@ -78,7 +79,7 @@ def searchTitle(title: str, movies_df):
     return movies_df[movies_df["title"].str.contains(title, case=False)].drop("genres", axis=1)
 
 
-def getMovieMatrix(frame):
+def getUserRatingsMatrix(frame):
     movieMat = frame.pivot_table(
         index='userId', columns='movieId', values='rating')
     return movieMat
