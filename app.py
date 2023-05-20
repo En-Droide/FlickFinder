@@ -87,7 +87,7 @@ def movie_page2(movieTitle):
         print("ERROR : no ratings found in current sample")
         mean_rating_movie = "error"
     movieTitle = movieTitle.replace("'", "&quot;")
-    return render_template('movie_page2.html',
+    return render_template('movie_page_dynamic.html',
                            movieTitle=movieTitle,
                            listgenre=list_movie_genres,
                            listcast=list_movie_cast,
