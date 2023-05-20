@@ -23,24 +23,35 @@
     </div>
   </header>
   <body>
+    {% if movieTitle %}
     <div class="container">
       <div class="img-container">
-        <img src="{{ url_for('static', filename='Images/scrap/Toy Story 2 (1999).jpg') }}" alt="Movie: Toy Story 2 (1999)" />
+        {% if os.path.exists(images_path + "scrap\\" + movieTitle + ".jpg") %}
+          <img src="{{ url_for('static', filename='Images/scrap/'~movieTitle~'.jpg') }}" alt="{{ movieTitle }}" />
+        {% else %}
+          <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="{{ movieTitle }}" />
+        {% endif %}
       </div>
       <div class="synopsis-container">
-        <h1>Toy Story 2 (1999)</h1>
-        <span class="tag_adventure">adventure</span>
-        <span class="tag_animation">animation</span>
-        <span class="tag_children">children</span>
-        <span class="tag_comedy">comedy</span>
-        <span class="tag_fantasy">fantasy</span>
+        <h1>{{ movieTitle }}</h1>
+        {% for genre in listgenre %}
+          <span class="tag_{{ genre }}">{{ genre }}</span>
+        {% endfor %}
         <p>2022&emsp;-&emsp;1h47m</p>
         <p>A young couple travels to a remote island to eat at an exclusive restaurant where the chef has prepared a lavish menu, with some shocking surprises.</p>
         <hr />
         <p>Director :</p>
         <hr />
-        <p>Cast:&emsp;|  Tom Hanks | Tim Allen | Joan Cusack |</p>
-        <h3 class="stars_rating">Rating :&ensp;3.6&ensp;</h3>
+        <p>Cast:&emsp;
+          {% if listcast[0] == "_error" %} No cast found
+          {% else %}
+            {% for cast in listcast %}
+              {{ cast }}
+              {% if cast != listcast[-1] %} | {% endif %}
+            {% endfor %}
+          {% endif %}
+        </p>
+        <h3 class="stars_rating">Rating :&ensp;{{ meanRating }}&ensp;</h3>
         <div class="rate">
           <p Your rating: class="rating-label"></p>
           <input type="radio" id="star1" name="rate" value="1" />
@@ -56,8 +67,6 @@
         </div>
       </div>
     </div>
-    <div class="additional-text">
-      <p>Additional text goes here...</p>
-    </div>
+    {% endif %}
   </body>
 </html>

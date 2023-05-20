@@ -87,7 +87,7 @@ def PageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         $(document).ready(function() {{
             $("a[href='/_movie/{movieTitle}']").click(function(event) {{
                 event.preventDefault();
-                alert("yes");
+                // alert("yes");
                 window.location.href = "/_movie/{movieTitle}";
             }});
         }});
