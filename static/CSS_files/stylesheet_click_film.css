@@ -347,13 +347,13 @@ body {
 /* Image movie */
 .container {
   position: relative;
-  margin-top: 150px;
-  margin-left: 150px;
+  margin-top: 10%;
+  margin-left: 5%;
   display: flex;
 }
 
 .img-container {
-  max-width: 30%;
+  max-width: 50%;
 }
 .img-container img {
   max-width: 100%;
@@ -384,144 +384,52 @@ body {
 
 .stars_rating{
   font-size: 100%;
-  margin-right: 5%;
-  
 }
-
 .stars_rating::after {
   content: "★"; /* adds the star symbol after the text */
   color: #f1ca2f; /* sets the color of the star symbol to yellow */
   text-shadow: 0 0 8px #fff9c3;
-  font-size: 150%;
-  
+  font-size: 150%;  
 }
 .your_rating {
   font-size: 100%;
   padding-top: 1.7%;
 }
 /* movie rating */
-
-.rating-label {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-div.stars {
-  width: 170px;
-  display: inline-block;
-}
 .rate {
-  display: flex;
   align-items: center;
-}
-
-.rate:not(:checked) > input {
-  position: absolute;
-  top: -9999px;
-}
-.rate:not(:checked) > label {
-  float: right;
-  width: 1em;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 30px;
-  color: #a4a4a4;
-}
-.rate:not(:checked) > label:before {
-  content: "★ ";
-}
-.rate > input:checked ~ label {
-  color: #f1ca2f;
-  text-shadow: 0 0 8px #fff9c3;
-}
-
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #ffef61;
-  transform: rotate(15deg) scale(1.3);
-  transition: all 0.25s;
-}
-
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #f4e55c;
-} 
-.rate:not(:checked) > label:hover, 
-.rate:not(:checked) ~ label:hover{
-  color: #ffef61;
-  transform: rotate(15deg) scale(1.3);
-  transition: all 0.25s;
-}
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label:hover,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label:hover,
-.rate > label:hover ~ input:checked ~ label:hover{
-  color: #f4e55c;
-}
-/* div.stars {
-  width: 170px;
-  display: inline-block;
-}
-
-.rate {
   display: flex;
-  align-items: center;
 }
 
-.rate > input:not(:checked) ~ label {
-  color: #a4a4a4;
+/*button rating*/
+.btn_rating {
+  margin-left: 30%;
+  padding: 1.5% 5%;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  user-select: none;
 }
 
-.rate > input:checked ~ label {
-  color: #f1ca2f;
-  text-shadow: 0 0 8px #fff9c3;
-}
-
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ input:hover ~ label {
-  color: #f4e55c;
-}
-
-.rate > label {
-  float: right;
-  width: 1em;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 30px;
-}
-
-.rate > label:before {
-  content: "★ ";
-} */
-
-/* button watchlist */
-button {
-  position: inherit;
-  margin-left: 20%;
-  width: 28%;
-  border-radius: 10px;
-  background-color: transparent;
-  color: #fff;
-  border: none;
-  box-shadow: 0 0 10px 0 rgb(2, 2, 2);
-  letter-spacing: 0.1rem;
-  font-size: 1rem;
-  padding: 1rem 3rem;
-  transition: 0.2s;
-}
-
-.buttonwatchlist:hover {
-  width: 30%;
-  box-shadow: 0 0 20px 0 rgba(22, 92, 150, 1);
-  color: #1c75be;
-  /* letter-spacing: 0.2rem; */
-  padding: 1.1rem 3.1rem;
+.btn_rating:hover,
+.btn_rating:focus {
+  color: #ffffff;
+  background: #0059ff;
+  border: 1px solid #0059ff;
+  text-shadow: 0 0 5px #ffffff,
+              0 0 10px #ffffff,
+              0 0 20px #ffffff;
+  box-shadow: 0 0 5px #004cff,
+              0 0 20px #004cff,
+              0 0 50px #004cff,
+              0 0 100px #004cff;
 }
 /* additionaltext */
 .additional-text {
