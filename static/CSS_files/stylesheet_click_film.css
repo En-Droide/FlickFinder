@@ -2,14 +2,19 @@
   font-family: Montserrat;
   src: url('Montserrat-Light.ttf');
   font-weight:lighter;
+  
 }
 *{
   font-family: Montserrat;
   /* border: 1px solid red; */
 }
+html {
+  min-height: 100%
+}
 
 body {
-  /* background-color: #131212; */
+
+  /* background-color: #d61f1f; */
   background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
   color: #f2f2f2;
   /*font-family: "Karma", sans-serif;*/
@@ -57,46 +62,6 @@ body {
 }
 /* Genres movie */
 
-/* .tag_comedy {
-  background: rgb(22, 91, 23);
-  border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
-  cursor: pointer;
-}
-
-.tag_comedy:hover {
-  background: rgb(35, 146, 37);
-}
-
-.tag_horror {
-  background: rgb(66, 64, 64);
-  border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
-  cursor: pointer;
-}
-
-.tag_horror:hover {
-  background: rgb(99, 95, 95);
-}
-.tag_thriller {
-  background: rgb(24, 45, 146);
-  border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
-  cursor: pointer;
-}
-
-.tag_thriller:hover {
-  background: rgb(31, 56, 185);
-} */
 .tag_drama {
   background: rgb(255, 87, 51);
   border-radius: 10px;
@@ -418,32 +383,36 @@ body {
 }
 
 .stars_rating{
-  font-size: 20px;
-  margin: 0%;
-  margin-bottom: 20px;
+  font-size: 100%;
+  margin-right: 5%;
+  
 }
 
 .stars_rating::after {
   content: "★"; /* adds the star symbol after the text */
   color: #f1ca2f; /* sets the color of the star symbol to yellow */
   text-shadow: 0 0 8px #fff9c3;
-  font-size: 25px;
+  font-size: 150%;
+  
 }
-
+.your_rating {
+  font-size: 100%;
+  padding-top: 1.7%;
+}
 /* movie rating */
 
-.rating-label {
+/* .rating-label {
   display: inline-block;
   margin-right: 10px;
-}
+} */
 
-div.stars {
+/* div.stars {
   width: 170px;
   display: inline-block;
 }
 .rate {
-  float: left;
-  height: 46px;
+  display: flex;
+  align-items: center;
 }
 
 .rate:not(:checked) > input {
@@ -467,10 +436,10 @@ div.stars {
   text-shadow: 0 0 8px #fff9c3;
 }
 
-.rate:not(:checked) > label:hover,
+/* .rate:not(:checked) > label:hover,
 .rate:not(:checked) > label:hover ~ label {
   color: #ffef61;
-  transform: rotate(-15deg) scale(1.3);
+  transform: rotate(15deg) scale(1.3);
   transition: all 0.25s;
 }
 
@@ -480,6 +449,55 @@ div.stars {
 .rate > input:checked ~ label:hover ~ label,
 .rate > label:hover ~ input:checked ~ label {
   color: #f4e55c;
+} 
+.rate:not(:checked) > label:hover, 
+.rate:not(:checked) ~ label:hover{
+  color: #ffef61;
+  transform: rotate(15deg) scale(1.3);
+  transition: all 0.25s;
+}
+.rate > input:checked + label:hover,
+.rate > input:checked + label:hover ~ label:hover,
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ label:hover ~ label:hover,
+.rate > label:hover ~ input:checked ~ label:hover{
+  color: #f4e55c;
+} */
+div.stars {
+  width: 170px;
+  display: inline-block;
+}
+
+.rate {
+  display: flex;
+  align-items: center;
+}
+
+.rate > input:not(:checked) ~ label {
+  color: #a4a4a4;
+}
+
+.rate > input:checked ~ label {
+  color: #f1ca2f;
+  text-shadow: 0 0 8px #fff9c3;
+}
+
+.rate > input:checked ~ label:hover,
+.rate > input:checked ~ input:hover ~ label {
+  color: #f4e55c;
+}
+
+.rate > label {
+  float: right;
+  width: 1em;
+  overflow: hidden;
+  white-space: nowrap;
+  cursor: pointer;
+  font-size: 30px;
+}
+
+.rate > label:before {
+  content: "★ ";
 }
 
 /* button watchlist */
