@@ -17,5 +17,15 @@ def scrap_image(link, images_path, movieTitle):
             if movieTitle not in failed_scraps:
                 writer.write(movieTitle+"\n")
         return "ERROR_IMAGE"
-        
+
+
+def scrap_director(link, images_path, movie_title):
+    response = requests.get(link, headers={'User-Agent': 'Chrome'})
+    soup = BeautifulSoup(response.text, 'html.parser')
+    director_element = soup.find('a', class_='ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link')
+    if director_element:
+        director_name = director_element.text.strip()
+        print(director_name)
+    else:
+        print("Director name not found on the page.")
     
