@@ -7,6 +7,10 @@
       rel="stylesheet"
       href="{{ url_for('static',filename='CSS_files/stylesheet_click_film.css') }}"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
   </head>
   <!-- Top navigation bar -->
   <header>
@@ -54,12 +58,89 @@
         </p>
         <div class="rate">
           <h3 class="stars_rating">
-            Rating&ensp;:&ensp;{{ meanRating }}&emsp;
+            Rating:&ensp;{{ meanRating }}&emsp;
           </h3>
-          <button id="btn" class="btn_rating">Your rate</button>
+          <button id="btn" class="btn_rating" type="submit">Your rate</button>
         </div>
       </div>
     </div>
+    
+    <!-- Pop-up content -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <h2>Rate&ensp;:&emsp;{{ movieTitle }}</h2>
+        <div class="rating">
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r5"
+            class="star"
+            data-rating="5"
+          />
+          <label for="popup-r5"></label>
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r4"
+            class="star"
+            data-rating="4"
+          />
+          <label for="popup-r4"></label>
+
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r3"
+            class="star"
+            data-rating="3"
+          />
+          <label for="popup-r3"></label>
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r2"
+            class="star"
+            data-rating="2"
+          />
+          <label for="popup-r2"></label>
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r1"
+            class="star"
+            data-rating="1"
+          />
+          <label for="popup-r1"></label>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // JavaScript code to handle button click event and show the pop-up
+      document.getElementById("btn").addEventListener("click", function () {
+        document.getElementById("popup").style.display = "block";
+      });
+
+      var popupStars = document.querySelectorAll(".popup-content .star");
+      for (var i = 0; i < popupStars.length; i++) {
+        popupStars[i].addEventListener("click", function () {
+          if (this.checked) {
+            var rating = this.getAttribute("data-rating");
+            //alert("You rated the movie " + rating + " stars!");
+            // Rating logic or AJAX call
+            // Close the pop-up after rating
+            //document.getElementById("popup").style.display = "none";
+          }
+        });
+      }
+
+      window.addEventListener("click", function (event) {
+        var popup = document.getElementById("popup");
+        if (event.target == popup) {
+          popup.style.display = "none";
+        }
+      });
+    </script>
     {% endif %}
   </body>
 </html>

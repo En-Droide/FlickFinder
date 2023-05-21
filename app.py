@@ -23,7 +23,7 @@ outBigData_path = python_path + "csv_files\\out_big_data.csv"
 from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
 from create_similar_movies import PageCreation
-from scrap import scrap_image, scrap_director
+from scrap import request_soup, scrap_image, scrap_director, scrap_synopsis, scrap_infos
 from old.create_movie_page import open_movie_page
 
 
@@ -58,15 +58,17 @@ def createPage():
     movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=19)
     print(movieFilmList)
     global failed_scraps
-
     for movie in movieFilmList[:4]:
         if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
             movieId = getMovieId(movie, movies_df)
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
-            print(scrap_director(movieLink,images_path=images_path, movieTitle=movie))
-            response = scrap_image(movieLink, images_path=images_path, movieTitle=movie)
-            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+            soup = request_soup(movieLink)
+            print(scrap_director(soup, movieTitle=movie))
+            print(scrap_synopsis(soup, movieTitle=movie))
+            print(scrap_infos(soup, movieTitle=movie))
+            # response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+            # if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
     PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     return "Done!"
 
