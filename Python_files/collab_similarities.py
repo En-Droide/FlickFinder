@@ -11,19 +11,18 @@ import surprise
 from handle_movielens import *
 
 
-def getMovieCorrelations(movieTitle, movies_df, userRatingsMatrix):
+def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix):
     movieId = getMovieId(movieTitle, movies_df)
     userRatingsMatrix.columns = userRatingsMatrix.columns.astype("int64")
     user_ratings = userRatingsMatrix[movieId]
     similar_to_movie = userRatingsMatrix.corrwith(user_ratings)
     correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
     correlatedMovies.dropna(inplace=True)
-    print(correlatedMovies.index)
-    correlatedMovies.index = map(getMovieTitle, correlatedMovies.index, movies_df)
-    correlatedMovies = correlatedMovies.join(ratings['nb of ratings'])
+    correlatedMovies = correlatedMovies.join(movieRatings_df['nb of ratings'])
+    correlatedMovies.index = correlatedMovies.index.map(lambda x: getMovieTitle(x, movies_df))
     correlatedMovies = correlatedMovies.sort_values('Correlation',
                                                     ascending=False)
-    return correlatedMovies, similar_to_movie, user_ratings
+    return correlatedMovies, similar_to_movie
 
 
 
@@ -48,7 +47,7 @@ if(__name__ == "__main__"):
     print("movieMatrix done!\n")
     movieTitle = 'Toy Story (1995)'
     movieId = getMovieId(movieTitle, movies)
-    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, userRatingsMatrix)
+    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix)
     print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
     print("\n")
     # print(find_correlation_between_two_users(userRatingsMatrix, 1, 2))
