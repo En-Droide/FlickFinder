@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
+import json
 
 def request_soup(link):
     soup = BeautifulSoup(requests.get(link, headers={'User-Agent': 'Edge'}).text, "html.parser")
@@ -52,3 +53,16 @@ def scrap_infos(soup, movieTitle):
         return extracted_texts
     else :
          return f"Informations not found on the page for {movieTitle}."
+
+
+
+def create_movie_json(movieTitle, director_name, synopsis, informations):
+    movie_data = {
+        "title": movieTitle,
+        "director": director_name,
+        "synopsis": synopsis,
+        "informations": informations
+    }
+
+    with open("C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\static\\movie_informations.json", "w") as json_file:
+        json.dump(movie_data, json_file)

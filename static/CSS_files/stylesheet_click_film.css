@@ -50,7 +50,7 @@ body {
   text-decoration: none;
 }
 .topnav a:hover {
-  color: #165c96;
+  color: #1b75be;
 }
 .right {
   position: absolute;
@@ -605,8 +605,6 @@ body {
 }
 
 .popup-content .rating label:hover:after {
-  /* color: #555;
-  text-shadow: 0 0 15px #555; */
   color: #ffffff;
   text-shadow: 
               0 0 5px #ffffff,

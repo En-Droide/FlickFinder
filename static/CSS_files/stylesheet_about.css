@@ -5,13 +5,14 @@
 }
 *{
   font-family: Montserrat;
-  /* border: 1px solid red; */
+  border: 1px solid red;
 }
 
 body {
   background-color: #131212;
   width: 100%;
-  min-height: 100vh;
+  margin:0;
+  padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,6 +24,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2; 
 }
 .Flickfinder {
   color: #fff;
@@ -43,7 +45,7 @@ body {
   text-decoration: none;
 }
 .topnav a:hover {
-  color: #165c96;
+  color: #1b75be;
 }
 .right {
   position: absolute;

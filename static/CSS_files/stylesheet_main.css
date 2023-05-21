@@ -26,6 +26,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 }
 .Flickfinder {
   position: absolute;
@@ -47,7 +48,7 @@ body {
   text-decoration: none;
 }
 .topnav a:hover {
-  color: #165c96;
+  color: #1b75be;
 }
 .right {
   position: absolute;
