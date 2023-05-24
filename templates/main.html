@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
+  </head>
+  <!-- Top navigation bar -->
+  <header>
+    <div class="topnav">
+      <a href="/main.html">
+        Home
+      </a>
+      <a href="/about.html">
+        About
+      </a>
+      <div class="Flickfinder">
+        FlickFinder
+      </div>
+      <a href="/account.html" class="right">
+        Account
+      </a>
+    </div>
+  </header>
+  <body>
+    <!-- Search bar -->
+    <div class="search-container">
+      <input id="tags" type="text" name="searchText" placeholder="Search for a movie..." />
+      <button class="searchFilm" id="search-btn" type="submit">Search</button>
+      <script>
+        
+        $(document).ready(function () {
+        $(".searchFilm").click(function () {
+            const message = $("[name=searchText]").val();
+            var formData = {
+            searchText: message,
+            };
+
+            if (message == "") {
+            } else {
+            $.ajax({
+                url: "/_tfidf",
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                dataType: "text",
+                    success: function (data) {
+                    // alert(data);
+                    window.location.href = "/similar_movies.html"; 
+                },
+            });
+            }
+        });
+        });
+        
+      </script>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Forrest Gump (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Forrest Gump (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Forrest Gump (1994)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Shawshank Redemption, The (1994)" id="Shawshank Redemption, The (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Shawshank Redemption, The (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Shawshank Redemption, The (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Shawshank Redemption, The (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Shawshank Redemption, The (1994)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Pulp Fiction (1994)" id="Pulp Fiction (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Pulp Fiction (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Pulp Fiction (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Pulp Fiction (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Pulp Fiction (1994)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Silence of the Lambs, The (1991)" id="Silence of the Lambs, The (1991)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Silence of the Lambs, The (1991)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Silence of the Lambs, The (1991)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Silence of the Lambs, The (1991)";
+            });
+        });
+                        
+      </script>
+      <h3>Silence of the Lambs, The (1991)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Matrix, The (1999)" id="Matrix, The (1999)">
+        <img src="{{ url_for('static', filename='Images/scrap/Matrix, The (1999).jpg') }}" alt="Movie: Matrix, The (1999)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Matrix, The (1999)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Matrix, The (1999)";
+            });
+        });
+                        
+      </script>
+      <h3>Matrix, The (1999)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Star Wars: Episode IV - A New Hope (1977)" id="Star Wars: Episode IV - A New Hope (1977)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode IV - A New Hope (1977)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Star Wars: Episode IV - A New Hope (1977)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Star Wars: Episode IV - A New Hope (1977)";
+            });
+        });
+                        
+      </script>
+      <h3>Star Wars: Episode IV - A New Hope (1977)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Jurassic Park (1993)" id="Jurassic Park (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Jurassic Park (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Jurassic Park (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Jurassic Park (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Jurassic Park (1993)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Schindler&quot;s List (1993)" id="Schindler&quot;s List (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Schindler&quot;s List (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Schindler&quot;s List (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Schindler&quot;s List (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Schindler&quot;s List (1993)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Braveheart (1995)" id="Braveheart (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Braveheart (1995)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Braveheart (1995)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Braveheart (1995)";
+            });
+        });
+                        
+      </script>
+      <h3>Braveheart (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
+        <img src="{{ url_for('static', filename='Images/scrap/Toy Story (1995).jpg') }}" alt="Movie: Toy Story (1995)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Toy Story (1995)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Toy Story (1995)";
+            });
+        });
+                        
+      </script>
+      <h3>Toy Story (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Star Wars: Episode VI - Return of the Jedi (1983)" id="Star Wars: Episode VI - Return of the Jedi (1983)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode VI - Return of the Jedi (1983)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Star Wars: Episode VI - Return of the Jedi (1983)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Star Wars: Episode VI - Return of the Jedi (1983)";
+            });
+        });
+                        
+      </script>
+      <h3>Star Wars: Episode VI - Return of the Jedi (1983)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Star Wars: Episode V - The Empire Strikes Back (1980)" id="Star Wars: Episode V - The Empire Strikes Back (1980)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode V - The Empire Strikes Back (1980)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Star Wars: Episode V - The Empire Strikes Back (1980)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Star Wars: Episode V - The Empire Strikes Back (1980)";
+            });
+        });
+                        
+      </script>
+      <h3>Star Wars: Episode V - The Empire Strikes Back (1980)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Terminator 2: Judgment Day (1991)" id="Terminator 2: Judgment Day (1991)">
+        <img src="{{ url_for('static', filename='Images/scrap/Terminator 2: Judgment Day (1991).jpg') }}" alt="Movie: Terminator 2: Judgment Day (1991)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Terminator 2: Judgment Day (1991)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Terminator 2: Judgment Day (1991)";
+            });
+        });
+                        
+      </script>
+      <h3>Terminator 2: Judgment Day (1991)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)" id="Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)";
+            });
+        });
+                        
+      </script>
+      <h3>Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Fight Club (1999)" id="Fight Club (1999)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Fight Club (1999)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Fight Club (1999)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Fight Club (1999)";
+            });
+        });
+                        
+      </script>
+      <h3>Fight Club (1999)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Usual Suspects, The (1995)" id="Usual Suspects, The (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Usual Suspects, The (1995)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Usual Suspects, The (1995)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Usual Suspects, The (1995)";
+            });
+        });
+                        
+      </script>
+      <h3>Usual Suspects, The (1995)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Lord of the Rings: The Fellowship of the Ring, The (2001)" id="Lord of the Rings: The Fellowship of the Ring, The (2001)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Lord of the Rings: The Fellowship of the Ring, The (2001)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Lord of the Rings: The Fellowship of the Ring, The (2001)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Lord of the Rings: The Fellowship of the Ring, The (2001)";
+            });
+        });
+                        
+      </script>
+      <h3>Lord of the Rings: The Fellowship of the Ring, The (2001)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Independence Day (a.k.a. ID4) (1996)" id="Independence Day (a.k.a. ID4) (1996)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Independence Day (a.k.a. ID4) (1996)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Independence Day (a.k.a. ID4) (1996)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Independence Day (a.k.a. ID4) (1996)";
+            });
+        });
+                        
+      </script>
+      <h3>Independence Day (a.k.a. ID4) (1996)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Godfather, The (1972)" id="Godfather, The (1972)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Godfather, The (1972)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Godfather, The (1972)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Godfather, The (1972)";
+            });
+        });
+                        
+      </script>
+      <h3>Godfather, The (1972)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/American Beauty (1999)" id="American Beauty (1999)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: American Beauty (1999)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/American Beauty (1999)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/American Beauty (1999)";
+            });
+        });
+                        
+      </script>
+      <h3>American Beauty (1999)</h3>
+      <h6>Genre</h6>
+      <p>Synopsys</p>
+    </div>
+    </div>
+  </body>
+  <footer>
+    <div class="container">
+      <h3>About Us, The Recommendation website</h3>
+
+      <img src="{{ url_for('static',filename='Images/ESME.jpg') }}" alt="Me" class="w3-image" style="display: block; margin: auto" width="100" height="100" />
+      <h4><b>hello</b></h4>
+      <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-twitter" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-google-plus-g" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+</html>

@@ -35,7 +35,7 @@ log.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
-    return render_template("exemple_main.html")
+    return render_template("main.html")
 
 @app.route("/main.html")
 def main():
@@ -118,10 +118,10 @@ if __name__ == '__main__':
             print("movieMatrix done!\n")
         if is_create_main_onStart:
             print("\ncreating main.html...")
-            topMovies = getTopNMoviesByNbOfRatings(19, movieRatings_df)
-            MainPageCreation(movies=topMovies["movieTitle"], file_path=templates_path + "main.html", images_path=images_path, row_size=4)
-
+            topMovies = getTopNMoviesByNbOfRatings(20, movies_df, movieRatings_df)["movieTitle"].to_list()
+            MainPageCreation(movies=topMovies, file_path=templates_path + "main.html", images_path=images_path, row_size=4)
             print("main page created!\n")
+
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
 
