@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, abort
 import logging
 import os
 import sys
+import pandas as pd
 
 project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
@@ -19,13 +20,14 @@ sys.path.insert(1, python_path)
 movieLens_path = python_path + "csv_files\\ml-latest\\"
 rating_path = movieLens_path + "ratings.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
+info_movie_path_csv = project_path + "static\\Csv_files\\movies_informations.csv"
 
 
 from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieTitle, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset, getTopNMoviesByNbOfRatings
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
 from create_similar_movies import SimilarPageCreation
 from create_main import MainPageCreation
-from scrap import request_soup, scrap_image, scrape_and_create_movie_json
+from scrap import request_soup, scrap_image, scrape_and_create_movie_csv
 
 
 app = Flask(__name__, instance_path=instance_path)
@@ -65,11 +67,10 @@ def createPage():
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
             soup = request_soup(movieLink)
-
-            a= scrape_and_create_movie_json(soup, movie)
-            print(a)
             response = scrap_image(soup, images_path=images_path, movieTitle=movie)
             if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+        if movie not in (pd.read_csv(info_movie_path_csv))['title'].values:
+            scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
     SimilarPageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     return "Done!"
 
