@@ -11,7 +11,7 @@ def NumberOfGrid(movies):
     return ceil(len(movies)/4)
 
 
-def SimilarPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
+def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
     delete_file(file_path)
     air = Airium()
 

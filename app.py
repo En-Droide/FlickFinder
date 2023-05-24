@@ -3,12 +3,13 @@ import logging
 import os
 import sys
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
 is_getMovieMatrix_onStart = False
+is_create_main_onStart = True
 
 instance_path = project_path
 templates_path = instance_path + "templates\\"
@@ -20,11 +21,11 @@ rating_path = movieLens_path + "ratings.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
 
 
-from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
+from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieTitle, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset, getTopNMoviesByNbOfRatings
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
-from create_similar_movies import PageCreation
+from create_similar_movies import SimilarPageCreation
+from create_main import MainPageCreation
 from scrap import request_soup, scrap_image, scrape_and_create_movie_json
-from old.create_movie_page import open_movie_page
 
 
 app = Flask(__name__, instance_path=instance_path)
@@ -34,7 +35,7 @@ log.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
-    return render_template("main.html")
+    return render_template("exemple_main.html")
 
 @app.route("/main.html")
 def main():
@@ -69,7 +70,7 @@ def createPage():
             print(a)
             response = scrap_image(soup, images_path=images_path, movieTitle=movie)
             if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
-    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
+    SimilarPageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     return "Done!"
 
 @app.route('/similar_movies.html')
@@ -106,16 +107,24 @@ if __name__ == '__main__':
     with app.app_context():
         if is_setup_tfidf_onStart:
             tfidf_matrix, tfidf_df = setup_tfidf(outBigData_path)
-            print("tfidf setup !")
+            print("tfidf setup!\n")
         if is_handle_movielens_onStart:
-            print("\nsetting up movielens dataset...")
+            print("setting up movielens dataset...")
             movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, size=1000000)
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
             print("making MovieMatrix...")
             userRatingsMatrix = getUserRatingsMatrix(userRatings_df)
             print("movieMatrix done!\n")
+        if is_create_main_onStart:
+            print("\ncreating main.html...")
+            topMovies = getTopNMoviesByNbOfRatings(19, movieRatings_df)
+            MainPageCreation(movies=topMovies["movieTitle"], file_path=templates_path + "main.html", images_path=images_path, row_size=4)
+
+            print("main page created!\n")
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
+
+            print("")
         print("link : http://127.0.0.1:5000/")
     app.run(debug=False)

@@ -93,6 +93,12 @@ def isMovieInDataset(movieTitle, movies_df):
     return len(movies_df[movies_df["title"] == movieTitle]) == 1
 
 
+def getTopNMoviesByNbOfRatings(n, movies_df, movieRatings_df):
+    topMovies = movieRatings_df.sort_values("nb of ratings", ascending=False)[:n]
+    topMovies["movieTitle"] = topMovies.apply(lambda row: getMovieTitle(row.index, movies_df), axis=1)
+    return topMovies
+
+
 def read_movielens(path, size):
     movies, links, tags, userRatings, movieRatings =\
         readCSVs(resourcePath=path, size=size)
@@ -101,4 +107,4 @@ def read_movielens(path, size):
 if(__name__ == "__main__"):
     movies, links, tags, userRatings, movieRatings = readCSVs(resourcePath="csv_files/ml-latest/", size=100000)
     print("csv read\n")
-    print(getMovieTitle(1, movies))
+    print(getTopNMoviesByNbOfRatings(10, movies, movieRatings))
