@@ -23,7 +23,7 @@ outBigData_path = python_path + "csv_files\\out_big_data.csv"
 from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
 from create_similar_movies import PageCreation
-from scrap import request_soup, scrap_image, scrap_director, scrap_synopsis, scrap_infos
+from scrap import request_soup, scrap_image, scrape_and_create_movie_json
 from old.create_movie_page import open_movie_page
 
 
@@ -64,11 +64,11 @@ def createPage():
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
             soup = request_soup(movieLink)
-            print(scrap_director(soup, movieTitle=movie))
-            print(scrap_synopsis(soup, movieTitle=movie))
-            print(scrap_infos(soup, movieTitle=movie))
-            # response = scrap_image(soup, images_path=images_path, movieTitle=movie)
-            # if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+
+            a= scrape_and_create_movie_json(soup, movie)
+            print(a)
+            response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
     PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     return "Done!"
 
