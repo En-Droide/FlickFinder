@@ -19,9 +19,11 @@ def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatr
     correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
     correlatedMovies.dropna(inplace=True)
     correlatedMovies = correlatedMovies.join(movieRatings_df['nb of ratings'])
-    correlatedMovies.index = correlatedMovies.index.map(lambda x: getMovieTitle(x, movies_df))
     correlatedMovies = correlatedMovies.sort_values('Correlation',
                                                     ascending=False)
+    correlatedMovies = correlatedMovies.reset_index(level=["movieId"])
+    correlatedMovies["movieTitle"] = correlatedMovies.apply(lambda x: getMovieTitle(x["movieId"], movies_df), axis=1)
+    correlatedMovies = correlatedMovies[["movieId", "movieTitle", "Correlation", "nb of ratings"]]
     return correlatedMovies, similar_to_movie
 
 
