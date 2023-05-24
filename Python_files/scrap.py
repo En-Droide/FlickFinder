@@ -31,7 +31,7 @@ def scrape_and_create_movie_csv(path,soup,movieTitle):
     director_name = director_element.text.strip() if director_element else f"Director name not found on the page for {movieTitle}."
 
     # Scrape synopsis
-    synopsis_element = soup.find('div', class_='ipc-html-content-inner-div')
+    synopsis_element = soup.find('span', attrs={'data-testid': 'plot-xs_to_m'})
     synopsis = synopsis_element.text.strip() if synopsis_element else f"Synopsis not found on the page for {movieTitle}."
 
     # Scrape additional information
@@ -54,3 +54,10 @@ def scrape_and_create_movie_csv(path,soup,movieTitle):
     df.to_csv(path, mode='a', index=False, header=False)
     print("done")
     return df
+
+def informations_movies (movieTitle, df_movie_info):
+    informations_movieDate = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(0).str.strip().values[0]
+    informations_movieTime =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(-1).str.strip().values[0]
+    informations_movieSynopsis =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'synopsis'].values[0]
+    informations_movieDirector = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'director'].values[0]
+    return informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector

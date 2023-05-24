@@ -4,13 +4,14 @@ import os
 import sys
 import pandas as pd
 
-project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+#project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
 is_getMovieMatrix_onStart = False
 is_create_main_onStart = True
+is_setup_movie_informations = True
 
 instance_path = project_path
 templates_path = instance_path + "templates\\"
@@ -27,7 +28,7 @@ from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, g
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
 from create_similar_movies import SimilarPageCreation
 from create_main import MainPageCreation
-from scrap import request_soup, scrap_image, scrape_and_create_movie_csv
+from scrap import request_soup, scrap_image, scrape_and_create_movie_csv,informations_movies
 
 
 app = Flask(__name__, instance_path=instance_path)
@@ -69,7 +70,8 @@ def createPage():
             soup = request_soup(movieLink)
             response = scrap_image(soup, images_path=images_path, movieTitle=movie)
             if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
-        if movie not in (pd.read_csv(info_movie_path_csv))['title'].values:
+            
+        if movie not in df_movie_info['title'].values:
             scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
     SimilarPageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
     return "Done!"
@@ -93,12 +95,21 @@ def movie_page2(movieTitle):
         print("ERROR : no ratings found in current sample")
         mean_rating_movie = "error"
     movieTitle = movieTitle.replace("'", "&quot;")
+    df_movie_info = pd.read_csv(info_movie_path_csv)    
+    informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector = informations_movies (movieTitle, df_movie_info)
+
+    # print(informations_movieTime)
     return render_template('movie_page_dynamic.html',
-                           movieTitle=movieTitle,
-                           listgenre=list_movie_genres,
-                           listcast=list_movie_cast,
-                           meanRating=mean_rating_movie,
-                           images_path=images_path)
+                            movieTitle=movieTitle,
+                            listgenre=list_movie_genres,
+                            listcast=list_movie_cast,
+                            meanRating=mean_rating_movie,
+                            images_path=images_path,
+                            movie_Date = informations_movieDate,
+                            movie_Time = informations_movieTime,
+                            movie_Synopsis = informations_movieSynopsis,
+                            movie_Director = informations_movieDirector
+                           )
 
 @app.context_processor
 def handle_context():
@@ -117,12 +128,14 @@ if __name__ == '__main__':
             print("making MovieMatrix...")
             userRatingsMatrix = getUserRatingsMatrix(userRatings_df)
             print("movieMatrix done!\n")
+        if is_setup_movie_informations:
+            df_movie_info = pd.read_csv(info_movie_path_csv)
+            print("movie informations read done\n")
         if is_create_main_onStart:
             print("\ncreating main.html...")
             topMovies = getTopNMoviesByNbOfRatings(20, movies_df, movieRatings_df)["movieTitle"].to_list()
             MainPageCreation(movies=topMovies, file_path=templates_path + "main.html", images_path=images_path, row_size=4)
             print("main page created!\n")
-
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
 
