@@ -89,12 +89,18 @@ body {
   background-color: #1f81d1;
 }
 
+.Titlegrid{
+  padding: 0%;
+  margin-top: 7%;
+  margin-left: 3%;
+  margin-bottom: 2%;
+}
 /* Movie recommendations grid */
 .movie-grid {
   display: grid;
   grid-gap: 20px;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  margin: 50px auto;
+  margin: 10px auto;
   max-width: 1200px;
   padding: 0 20px;
 }
@@ -176,7 +182,7 @@ footer {
   justify-content: center;
   left: 48%;
   transform: translate(-50%, -50%);
-  margin-top: 7%;
+  margin-top: 10%;
   display: flex;
 }
 

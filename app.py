@@ -59,7 +59,7 @@ def moviePage():
 @app.route("/_tfidf", methods=["POST"])
 def createPage():
     movieTitle = request.form.get("searchText")
-    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=19)
+    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=9)
     print(movieFilmList)
     global failed_scraps
     for movie in movieFilmList[:4]:

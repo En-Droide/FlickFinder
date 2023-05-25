@@ -71,13 +71,17 @@ def SimilarPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         });
         });
         """)
+            
             for i in range(len(movies)):
                 movieTitle = movies[i].replace("'", "&quot;")
                 if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
                     imPath = f'Images/scrap/{movieTitle}.jpg'
                 else:
                     imPath = 'Images/placeholder.png'
-                if(i % row_size == 0): air.append('<div class="movie-grid">')
+                if (i==0):
+                    air.append('<h3 class="Titlegrid">Recommandation based on the Title :</h3>')
+                if(i % row_size == 0):
+                    air.append('<div class="movie-grid">')
                 # with air.div(klass="movie-grid"):
                 with air.div(klass="moviecontainer"):
                     with air.a(href=f"/_movie/{movieTitle}", id=f"{movieTitle}"):
@@ -99,10 +103,9 @@ def SimilarPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
 
         with air.footer():
             with air.div(klass="container"):
-                air.h3(_t="About Us, The Recommendation website")
+                air.h3(_t="The Recommendation website")
                 air.break_source_line()
                 air.img(src="{{ url_for('static',filename='Images/ESME.jpg') }}", alt="Me", klass="w3-image", style="display: block; margin: auto", width="100", height="100")
-                air.h4(_t="<b>hello</b>")
                 air.h6(_t="<i>By Matteo Gentili and Robin Lotode</i>")
                 with air.ul():
                     with air.li():

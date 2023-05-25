@@ -139,6 +139,50 @@
         }
       });
     </script>
+    <h3 class="Titlegrid">Movies you might like :</h3>
+    <div class="movie-grid">
+      {%for i in (range(5)):%}
+        <div class="moviecontainer">
+          <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
+            <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
+          </a>
+          <script>
+            
+            $(document).ready(function() {
+                $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
+                    event.preventDefault();
+                    // alert("yes");
+                    window.location.href = "/_movie/Forrest Gump (1994)";
+                });
+            });
+                            
+          </script>
+        </div>
+      {%endfor%}
+    </div>  
+    <h3 class="Titlegrid">Users also liked :</h3>
+    <div class="movie-grid">
+      {%for i in (range(5)):%}
+        <div class="moviecontainer">
+          <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
+            <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
+          </a>
+          <script>
+            
+            $(document).ready(function() {
+                $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
+                    event.preventDefault();
+                    // alert("yes");
+                    window.location.href = "/_movie/Forrest Gump (1994)";
+                });
+            });
+                            
+          </script>
+        </div>
+      {%endfor%}
+    </div>
+      
+
     {% endif %}
   </body>
 </html>
