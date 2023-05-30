@@ -13,7 +13,7 @@ from handle_movielens import *
 
 def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix):
     movieId = getMovieId(movieTitle, movies_df)
-    userRatingsMatrix.columns = userRatingsMatrix.columns.astype("int64")
+    # userRatingsMatrix.columns = userRatingsMatrix.columns.astype("int64")
     user_ratings = userRatingsMatrix[movieId]
     similar_to_movie = userRatingsMatrix.corrwith(user_ratings)
     correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
@@ -27,8 +27,20 @@ def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatr
     return correlatedMovies, similar_to_movie
 
 
+def getUserCorrelations(userId, movies_df, movieRatings_df, userRatingsMatrix):
+    userRatingsMatrix = userRatingsMatrix.T
+    user_ratings = userRatingsMatrix[userId]
+    similar_to_user = userRatingsMatrix.corrwith(user_ratings)
+    correlatedUsers = pd.DataFrame(similar_to_user, columns=['Correlation'])
+    correlatedUsers.dropna(inplace=True)
+    correlatedUsers = correlatedUsers.sort_values('Correlation',
+                                                    ascending=False)
+    # correlatedUsers = correlatedUsers.reset_index(level=["userId"])
+    # correlatedUsers = correlatedUsers[["userId", "Correlation"]]
+    return correlatedUsers, similar_to_user
 
-def find_correlation_between_two_users(userRatingsMatrix: pd.DataFrame, user1: str, user2: str):
+
+def find_correlation_between_two_users(userRatingsMatrix, user1, user2):
     """Find correlation between two users based on their rated movies using Pearson correlation"""
     rated_movies_by_both = userRatingsMatrix.loc[[user1, user2]].dropna(axis=1).T
     print(rated_movies_by_both.corr())
@@ -47,13 +59,29 @@ if(__name__ == "__main__"):
     print("making MovieMatrix...")
     userRatingsMatrix = getUserRatingsMatrix(userRatings)
     print("movieMatrix done!\n")
-    movieTitle = 'Toy Story (1995)'
-    movieId = getMovieId(movieTitle, movies)
-    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix)
-    print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+    
+    # movieTitle = 'Toy Story (1995)'
+    # movieId = getMovieId(movieTitle, movies)
+    # matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix)
+    # print("\n\nMovies similar to : " + movieTitle)
+    # print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
+    # print("\n")
+    
+    # userId = 1
+    # matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
+    # print("\n\nUsers similar to : " + str(userId))
+    
+    # print(matrixCorr2.head(10))
+    # print("\n")
+    
+    userId = 1
+    matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
+    print("\n\nUsers similar to : " + str(userId))
+    
+    print(matrixCorr2.head(10))
     print("\n")
     # print(find_correlation_between_two_users(userRatingsMatrix, 1, 2))
-    users = userRatings["userId"].unique()
+    # users = userRatings["userId"].unique()
     # similarity_matrix = np.empty((len(users), len(users)), dtype=float)
     # for user1 in tqdm(users, desc='user1', position=0):
     #     for user2 in tqdm(users, desc='user2', position=1):
