@@ -85,8 +85,8 @@ def getUserRatingsMatrix(frame):
     return movieMat
 
 
-def addRowsToDataframe(df: pd.DataFrame, new_rows: list):
-    return pd.concat([df, pd.DataFrame(data=new_rows, columns=df.columns)])
+# def addRowsToDataframe(df: pd.DataFrame, new_rows: list):
+#     return pd.concat([df, pd.DataFrame(data=new_rows, columns=df.columns)]).reindex(df.index)
 
 
 def isMovieInDataset(movieTitle, movies_df):
@@ -99,10 +99,17 @@ def getTopNMoviesByNbOfRatings(n, movies_df, movieRatings_df):
     return topMovies
 
 
+def getUserTopRatings(userId, movies_df, ratings_df, n):
+    topMovies = ratings_df[ratings_df["userId"] == userId].sort_values("rating", ascending=False)[:n]
+    topMovies["movieTitle"] = topMovies.apply(lambda row: getMovieTitle(row["movieId"], movies_df), axis=1)
+    return topMovies[["userId", "movieId","movieTitle", "rating"]]
+    
+    
 def read_movielens(path, size):
     movies, links, tags, userRatings, movieRatings =\
         readCSVs(resourcePath=path, size=size)
     return movies, links, tags, userRatings, movieRatings
+
 
 if(__name__ == "__main__"):
     movies, links, tags, userRatings, movieRatings = read_movielens(path="csv_files/ml-latest/", size=100000)

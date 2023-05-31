@@ -13,7 +13,6 @@ from handle_movielens import *
 
 def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix):
     movieId = getMovieId(movieTitle, movies_df)
-    # userRatingsMatrix.columns = userRatingsMatrix.columns.astype("int64")
     user_ratings = userRatingsMatrix[movieId]
     similar_to_movie = userRatingsMatrix.corrwith(user_ratings)
     correlatedMovies = pd.DataFrame(similar_to_movie, columns=['Correlation'])
@@ -35,25 +34,26 @@ def getUserCorrelations(userId, movies_df, movieRatings_df, userRatingsMatrix):
     correlatedUsers.dropna(inplace=True)
     correlatedUsers = correlatedUsers.sort_values('Correlation',
                                                     ascending=False)
-    # correlatedUsers = correlatedUsers.reset_index(level=["userId"])
-    # correlatedUsers = correlatedUsers[["userId", "Correlation"]]
     return correlatedUsers, similar_to_user
 
 
-def find_correlation_between_two_users(userRatingsMatrix, user1, user2):
-    """Find correlation between two users based on their rated movies using Pearson correlation"""
-    rated_movies_by_both = userRatingsMatrix.loc[[user1, user2]].dropna(axis=1).T
-    print(rated_movies_by_both.corr())
-    user1_ratings = rated_movies_by_both.iloc[0]
-    user2_ratings = rated_movies_by_both.iloc[1]
-    print(np.corrcoef(user1_ratings.tolist(), user2_ratings.tolist()))
-    # print(user1_ratings.corrwith(user2_ratings))
-    # return np.corrcoef(user1_ratings, user2_ratings)[0, 1]
-    # return pd.Series(user1_ratings).corr(pd.Series(user2_ratings))
-    return rated_movies_by_both.corr().at[0, 1]
+def getUserCorrelatedMovies(userList, movies_df, userRatings_df, n):
+    correlatedMovies = pd.DataFrame(columns=["movieId", "movieTitle"])
+    for user in userList:
+        userTopMovies = getUserTopRatings(user, movies_df, userRatings_df, n)[["movieId", "movieTitle"]]
+        correlatedMovies = pd.concat([correlatedMovies, userTopMovies])
+        # for i in range(n):
+        #     print(userTopMovies.iloc[i])
+        #     if userTopMovies.iloc[i]["movieId"] not in correlatedMovies["movieId"].unique():
+        #         correlatedMovies.append(userTopMovies.iloc[i][["movieId", "movieTitle"]])
+        # for movie in userTopMovies["movieTitle"][:n]:
+        #     if movie not in correlatedMovies:
+        #         correlatedMovies += [movie]
+    return correlatedMovies.drop_duplicates()
 
 
 if(__name__ == "__main__"):
+    warnings.filterwarnings("ignore")
     movies, links, tags, userRatings, movieRatings = readCSVs(resourcePath="csv_files/ml-latest/", size=100000)
     print("csv read\n")
     print("making MovieMatrix...")
@@ -74,19 +74,17 @@ if(__name__ == "__main__"):
     # print(matrixCorr2.head(10))
     # print("\n")
     
-    userId = 1
+    userId = 10
     matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
-    print("\n\nUsers similar to : " + str(userId))
     
-    print(matrixCorr2.head(10))
-    print("\n")
-    # print(find_correlation_between_two_users(userRatingsMatrix, 1, 2))
-    # users = userRatings["userId"].unique()
-    # similarity_matrix = np.empty((len(users), len(users)), dtype=float)
-    # for user1 in tqdm(users, desc='user1', position=0):
-    #     for user2 in tqdm(users, desc='user2', position=1):
-    #         similarity_matrix += find_correlation_between_two_users(userRatingsMatrix, user1, user2)
-    # # similarity_matrix = np.array([[find_correlation_between_two_users(userRatingsMatrix, user1, user2) for user1 in users] for user2 in users])
-    # similarity_df = pd.DataFrame(similarity_matrix, columns=users, index=users)
-    # print(similarity_df)
-    # surprise.similarities.pearson(len(users), )
+    # print("\n\nUsers similar to : " + str(userId))
+    # print(matrixCorr2.head(10))
+    # print("\nUser's top ratings : ")
+    # print(getUserTopRatings(userId, movies, userRatings, 5))
+    # for i in range(1, 4):
+    #     print("\nUser", matrixCorr2.iloc[i].name, "top ratings : ")
+    #     print(getUserTopRatings(matrixCorr2.iloc[i].name, movies, userRatings, 5))
+    
+    print("Top rated movies from the most similar users :")
+    corrList = getUserCorrelatedMovies(matrixCorr2.index[:5], movies, userRatings, 10).sort_values("movieId")
+    print(corrList)
