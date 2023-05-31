@@ -1,17 +1,10 @@
-import datetime
 import pandas as pd
-import numpy as np
-from imdb import Cinemagoer
-import sys
 import warnings
-from tqdm import tqdm
-import os
-import surprise
 
 from handle_movielens import *
 
 
-def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix):
+def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount):
     movieId = getMovieId(movieTitle, movies_df)
     user_ratings = userRatingsMatrix[movieId]
     similar_to_movie = userRatingsMatrix.corrwith(user_ratings)
@@ -23,7 +16,7 @@ def getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatr
     correlatedMovies = correlatedMovies.reset_index(level=["movieId"])
     correlatedMovies["movieTitle"] = correlatedMovies.apply(lambda x: getMovieTitle(x["movieId"], movies_df), axis=1)
     correlatedMovies = correlatedMovies[["movieId", "movieTitle", "Correlation", "nb of ratings"]]
-    return correlatedMovies, similar_to_movie
+    return correlatedMovies[correlatedMovies["nb of ratings"] > minRatingAmount], similar_to_movie
 
 
 def getUserCorrelations(userId, movies_df, movieRatings_df, userRatingsMatrix):
@@ -42,13 +35,6 @@ def getUserCorrelatedMovies(userList, movies_df, userRatings_df, n):
     for user in userList:
         userTopMovies = getUserTopRatings(user, movies_df, userRatings_df, n)[["movieId", "movieTitle"]]
         correlatedMovies = pd.concat([correlatedMovies, userTopMovies])
-        # for i in range(n):
-        #     print(userTopMovies.iloc[i])
-        #     if userTopMovies.iloc[i]["movieId"] not in correlatedMovies["movieId"].unique():
-        #         correlatedMovies.append(userTopMovies.iloc[i][["movieId", "movieTitle"]])
-        # for movie in userTopMovies["movieTitle"][:n]:
-        #     if movie not in correlatedMovies:
-        #         correlatedMovies += [movie]
     return correlatedMovies.drop_duplicates()
 
 
@@ -60,12 +46,13 @@ if(__name__ == "__main__"):
     userRatingsMatrix = getUserRatingsMatrix(userRatings)
     print("movieMatrix done!\n")
     
-    # movieTitle = 'Toy Story (1995)'
-    # movieId = getMovieId(movieTitle, movies)
-    # matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix)
-    # print("\n\nMovies similar to : " + movieTitle)
-    # print(matrixCorr[matrixCorr["nb of ratings"] > 50].head(10))
-    # print("\n")
+    movieTitle = 'Matrix, The (1999)'
+    movieId = getMovieId(movieTitle, movies)
+    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix, minRatingAmount=40)
+    print("\n\nMovies similar to : " + movieTitle)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(matrixCorr[1:6])
+    print("\n")
     
     # userId = 1
     # matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
@@ -74,8 +61,8 @@ if(__name__ == "__main__"):
     # print(matrixCorr2.head(10))
     # print("\n")
     
-    userId = 10
-    matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
+    # userId = 10
+    # matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
     
     # print("\n\nUsers similar to : " + str(userId))
     # print(matrixCorr2.head(10))
@@ -85,6 +72,6 @@ if(__name__ == "__main__"):
     #     print("\nUser", matrixCorr2.iloc[i].name, "top ratings : ")
     #     print(getUserTopRatings(matrixCorr2.iloc[i].name, movies, userRatings, 5))
     
-    print("Top rated movies from the most similar users :")
-    corrList = getUserCorrelatedMovies(matrixCorr2.index[:5], movies, userRatings, 10).sort_values("movieId")
-    print(corrList)
+    # print("Top rated movies from the most similar users :")
+    # corrList = getUserCorrelatedMovies(matrixCorr2.index[:5], movies, userRatings, 10).sort_values("movieId")
+    # print(corrList)

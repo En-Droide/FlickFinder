@@ -60,7 +60,7 @@
         
       </script>
     </div>
-    <h3 class="Titlegrid">Recommandation based on the Title :</h3>
+    <h3 class="Titlegrid">Recommendation based on the content (TFIDF) :</h3>
     <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
@@ -217,47 +217,164 @@
       <p>Synopsys</p>
     </div>
     </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Demonic Toys: Personal Demons (2010)" id="Demonic Toys: Personal Demons (2010)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Demonic Toys: Personal Demons (2010)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Demonic Toys: Personal Demons (2010)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Demonic Toys: Personal Demons (2010)";
-            });
-        });
-                        
-      </script>
-      <h3>Demonic Toys: Personal Demons (2010)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Small Soldiers (1998)" id="Small Soldiers (1998)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Small Soldiers (1998)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Small Soldiers (1998)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Small Soldiers (1998)";
-            });
-        });
-                        
-      </script>
-      <h3>Small Soldiers (1998)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    </div>
   </body>
+  <h3 class="Titlegrid">Recommendation based on the movie similarities (Correlation) :</h3>
+  <div class="movie-grid">
+  <div class="moviecontainer">
+    <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
+      <img src="{{ url_for('static', filename='Images/scrap/Toy Story (1995).jpg') }}" alt="Movie: Toy Story (1995)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Toy Story (1995)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Toy Story (1995)";
+        });
+    });
+                    
+    </script>
+    <h3>Toy Story (1995)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Toy Story 2 (1999)" id="Toy Story 2 (1999)">
+      <img src="{{ url_for('static', filename='Images/scrap/Toy Story 2 (1999).jpg') }}" alt="Movie: Toy Story 2 (1999)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Toy Story 2 (1999)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Toy Story 2 (1999)";
+        });
+    });
+                    
+    </script>
+    <h3>Toy Story 2 (1999)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Tender Mercies (1983)" id="Tender Mercies (1983)">
+      <img src="{{ url_for('static', filename='Images/scrap/Tender Mercies (1983).jpg') }}" alt="Movie: Tender Mercies (1983)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Tender Mercies (1983)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Tender Mercies (1983)";
+        });
+    });
+                    
+    </script>
+    <h3>Tender Mercies (1983)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Toy Story 3 (2010)" id="Toy Story 3 (2010)">
+      <img src="{{ url_for('static', filename='Images/scrap/Toy Story 3 (2010).jpg') }}" alt="Movie: Toy Story 3 (2010)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Toy Story 3 (2010)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Toy Story 3 (2010)";
+        });
+    });
+                    
+    </script>
+    <h3>Toy Story 3 (2010)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  </div>
+  <div class="movie-grid">
+  <div class="moviecontainer">
+    <a href="/_movie/Audition (Ôdishon) (1999)" id="Audition (Ôdishon) (1999)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Audition (Ôdishon) (1999)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Audition (Ôdishon) (1999)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Audition (Ôdishon) (1999)";
+        });
+    });
+                    
+    </script>
+    <h3>Audition (Ôdishon) (1999)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Mummy, The (1932)" id="Mummy, The (1932)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Mummy, The (1932)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Mummy, The (1932)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Mummy, The (1932)";
+        });
+    });
+                    
+    </script>
+    <h3>Mummy, The (1932)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Top Hat (1935)" id="Top Hat (1935)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Top Hat (1935)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Top Hat (1935)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Top Hat (1935)";
+        });
+    });
+                    
+    </script>
+    <h3>Top Hat (1935)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Kissing Jessica Stein (2001)" id="Kissing Jessica Stein (2001)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kissing Jessica Stein (2001)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Kissing Jessica Stein (2001)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Kissing Jessica Stein (2001)";
+        });
+    });
+                    
+    </script>
+    <h3>Kissing Jessica Stein (2001)</h3>
+    <h6>Genre</h6>
+    <p>Synopsys</p>
+  </div>
+  </div>
   <footer>
     <div class="container">
       <h3>The Recommendation website</h3>

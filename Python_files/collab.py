@@ -10,13 +10,12 @@ from collab_surprise import *
 from collab_similarities import *
 
 
-def getMovieSimilarPredictions(userId, movieTitle, movies_df, userRatings_df, movieRatings_df, userRatingsMatrix, model,size, minRatings):
-    movieId = getMovieId(movieTitle, movies)
-    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix)
+def getMovieSimilarPredictions(userId, movieTitle, movies_df, movieRatings_df, userRatingsMatrix, model, size, minRatings):
+    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix)
     topSimilar = matrixCorr[matrixCorr["nb of ratings"] >= minRatings].head(size)
     topSimilar["prediction"] = topSimilar.apply(lambda row: model.predict(userId, row["movieId"])[3], axis=1)
     topSimilar.sort_values("prediction", ascending=False, inplace=True)
-    return topSimilar
+    return topSimilar.drop("nb of ratings", axis=1)
 
 
 def getUserSimilarPredictions(userId, movies_df, userRatings_df, movieRatings_df, userRatingsMatrix, model, userAmount, ratingsPerUser):
@@ -49,9 +48,11 @@ if(__name__ == "__main__"):
     model = createModel(userRatings, SVD)
     
     print("\ndoing similar movies prediction...")
-    topSimilar = getMovieSimilarPredictions(999999, movieTitle, movies, userRatings, movieRatings, userRatingsMatrix, model, size=20, minRatings=40)
-    print(topSimilar.head(10))
+    topSimilar = getMovieSimilarPredictions(999999, movieTitle, movies, movieRatings, userRatingsMatrix, model, 20, 40)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(topSimilar.head(10))
     
     print("\ndoing similar user prediction...")
     topSimilar2 = getUserSimilarPredictions(999999, movies, userRatings, movieRatings, userRatingsMatrix, model, 10, 10)
-    print(topSimilar2.head(10))
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(topSimilar2.head(10))

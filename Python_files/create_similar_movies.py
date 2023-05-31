@@ -11,7 +11,7 @@ def NumberOfGrid(movies):
     return ceil(len(movies)/4)
 
 
-def SimilarPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
+def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path, row_size = ROW_SIZE):
     delete_file(file_path)
     air = Airium()
 
@@ -72,14 +72,13 @@ def SimilarPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         });
         """)
             
-            for i in range(len(movies)):
-                movieTitle = movies[i].replace("'", "&quot;")
+            air.append('<h3 class="Titlegrid">Recommendation based on the content (TFIDF) :</h3>')
+            for i in range(len(tfidf_movies)):
+                movieTitle = tfidf_movies[i].replace("'", "&quot;")
                 if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
                     imPath = f'Images/scrap/{movieTitle}.jpg'
                 else:
                     imPath = 'Images/placeholder.png'
-                if (i==0):
-                    air.append('<h3 class="Titlegrid">Recommandation based on the Title :</h3>')
                 if(i % row_size == 0):
                     air.append('<div class="movie-grid">')
                 # with air.div(klass="movie-grid"):
@@ -99,7 +98,35 @@ def SimilarPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                     air.h3(_t=movieTitle)
                     air.h6(_t="Genre")
                     air.p(_t="Synopsys")
-                if(i%row_size == row_size-1 or i == len(movies)-1): air.append('</div>')
+                if(i%row_size == row_size-1 or i == len(tfidf_movies)-1): air.append('</div>')
+
+        air.append('<h3 class="Titlegrid">Recommendation based on the movie similarities (Correlation) :</h3>')
+        for i in range(len(similarity_movies)):
+            movieTitle = similarity_movies[i].replace("'", "&quot;")
+            if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
+                imPath = f'Images/scrap/{movieTitle}.jpg'
+            else:
+                imPath = 'Images/placeholder.png'
+            if(i % row_size == 0):
+                air.append('<div class="movie-grid">')
+            # with air.div(klass="movie-grid"):
+            with air.div(klass="moviecontainer"):
+                with air.a(href=f"/_movie/{movieTitle}", id=f"{movieTitle}"):
+                    air.img(src=f"{{{{ url_for('static', filename='{imPath}') }}}}", alt=f"Movie: {movieTitle}")
+                with air.script():
+                    air.append("""
+    $(document).ready(function() {{
+        $("a[href='/_movie/{movieTitle}']").click(function(event) {{
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/{movieTitle}";
+        }});
+    }});
+                    """.format(movieTitle=movieTitle))
+                air.h3(_t=movieTitle)
+                air.h6(_t="Genre")
+                air.p(_t="Synopsys")
+            if(i%row_size == row_size-1 or i == len(similarity_movies)-1): air.append('</div>')
 
         with air.footer():
             with air.div(klass="container"):

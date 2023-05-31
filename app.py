@@ -9,7 +9,7 @@ project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
-is_getMovieMatrix_onStart = False
+is_getMovieMatrix_onStart = True
 is_create_main_onStart = True
 is_setup_movie_informations = True
 
@@ -24,11 +24,13 @@ outBigData_path = python_path + "csv_files\\out_big_data.csv"
 info_movie_path_csv = project_path + "static\\Csv_files\\movies_informations.csv"
 
 
-from handle_movielens import read_movielens, getUserRatingsMatrix, getMovieId, getMovieTitle, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset, getTopNMoviesByNbOfRatings
-from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
+from handle_movielens import *
+from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast, match_title
+from collab import *
+from collab_similarities import getMovieCorrelations
 from create_similar_movies import SimilarPageCreation
 from create_main import MainPageCreation
-from scrap import request_soup, scrap_image, scrape_and_create_movie_csv,informations_movies
+from scrap import *
 
 
 app = Flask(__name__, instance_path=instance_path)
@@ -59,10 +61,12 @@ def moviePage():
 @app.route("/_tfidf", methods=["POST"])
 def createPage():
     movieTitle = request.form.get("searchText")
-    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=9)
-    print(movieFilmList)
+    tfidf_movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=7)
+    print("tfidf : \n", tfidf_movieFilmList, "\n")
+    similarity_movieFilmList = getMovieCorrelations(tfidf_movieFilmList[0], movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[:8]
+    print("similarity : \n", similarity_movieFilmList, "\n")
     global failed_scraps
-    for movie in movieFilmList[:4]:
+    for movie in (tfidf_movieFilmList[:4] + similarity_movieFilmList[:4]):
         if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
             movieId = getMovieId(movie, movies_df)
             movieLink = getMovieImdbLink(movieId, links_df)
@@ -73,7 +77,10 @@ def createPage():
             
         if movie not in df_movie_info['title'].values:
             scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
-    SimilarPageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
+    SimilarPageCreation(tfidf_movies=tfidf_movieFilmList,
+                        similarity_movies=similarity_movieFilmList,
+                        file_path=templates_path + "similar_movies.html",
+                        images_path=images_path, row_size=4)
     return "Done!"
 
 @app.route('/similar_movies.html')
@@ -125,12 +132,12 @@ if __name__ == '__main__':
             movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, size=1000000)
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
-            print("making MovieMatrix...")
+            print("\nmaking MovieMatrix...")
             userRatingsMatrix = getUserRatingsMatrix(userRatings_df)
             print("movieMatrix done!\n")
         if is_setup_movie_informations:
             df_movie_info = pd.read_csv(info_movie_path_csv)
-            print("movie informations read done\n")
+            print("\nmovie informations read")
         if is_create_main_onStart:
             print("\ncreating main.html...")
             topMovies = getTopNMoviesByNbOfRatings(20, movies_df, movieRatings_df)["movieTitle"].to_list()
