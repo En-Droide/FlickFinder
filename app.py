@@ -32,6 +32,7 @@ from create_similar_movies import SimilarPageCreation
 from create_main import MainPageCreation
 from scrap import *
 
+currentUserId = 1
 
 app = Flask(__name__, instance_path=instance_path)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -40,11 +41,11 @@ log.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
-    return render_template("main.html")
+    return render_template("main.html", currentUserId=currentUserId)
 
 @app.route("/main.html")
 def main():
-    return render_template("main.html")
+    return render_template("main.html", currentUserId=currentUserId)
 
 @app.route("/about.html")
 def about():
@@ -115,8 +116,7 @@ def movie_page2(movieTitle):
                             movie_Date = informations_movieDate,
                             movie_Time = informations_movieTime,
                             movie_Synopsis = informations_movieSynopsis,
-                            movie_Director = informations_movieDirector
-                           )
+                            movie_Director = informations_movieDirector)
 
 @app.context_processor
 def handle_context():
@@ -146,6 +146,5 @@ if __name__ == '__main__':
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
 
-            print("")
-        print("link : http://127.0.0.1:5000/")
+        print("\nlink : http://127.0.0.1:5000/")
     app.run(debug=False)

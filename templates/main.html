@@ -22,9 +22,15 @@
       <div class="Flickfinder">
         FlickFinder
       </div>
+      {% if currentUserId %}
+      <div class="right">
+        Connected as {{ currentUserId }}
+      </div>
+      {% else %}
       <a href="/account.html" class="right">
         Account
       </a>
+      {% endif %}
     </div>
   </header>
   <body>

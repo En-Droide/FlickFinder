@@ -37,9 +37,13 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                     air("About")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
+                air.append("{% if currentUserId %}")
+                with air.div(klass="right"):
+                    air("Connected as {{ currentUserId }}")
+                air.append("{% else %}")
                 with air.a(href="/account.html", klass="right"):
                     air("Account")
-        
+                air.append("{% endif %}")
         with air.body():
             air.append("<!-- Search bar -->")
             with air.div(klass="search-container"):
