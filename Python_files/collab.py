@@ -20,7 +20,7 @@ def getMovieSimilarPredictions(userId, movieTitle, movies_df, movieRatings_df, u
 
 def getUserSimilarPredictions(userId, movies_df, userRatings_df, movieRatings_df, userRatingsMatrix, model, userAmount, ratingsPerUser):
     matrixCorr, matrixSimilar = getUserCorrelations(userId, movies_df, movieRatings_df, userRatingsMatrix)    
-    correlatedMovies = getUserCorrelatedMovies(matrixCorr.index[:userAmount], movies, userRatings, ratingsPerUser)
+    correlatedMovies = getUserCorrelatedMovies(matrixCorr.index[:userAmount], movies_df, userRatings_df, ratingsPerUser)
     moviesRatedByUser = userRatings_df[userRatings_df["userId"] == userId]["movieId"].values
     correlatedMovies = correlatedMovies[~correlatedMovies["movieId"].isin(moviesRatedByUser)]
     correlatedMovies["prediction"] = correlatedMovies.apply(lambda row: model.predict(userId, row["movieId"])[3], axis=1)

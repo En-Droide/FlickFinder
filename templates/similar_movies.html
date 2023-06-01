@@ -19,9 +19,11 @@
       <a href="/main.html">
         Home
       </a>
-      <a href="/about.html">
-        About
+      {% if currentUserId %}
+      <a href="/mypredictions.html">
+        My Predictions
       </a>
+      {% endif %}
       <div class="Flickfinder">
         FlickFinder
       </div>
@@ -31,7 +33,20 @@
           My Ratings
         </a>
         <button class="disconnectButton" type="submit">
-          Disconnect (connected as {{ currentUserId }})
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Connected as {{ currentUserId }}
+              </p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Disconnect
+              </p>
+            </span>
+          </div>
         </button>
       </div>
       {% else %}
@@ -93,316 +108,284 @@
     <h3 class="Titlegrid">Recommendation based on the content (TFIDF) :</h3>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
-        <img src="{{ url_for('static', filename='Images/scrap/Toy Story (1995).jpg') }}" alt="Movie: Toy Story (1995)" />
+      <a href="/_movie/Low Life (1994)" id="Low Life (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Low Life (1994)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Toy Story (1995)']").click(function(event) {
+            $("a[href='/_movie/Low Life (1994)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Toy Story (1995)";
+                window.location.href = "/_movie/Low Life (1994)";
             });
         });
                         
       </script>
-      <h3>Toy Story (1995)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Low Life (1994)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Toy Story 2 (1999)" id="Toy Story 2 (1999)">
-        <img src="{{ url_for('static', filename='Images/scrap/Toy Story 2 (1999).jpg') }}" alt="Movie: Toy Story 2 (1999)" />
+      <a href="/_movie/Low Life (1994)" id="Low Life (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Low Life (1994)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Toy Story 2 (1999)']").click(function(event) {
+            $("a[href='/_movie/Low Life (1994)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Toy Story 2 (1999)";
+                window.location.href = "/_movie/Low Life (1994)";
             });
         });
                         
       </script>
-      <h3>Toy Story 2 (1999)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Low Life (1994)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Toy Story 3 (2010)" id="Toy Story 3 (2010)">
-        <img src="{{ url_for('static', filename='Images/scrap/Toy Story 3 (2010).jpg') }}" alt="Movie: Toy Story 3 (2010)" />
+      <a href="/_movie/Honey Moon (Honigmond) (1996)" id="Honey Moon (Honigmond) (1996)">
+        <img src="{{ url_for('static', filename='Images/scrap/Honey Moon (Honigmond) (1996).jpg') }}" alt="Movie: Honey Moon (Honigmond) (1996)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Toy Story 3 (2010)']").click(function(event) {
+            $("a[href='/_movie/Honey Moon (Honigmond) (1996)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Toy Story 3 (2010)";
+                window.location.href = "/_movie/Honey Moon (Honigmond) (1996)";
             });
         });
                         
       </script>
-      <h3>Toy Story 3 (2010)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Honey Moon (Honigmond) (1996)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Midnight in a Toy Shop (1930)" id="Midnight in a Toy Shop (1930)">
-        <img src="{{ url_for('static', filename='Images/scrap/Midnight in a Toy Shop (1930).jpg') }}" alt="Movie: Midnight in a Toy Shop (1930)" />
+      <a href="/_movie/Jar, The (Khomreh) (1992)" id="Jar, The (Khomreh) (1992)">
+        <img src="{{ url_for('static', filename='Images/scrap/Jar, The (Khomreh) (1992).jpg') }}" alt="Movie: Jar, The (Khomreh) (1992)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Midnight in a Toy Shop (1930)']").click(function(event) {
+            $("a[href='/_movie/Jar, The (Khomreh) (1992)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Midnight in a Toy Shop (1930)";
+                window.location.href = "/_movie/Jar, The (Khomreh) (1992)";
             });
         });
                         
       </script>
-      <h3>Midnight in a Toy Shop (1930)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Jar, The (Khomreh) (1992)</h3>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Toy Story Toons: Partysaurus Rex (2012)" id="Toy Story Toons: Partysaurus Rex (2012)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Toy Story Toons: Partysaurus Rex (2012)" />
+      <a href="/_movie/Costa Brava (1946)" id="Costa Brava (1946)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Costa Brava (1946)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Toy Story Toons: Partysaurus Rex (2012)']").click(function(event) {
+            $("a[href='/_movie/Costa Brava (1946)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Toy Story Toons: Partysaurus Rex (2012)";
+                window.location.href = "/_movie/Costa Brava (1946)";
             });
         });
                         
       </script>
-      <h3>Toy Story Toons: Partysaurus Rex (2012)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Costa Brava (1946)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Toy Story That Time Forgot (2014)" id="Toy Story That Time Forgot (2014)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Toy Story That Time Forgot (2014)" />
+      <a href="/_movie/Women Robbers (Diebinnen) (1995)" id="Women Robbers (Diebinnen) (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Women Robbers (Diebinnen) (1995)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Toy Story That Time Forgot (2014)']").click(function(event) {
+            $("a[href='/_movie/Women Robbers (Diebinnen) (1995)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Toy Story That Time Forgot (2014)";
+                window.location.href = "/_movie/Women Robbers (Diebinnen) (1995)";
             });
         });
                         
       </script>
-      <h3>Toy Story That Time Forgot (2014)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Women Robbers (Diebinnen) (1995)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Indian in the Cupboard, The (1995)" id="Indian in the Cupboard, The (1995)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Indian in the Cupboard, The (1995)" />
+      <a href="/_movie/Anna (1996)" id="Anna (1996)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Anna (1996)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Indian in the Cupboard, The (1995)']").click(function(event) {
+            $("a[href='/_movie/Anna (1996)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Indian in the Cupboard, The (1995)";
+                window.location.href = "/_movie/Anna (1996)";
             });
         });
                         
       </script>
-      <h3>Indian in the Cupboard, The (1995)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Anna (1996)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/The Mouse and His Child (1977)" id="The Mouse and His Child (1977)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: The Mouse and His Child (1977)" />
+      <a href="/_movie/Grateful Dead (1995)" id="Grateful Dead (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Grateful Dead (1995)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/The Mouse and His Child (1977)']").click(function(event) {
+            $("a[href='/_movie/Grateful Dead (1995)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/The Mouse and His Child (1977)";
+                window.location.href = "/_movie/Grateful Dead (1995)";
             });
         });
                         
       </script>
-      <h3>The Mouse and His Child (1977)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <h3>Grateful Dead (1995)</h3>
     </div>
     </div>
   </body>
   <h3 class="Titlegrid">Recommendation based on the movie similarities (Correlation) :</h3>
   <div class="movie-grid">
   <div class="moviecontainer">
-    <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
-      <img src="{{ url_for('static', filename='Images/scrap/Toy Story (1995).jpg') }}" alt="Movie: Toy Story (1995)" />
+    <a href="/_movie/Trainspotting (1996)" id="Trainspotting (1996)">
+      <img src="{{ url_for('static', filename='Images/scrap/Trainspotting (1996).jpg') }}" alt="Movie: Trainspotting (1996)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Toy Story (1995)']").click(function(event) {
+        $("a[href='/_movie/Trainspotting (1996)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Toy Story (1995)";
+            window.location.href = "/_movie/Trainspotting (1996)";
         });
     });
                     
     </script>
-    <h3>Toy Story (1995)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Trainspotting (1996)</h3>
   </div>
   <div class="moviecontainer">
-    <a href="/_movie/Toy Story 2 (1999)" id="Toy Story 2 (1999)">
-      <img src="{{ url_for('static', filename='Images/scrap/Toy Story 2 (1999).jpg') }}" alt="Movie: Toy Story 2 (1999)" />
+    <a href="/_movie/Secrets & Lies (1996)" id="Secrets & Lies (1996)">
+      <img src="{{ url_for('static', filename='Images/scrap/Secrets & Lies (1996).jpg') }}" alt="Movie: Secrets & Lies (1996)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Toy Story 2 (1999)']").click(function(event) {
+        $("a[href='/_movie/Secrets & Lies (1996)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Toy Story 2 (1999)";
+            window.location.href = "/_movie/Secrets & Lies (1996)";
         });
     });
                     
     </script>
-    <h3>Toy Story 2 (1999)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Secrets & Lies (1996)</h3>
   </div>
   <div class="moviecontainer">
-    <a href="/_movie/Tender Mercies (1983)" id="Tender Mercies (1983)">
-      <img src="{{ url_for('static', filename='Images/scrap/Tender Mercies (1983).jpg') }}" alt="Movie: Tender Mercies (1983)" />
+    <a href="/_movie/Four Weddings and a Funeral (1994)" id="Four Weddings and a Funeral (1994)">
+      <img src="{{ url_for('static', filename='Images/scrap/Four Weddings and a Funeral (1994).jpg') }}" alt="Movie: Four Weddings and a Funeral (1994)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Tender Mercies (1983)']").click(function(event) {
+        $("a[href='/_movie/Four Weddings and a Funeral (1994)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Tender Mercies (1983)";
+            window.location.href = "/_movie/Four Weddings and a Funeral (1994)";
         });
     });
                     
     </script>
-    <h3>Tender Mercies (1983)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Four Weddings and a Funeral (1994)</h3>
   </div>
   <div class="moviecontainer">
-    <a href="/_movie/Toy Story 3 (2010)" id="Toy Story 3 (2010)">
-      <img src="{{ url_for('static', filename='Images/scrap/Toy Story 3 (2010).jpg') }}" alt="Movie: Toy Story 3 (2010)" />
+    <a href="/_movie/Naked (1993)" id="Naked (1993)">
+      <img src="{{ url_for('static', filename='Images/scrap/Naked (1993).jpg') }}" alt="Movie: Naked (1993)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Toy Story 3 (2010)']").click(function(event) {
+        $("a[href='/_movie/Naked (1993)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Toy Story 3 (2010)";
+            window.location.href = "/_movie/Naked (1993)";
         });
     });
                     
     </script>
-    <h3>Toy Story 3 (2010)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Naked (1993)</h3>
   </div>
   </div>
   <div class="movie-grid">
   <div class="moviecontainer">
-    <a href="/_movie/Audition (Ôdishon) (1999)" id="Audition (Ôdishon) (1999)">
-      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Audition (Ôdishon) (1999)" />
+    <a href="/_movie/Cold Comfort Farm (1995)" id="Cold Comfort Farm (1995)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Cold Comfort Farm (1995)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Audition (Ôdishon) (1999)']").click(function(event) {
+        $("a[href='/_movie/Cold Comfort Farm (1995)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Audition (Ôdishon) (1999)";
+            window.location.href = "/_movie/Cold Comfort Farm (1995)";
         });
     });
                     
     </script>
-    <h3>Audition (Ôdishon) (1999)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Cold Comfort Farm (1995)</h3>
   </div>
   <div class="moviecontainer">
-    <a href="/_movie/Mummy, The (1932)" id="Mummy, The (1932)">
-      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Mummy, The (1932)" />
+    <a href="/_movie/Wallace & Gromit: A Close Shave (1995)" id="Wallace & Gromit: A Close Shave (1995)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Wallace & Gromit: A Close Shave (1995)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Mummy, The (1932)']").click(function(event) {
+        $("a[href='/_movie/Wallace & Gromit: A Close Shave (1995)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Mummy, The (1932)";
+            window.location.href = "/_movie/Wallace & Gromit: A Close Shave (1995)";
         });
     });
                     
     </script>
-    <h3>Mummy, The (1932)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Wallace & Gromit: A Close Shave (1995)</h3>
   </div>
   <div class="moviecontainer">
-    <a href="/_movie/Top Hat (1935)" id="Top Hat (1935)">
-      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Top Hat (1935)" />
+    <a href="/_movie/Swingers (1996)" id="Swingers (1996)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Swingers (1996)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Top Hat (1935)']").click(function(event) {
+        $("a[href='/_movie/Swingers (1996)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Top Hat (1935)";
+            window.location.href = "/_movie/Swingers (1996)";
         });
     });
                     
     </script>
-    <h3>Top Hat (1935)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Swingers (1996)</h3>
   </div>
   <div class="moviecontainer">
-    <a href="/_movie/Kissing Jessica Stein (2001)" id="Kissing Jessica Stein (2001)">
-      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kissing Jessica Stein (2001)" />
+    <a href="/_movie/Birdcage, The (1996)" id="Birdcage, The (1996)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Birdcage, The (1996)" />
     </a>
     <script>
       
     $(document).ready(function() {
-        $("a[href='/_movie/Kissing Jessica Stein (2001)']").click(function(event) {
+        $("a[href='/_movie/Birdcage, The (1996)']").click(function(event) {
             event.preventDefault();
             // alert("yes");
-            window.location.href = "/_movie/Kissing Jessica Stein (2001)";
+            window.location.href = "/_movie/Birdcage, The (1996)";
         });
     });
                     
     </script>
-    <h3>Kissing Jessica Stein (2001)</h3>
-    <h6>Genre</h6>
-    <p>Synopsys</p>
+    <h3>Birdcage, The (1996)</h3>
   </div>
   </div>
   <footer>

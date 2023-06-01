@@ -14,13 +14,30 @@
   <header>
     <div class="topnav">
       <a href="/main.html"> Home </a>
-      <a href="/about.html"> About </a>
+      {% if currentUserId %}
+      <a href="/mypredictions.html">My Predictions</a>
+      {% endif %}
       <div class="Flickfinder"> FlickFinder </div>
       {% if currentUserId %}
       <div class="right">
-        <a href="/myratings.html"> My Ratings </a>
+        <a href="/myratings.html">
+          My Ratings
+        </a>
         <button class="disconnectButton" type="submit">
-          Disconnect (connected as {{ currentUserId }})
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Connected as {{ currentUserId }}
+              </p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Disconnect
+              </p>
+            </span>
+          </div>
         </button>
       </div>
       {% else %}

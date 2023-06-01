@@ -56,8 +56,14 @@ def scrape_and_create_movie_csv(path,soup,movieTitle):
     return df
 
 def informations_movies (movieTitle, df_movie_info):
-    informations_movieDate = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(0).str.strip().values[0]
-    informations_movieTime =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(-1).str.strip().values[0]
-    informations_movieSynopsis =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'synopsis'].values[0]
-    informations_movieDirector = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'director'].values[0]
+    try:
+        informations_movieDate = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(0).str.strip().values[0]
+        informations_movieTime =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(-1).str.strip().values[0]
+        informations_movieSynopsis =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'synopsis'].values[0]
+        informations_movieDirector = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'director'].values[0]
+    except:
+        informations_movieDate = ""
+        informations_movieTime =  ""
+        informations_movieSynopsis =  ""
+        informations_movieDirector = ""
     return informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector

@@ -4,13 +4,14 @@ import os
 import sys
 import pandas as pd
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
 is_getMovieMatrix_onStart = True
+is_setup_recommendation_model_onStart = True
 is_create_main_onStart = True
 is_setup_movie_informations = True
 
@@ -47,17 +48,9 @@ def home():
 def main():
     return render_template("main.html", currentUserId=currentUserId)
 
-@app.route("/about.html")
-def about():
-    return render_template("about.html", currentUserId=currentUserId)
-
 @app.route("/account.html")
 def account():
     return render_template("account.html", currentUserId=currentUserId)
-
-@app.route("/exemple_movie_page.html")
-def moviePage():
-    return render_template("exemple_movie_page.html")
 
 @app.route("/_tfidf", methods=["POST"])
 def createPage():
@@ -88,9 +81,8 @@ def createPage():
 def similar_movies():
     return render_template('similar_movies.html', currentUserId=currentUserId)
 
-
 @app.route('/_movie/<movieTitle>')
-def movie_page2(movieTitle):
+def movie_page(movieTitle):
     print(movieTitle)
     # movieTitle="Toy Story (1995)"
     if not(isMovieInDataset(movieTitle, movies_df)):
@@ -127,15 +119,43 @@ def my_ratings():
                     images_path=images_path, row_size=4)
     return render_template("myratings.html", currentUserId=currentUserId)
 
+@app.route("/mypredictions.html")
+def my_predictions():
+    user_similarities_movies = getUserSimilarPredictions(userId=currentUserId,
+                                                         movies_df=movies_df,
+                                                         userRatings_df=userRatings_df,
+                                                         movieRatings_df=movieRatings_df,
+                                                         userRatingsMatrix=userRatingsMatrix,
+                                                         model=model,
+                                                         userAmount=10,
+                                                         ratingsPerUser=10)
+    print("user similarities : \n", user_similarities_movies["movieTitle"][:10], "\n")
+    global failed_scraps
+    for movie in user_similarities_movies["movieTitle"].values[:4]:
+        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+            
+        if movie not in df_movie_info['title'].values:
+            scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+    MyPredictionsPageCreation(currentUserId=currentUserId,
+                            userPredictions=user_similarities_movies,
+                            file_path=templates_path + "mypredictions.html",
+                            images_path=images_path, row_size=4)
+    return render_template("mypredictions.html", currentUserId=currentUserId)
+
 @app.route("/_login", methods=["POST"])
 def login():
     userId = request.form.get("userId")
     global currentUserId, currentUserRatings
-    currentUserId = userId
+    currentUserId = int(userId)
     print("connected as", currentUserId)
-    currentUserRatings = userRatings_df[userRatings_df["userId"] == int(currentUserId)]
+    currentUserRatings = userRatings_df[userRatings_df["userId"] == currentUserId].sort_values("rating", ascending=False)
     currentUserRatings["movieTitle"] = currentUserRatings["movieId"].apply(lambda id: getMovieTitle(movieId=id, movies_df=movies_df))
-    print(currentUserRatings)
     return "Done!"
 
 @app.route("/_disconnect", methods=["POST"])
@@ -162,6 +182,10 @@ if __name__ == '__main__':
             print("\nmaking MovieMatrix...")
             userRatingsMatrix = getUserRatingsMatrix(userRatings_df)
             print("movieMatrix done!\n")
+        if is_setup_recommendation_model_onStart:
+            print("\ncreating the prediction model...")
+            model = createModel(userRatings_df, SVD)
+            print("prediction model done!\n")
         if is_setup_movie_informations:
             df_movie_info = pd.read_csv(info_movie_path_csv)
             print("\nmovie informations read")

@@ -19,9 +19,11 @@
       <a href="/main.html">
         Home
       </a>
-      <a href="/about.html">
-        About
+      {% if currentUserId %}
+      <a href="/mypredictions.html">
+        My Predictions
       </a>
+      {% endif %}
       <div class="Flickfinder">
         FlickFinder
       </div>
@@ -120,8 +122,6 @@
                         
       </script>
       <h3>Forrest Gump (1994)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Shawshank Redemption, The (1994)" id="Shawshank Redemption, The (1994)">
@@ -139,8 +139,6 @@
                         
       </script>
       <h3>Shawshank Redemption, The (1994)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Pulp Fiction (1994)" id="Pulp Fiction (1994)">
@@ -158,8 +156,6 @@
                         
       </script>
       <h3>Pulp Fiction (1994)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Silence of the Lambs, The (1991)" id="Silence of the Lambs, The (1991)">
@@ -177,8 +173,6 @@
                         
       </script>
       <h3>Silence of the Lambs, The (1991)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     </div>
     <div class="movie-grid">
@@ -198,12 +192,10 @@
                         
       </script>
       <h3>Matrix, The (1999)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Star Wars: Episode IV - A New Hope (1977)" id="Star Wars: Episode IV - A New Hope (1977)">
-        <img src="{{ url_for('static', filename='Images/scrap/Star Wars: Episode IV - A New Hope (1977).jpg') }}" alt="Movie: Star Wars: Episode IV - A New Hope (1977)" />
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode IV - A New Hope (1977)" />
       </a>
       <script>
         
@@ -217,8 +209,6 @@
                         
       </script>
       <h3>Star Wars: Episode IV - A New Hope (1977)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Jurassic Park (1993)" id="Jurassic Park (1993)">
@@ -236,8 +226,6 @@
                         
       </script>
       <h3>Jurassic Park (1993)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Schindler&quot;s List (1993)" id="Schindler&quot;s List (1993)">
@@ -255,8 +243,6 @@
                         
       </script>
       <h3>Schindler&quot;s List (1993)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     </div>
     <div class="movie-grid">
@@ -276,8 +262,6 @@
                         
       </script>
       <h3>Braveheart (1995)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
@@ -295,12 +279,10 @@
                         
       </script>
       <h3>Toy Story (1995)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Star Wars: Episode VI - Return of the Jedi (1983)" id="Star Wars: Episode VI - Return of the Jedi (1983)">
-        <img src="{{ url_for('static', filename='Images/scrap/Star Wars: Episode VI - Return of the Jedi (1983).jpg') }}" alt="Movie: Star Wars: Episode VI - Return of the Jedi (1983)" />
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode VI - Return of the Jedi (1983)" />
       </a>
       <script>
         
@@ -314,12 +296,10 @@
                         
       </script>
       <h3>Star Wars: Episode VI - Return of the Jedi (1983)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Star Wars: Episode V - The Empire Strikes Back (1980)" id="Star Wars: Episode V - The Empire Strikes Back (1980)">
-        <img src="{{ url_for('static', filename='Images/scrap/Star Wars: Episode V - The Empire Strikes Back (1980).jpg') }}" alt="Movie: Star Wars: Episode V - The Empire Strikes Back (1980)" />
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode V - The Empire Strikes Back (1980)" />
       </a>
       <script>
         
@@ -333,8 +313,6 @@
                         
       </script>
       <h3>Star Wars: Episode V - The Empire Strikes Back (1980)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     </div>
     <div class="movie-grid">
@@ -354,8 +332,6 @@
                         
       </script>
       <h3>Terminator 2: Judgment Day (1991)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)" id="Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)">
@@ -373,8 +349,6 @@
                         
       </script>
       <h3>Raiders of the Lost Ark (Indiana Jones and the Raiders of the Lost Ark) (1981)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Fight Club (1999)" id="Fight Club (1999)">
@@ -392,8 +366,6 @@
                         
       </script>
       <h3>Fight Club (1999)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Usual Suspects, The (1995)" id="Usual Suspects, The (1995)">
@@ -411,14 +383,12 @@
                         
       </script>
       <h3>Usual Suspects, The (1995)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Lord of the Rings: The Fellowship of the Ring, The (2001)" id="Lord of the Rings: The Fellowship of the Ring, The (2001)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Lord of the Rings: The Fellowship of the Ring, The (2001)" />
+        <img src="{{ url_for('static', filename='Images/scrap/Lord of the Rings: The Fellowship of the Ring, The (2001).jpg') }}" alt="Movie: Lord of the Rings: The Fellowship of the Ring, The (2001)" />
       </a>
       <script>
         
@@ -432,8 +402,6 @@
                         
       </script>
       <h3>Lord of the Rings: The Fellowship of the Ring, The (2001)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Independence Day (a.k.a. ID4) (1996)" id="Independence Day (a.k.a. ID4) (1996)">
@@ -451,8 +419,6 @@
                         
       </script>
       <h3>Independence Day (a.k.a. ID4) (1996)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/Godfather, The (1972)" id="Godfather, The (1972)">
@@ -470,8 +436,6 @@
                         
       </script>
       <h3>Godfather, The (1972)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     <div class="moviecontainer">
       <a href="/_movie/American Beauty (1999)" id="American Beauty (1999)">
@@ -489,8 +453,6 @@
                         
       </script>
       <h3>American Beauty (1999)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
     </div>
     </div>
   </body>

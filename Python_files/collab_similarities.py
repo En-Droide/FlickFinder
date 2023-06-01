@@ -46,20 +46,20 @@ if(__name__ == "__main__"):
     userRatingsMatrix = getUserRatingsMatrix(userRatings)
     print("movieMatrix done!\n")
     
-    movieTitle = 'Matrix, The (1999)'
-    movieId = getMovieId(movieTitle, movies)
-    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix, minRatingAmount=40)
-    print("\n\nMovies similar to : " + movieTitle)
-    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-        print(matrixCorr[1:6])
-    print("\n")
-    
-    # userId = 1
-    # matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
-    # print("\n\nUsers similar to : " + str(userId))
-    
-    # print(matrixCorr2.head(10))
+    # movieTitle = 'Matrix, The (1999)'
+    # movieId = getMovieId(movieTitle, movies)
+    # matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix, minRatingAmount=40)
+    # print("\n\nMovies similar to : " + movieTitle)
+    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+    #     print(matrixCorr[1:6])
     # print("\n")
+    
+    userId = 1
+    matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
+    print("\n\nUsers similar to : " + str(userId))
+    
+    print(matrixCorr2.head(10))
+    print("\n")
     
     # userId = 10
     # matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)

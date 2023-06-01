@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      FlickFinder
+    </title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
+  </head>
+  <!-- Top navigation bar -->
+  <header>
+    <div class="topnav">
+      <a href="/main.html">
+        Home
+      </a>
+      {% if currentUserId %}
+      <a href="/mypredictions.html">
+        My Predictions
+      </a>
+      {% endif %}
+      <div class="Flickfinder">
+        FlickFinder
+      </div>
+      {% if currentUserId %}
+      <div class="right">
+        <a href="/myratings.html">
+          My Ratings
+        </a>
+        <button class="disconnectButton" type="submit">
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Connected as {{ currentUserId }}
+              </p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Disconnect
+              </p>
+            </span>
+          </div>
+        </button>
+      </div>
+      {% else %}
+      <a href="/account.html" class="right">
+        Account
+      </a>
+      {% endif %}
+    </div>
+    <script>
+      
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/main.html"; 
+                },
+            });
+        });
+        });
+        
+    </script>
+  </header>
+  <body style="margin-top: 10%;">
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Conversation, The (1974)" id="Conversation, The (1974)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Conversation, The (1974)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Conversation, The (1974)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Conversation, The (1974)";
+            });
+        });
+                        
+      </script>
+      <h3>Conversation, The (1974)</h3>
+      <p>My rating : 5.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Wild Bunch, The (1969)" id="Wild Bunch, The (1969)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Wild Bunch, The (1969)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Wild Bunch, The (1969)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Wild Bunch, The (1969)";
+            });
+        });
+                        
+      </script>
+      <h3>Wild Bunch, The (1969)</h3>
+      <p>My rating : 4.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Seventh Seal, The (Sjunde inseglet, Det) (1957)" id="Seventh Seal, The (Sjunde inseglet, Det) (1957)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Seventh Seal, The (Sjunde inseglet, Det) (1957)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Seventh Seal, The (Sjunde inseglet, Det) (1957)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Seventh Seal, The (Sjunde inseglet, Det) (1957)";
+            });
+        });
+                        
+      </script>
+      <h3>Seventh Seal, The (Sjunde inseglet, Det) (1957)</h3>
+      <p>My rating : 4.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)" id="Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)";
+            });
+        });
+                        
+      </script>
+      <h3>Sunset Blvd. (a.k.a. Sunset Boulevard) (1950)</h3>
+      <p>My rating : 4.0</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Notorious (1946)" id="Notorious (1946)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Notorious (1946)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Notorious (1946)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Notorious (1946)";
+            });
+        });
+                        
+      </script>
+      <h3>Notorious (1946)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Superman Returns (2006)" id="Superman Returns (2006)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Superman Returns (2006)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Superman Returns (2006)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Superman Returns (2006)";
+            });
+        });
+                        
+      </script>
+      <h3>Superman Returns (2006)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Immortal Beloved (1994)" id="Immortal Beloved (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Immortal Beloved (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Immortal Beloved (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Immortal Beloved (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Immortal Beloved (1994)</h3>
+      <p>My rating : 3.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/One Hour Photo (2002)" id="One Hour Photo (2002)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: One Hour Photo (2002)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/One Hour Photo (2002)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/One Hour Photo (2002)";
+            });
+        });
+                        
+      </script>
+      <h3>One Hour Photo (2002)</h3>
+      <p>My rating : 3.0</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/25th Hour (2002)" id="25th Hour (2002)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: 25th Hour (2002)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/25th Hour (2002)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/25th Hour (2002)";
+            });
+        });
+                        
+      </script>
+      <h3>25th Hour (2002)</h3>
+      <p>My rating : 3.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Children of Men (2006)" id="Children of Men (2006)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Children of Men (2006)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Children of Men (2006)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Children of Men (2006)";
+            });
+        });
+                        
+      </script>
+      <h3>Children of Men (2006)</h3>
+      <p>My rating : 3.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Mighty Ducks, The (1992)" id="Mighty Ducks, The (1992)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Mighty Ducks, The (1992)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Mighty Ducks, The (1992)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Mighty Ducks, The (1992)";
+            });
+        });
+                        
+      </script>
+      <h3>Mighty Ducks, The (1992)</h3>
+      <p>My rating : 2.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/What Lies Beneath (2000)" id="What Lies Beneath (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: What Lies Beneath (2000)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/What Lies Beneath (2000)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/What Lies Beneath (2000)";
+            });
+        });
+                        
+      </script>
+      <h3>What Lies Beneath (2000)</h3>
+      <p>My rating : 2.5</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Red Planet (2000)" id="Red Planet (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Red Planet (2000)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Red Planet (2000)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Red Planet (2000)";
+            });
+        });
+                        
+      </script>
+      <h3>Red Planet (2000)</h3>
+      <p>My rating : 2.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/About Schmidt (2002)" id="About Schmidt (2002)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: About Schmidt (2002)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/About Schmidt (2002)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/About Schmidt (2002)";
+            });
+        });
+                        
+      </script>
+      <h3>About Schmidt (2002)</h3>
+      <p>My rating : 2.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Honey, I Blew Up the Kid (1992)" id="Honey, I Blew Up the Kid (1992)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Honey, I Blew Up the Kid (1992)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Honey, I Blew Up the Kid (1992)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Honey, I Blew Up the Kid (1992)";
+            });
+        });
+                        
+      </script>
+      <h3>Honey, I Blew Up the Kid (1992)</h3>
+      <p>My rating : 1.0</p>
+    </div>
+    </div>
+  </body>
+  <footer>
+    <div class="container">
+      <h3>About Us, The Recommendation website</h3>
+
+      <img src="{{ url_for('static',filename='Images/ESME.jpg') }}" alt="Me" class="w3-image" style="display: block; margin: auto" width="100" height="100" />
+      <h4><b>hello</b></h4>
+      <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-twitter" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-google-plus-g" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+</html>
