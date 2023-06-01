@@ -37,7 +37,14 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                     with air.a(href="/myratings.html"):
                         air("My Ratings")
                     with air.button(klass="disconnectButton", type="submit"):
-                        air("Disconnect (connected as {{ currentUserId }})")
+                        with air.div():
+                            with air.span(klass="DisconnectConnectText"):
+                                with air.p():
+                                    air("Connected as {{ currentUserId }}")
+                        with air.div():
+                            with air.span(klass="DisconnectConnectText"):
+                                with air.p():
+                                    air("Disconnect")
                 air.append("{% else %}")
                 with air.a(href="/account.html", klass="right"):
                     air("Account")
