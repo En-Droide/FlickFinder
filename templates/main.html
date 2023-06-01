@@ -26,9 +26,14 @@
         FlickFinder
       </div>
       {% if currentUserId %}
-      <button class="right disconnectButton" type="submit">
-        Disconnect (connected as {{ currentUserId }})
-      </button>
+      <div class="right">
+        <a href="/myratings.html">
+          My Ratings
+        </a>
+        <button class="disconnectButton" type="submit">
+          Disconnect (connected as {{ currentUserId }})
+        </button>
+      </div>
       {% else %}
       <a href="/account.html" class="right">
         Account

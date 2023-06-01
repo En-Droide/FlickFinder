@@ -51,8 +51,10 @@ body {
 }
 .right {
   position: absolute;
-  left: 95%;
-  transform: translateX(-50%);
+  /* left: 95%; */
+  float: right;
+  right: 0%;
+  /* transform: translateX(-50%); */
   padding: 14px 16px;
   text-align: center;
   text-decoration: none;

@@ -15,11 +15,14 @@
     <div class="topnav">
       <a href="/main.html"> Home </a>
       <a href="/about.html"> About </a>
-      <div class="Flickfinder">FlickFinder</div>
+      <div class="Flickfinder"> FlickFinder </div>
       {% if currentUserId %}
-      <button class="right disconnectButton"type="submit">
-        Disconnect (connected as {{ currentUserId }})
-      </button>
+      <div class="right">
+        <a href="/myratings.html"> My Ratings </a>
+        <button class="disconnectButton" type="submit">
+          Disconnect (connected as {{ currentUserId }})
+        </button>
+      </div>
       {% else %}
       <a href="/account.html" class="right">
         Account
@@ -148,10 +151,10 @@
         popupStars[i].addEventListener("click", function () {
           if (this.checked) {
             var rating = this.getAttribute("data-rating");
-            alert("You rated the movie " + rating + " stars!");
+            // alert("You rated the movie " + rating + " stars!");
       
             // Close the pop-up after rating
-            //document.getElementById("popup").style.display = "none";
+            document.getElementById("popup").style.display = "none";
           }
         });
       }

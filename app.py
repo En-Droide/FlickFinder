@@ -4,8 +4,8 @@ import os
 import sys
 import pandas as pd
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
@@ -24,7 +24,6 @@ rating_path = movieLens_path + "ratings.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
 info_movie_path_csv = project_path + "static\\Csv_files\\movies_informations.csv"
 
-
 from handle_movielens import *
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast, match_title
 from collab import *
@@ -34,6 +33,7 @@ from create_main import MainPageCreation
 from scrap import *
 
 currentUserId = None
+currentUserRatings = None
 
 app = Flask(__name__, instance_path=instance_path)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -120,12 +120,17 @@ def movie_page2(movieTitle):
                             movie_Director = informations_movieDirector,
                             currentUserId=currentUserId)
 
+@app.route('/myratings.html')
+def my_ratings():
+    render_template("myratings_dynamic.html", currentUserId=currentUserId, currentUserRatings=currentUserRatings)
+
 @app.route("/_login", methods=["POST"])
 def login():
     userId = request.form.get("userId")
     print("connected as", userId)
-    global currentUserId
+    global currentUserId, currentUserRatings
     currentUserId = userId
+    currentUserRatings = userRatings_df[userRatings_df["userId"] == currentUserId]
     return "Done!"
 
 @app.route("/_disconnect", methods=["POST"])
