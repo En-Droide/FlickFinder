@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      FlickFinder
+    </title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
@@ -22,10 +25,32 @@
       <div class="Flickfinder">
         FlickFinder
       </div>
+      {% if currentUserId %}
+      <button class="right disconnectButton" type="submit">
+        Disconnect (connected as {{ currentUserId }})
+      </button>
+      {% else %}
       <a href="/account.html" class="right">
         Account
       </a>
+      {% endif %}
     </div>
+    <script>
+      
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/main.html"; 
+                },
+            });
+        });
+        });
+        
+    </script>
   </header>
   <body>
     <!-- Search bar -->
