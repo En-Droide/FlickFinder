@@ -31,7 +31,17 @@
           My Ratings
         </a>
         <button class="disconnectButton" type="submit">
-          Disconnect (connected as {{ currentUserId }})
+          <div>
+            <span>
+              <p>Connected as {{ currentUserId }}</p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectText">
+              <p>Disconnect</p>
+            </span>
+          </div>
+           
         </button>
       </div>
       {% else %}
