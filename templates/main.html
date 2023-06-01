@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      FlickFinder
+    </title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
@@ -23,15 +26,31 @@
         FlickFinder
       </div>
       {% if currentUserId %}
-      <div class="right">
-        Connected as {{ currentUserId }}
-      </div>
+      <button class="right disconnectButton" type="submit">
+        Disconnect (connected as {{ currentUserId }})
+      </button>
       {% else %}
       <a href="/account.html" class="right">
         Account
       </a>
       {% endif %}
     </div>
+    <script>
+      
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/main.html"; 
+                },
+            });
+        });
+        });
+        
+    </script>
   </header>
   <body>
     <!-- Search bar -->
@@ -303,7 +322,7 @@
     <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Terminator 2: Judgment Day (1991)" id="Terminator 2: Judgment Day (1991)">
-        <img src="{{ url_for('static', filename='Images/scrap/Terminator 2: Judgment Day (1991).jpg') }}" alt="Movie: Terminator 2: Judgment Day (1991)" />
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator 2: Judgment Day (1991)" />
       </a>
       <script>
         

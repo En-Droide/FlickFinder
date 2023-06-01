@@ -4,7 +4,8 @@ import os
 import sys
 import pandas as pd
 
-project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
@@ -49,11 +50,11 @@ def main():
 
 @app.route("/about.html")
 def about():
-    return render_template("about.html")
+    return render_template("about.html", currentUserId=currentUserId)
 
 @app.route("/account.html")
 def account():
-    return render_template("account.html")
+    return render_template("account.html", currentUserId=currentUserId)
 
 @app.route("/exemple_movie_page.html")
 def moviePage():
@@ -86,7 +87,7 @@ def createPage():
 
 @app.route('/similar_movies.html')
 def similar_movies():
-    return render_template('similar_movies.html')
+    return render_template('similar_movies.html', currentUserId=currentUserId)
 
 
 @app.route('/_movie/<movieTitle>')
@@ -116,7 +117,23 @@ def movie_page2(movieTitle):
                             movie_Date = informations_movieDate,
                             movie_Time = informations_movieTime,
                             movie_Synopsis = informations_movieSynopsis,
-                            movie_Director = informations_movieDirector)
+                            movie_Director = informations_movieDirector,
+                            currentUserId=currentUserId)
+
+@app.route("/_login", methods=["POST"])
+def login():
+    userId = request.form.get("userId")
+    print("connected as", userId)
+    global currentUserId
+    currentUserId = userId
+    return "Done!"
+
+@app.route("/_disconnect", methods=["POST"])
+def disconnect():
+    global currentUserId
+    currentUserId = None
+    print("disconnecting..")
+    return "Done!"
 
 @app.context_processor
 def handle_context():

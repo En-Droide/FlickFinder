@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Slide Navbar</title>
+    <title>Login to FlickFinder</title>
     <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_account.css') }}" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
   </head>
 
   <body>
@@ -10,7 +13,31 @@
       <a href="main.html">Home</a>
       <a href="about.html">About</a>
       <div class="Flickfinder">FlickFinder</div>
-      <a href="account.html" class="right">Account</a>
+      {% if currentUserId %}
+      <button class="right disconnectButton" type="submit">
+        Connected as {{ currentUserId }}
+      </button>
+      {% else %}
+      <a href="/account.html" class="right">
+        Account
+      </a>
+      {% endif %}
+    <script>
+      
+        $(document).ready(function () {
+            $(".disconnectButton").click(function () {
+                $.ajax({
+                    url: "/_disconnect",
+                    type: "POST",
+                    crossDomain: true,
+                    success: function () {
+                        window.location.href = "/main.html"; 
+                    },
+                });
+            });
+        });
+        
+    </script>
     </div>
 
     <div class="main">
@@ -31,12 +58,38 @@
       </div>
 
       <div class="login">
-        <form method="POST" action="main.html">
           <label for="chk" aria-hidden="true">Login</label>
-          <input type="text" name="email" placeholder="UserId" required="" />
-          <button type="submit" name="login">Login</button>
-        </form>
+          <input type="text" name="emailText" placeholder="UserId" required="" />
+          <button type="submit" name="login" class="loginButton">Login</button>
       </div>
+    <script>
+      
+      $(document).ready(function () {
+      $(".loginButton").click(function () {
+        const message = $("[name=emailText]").val();
+        if (/^[1-9]\d*$/.test(message)) {
+          var formData = {
+          userId: message,
+          };
+          $.ajax({
+            url: "/_login",
+            type: "POST",
+            crossDomain: true,
+            data: formData,
+            dataType: "text",
+            success: function (data) {
+                window.location.href = "/main.html"; 
+            },
+          });
+        }
+        else {
+          alert("wrong userId");
+          // window.location.href = "/account.html";
+        }
+      });
+      });
+        
+    </script>
     </div>
   </body>
 </html>

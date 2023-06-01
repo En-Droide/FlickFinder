@@ -20,7 +20,8 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         with air.head():
             air.meta(charset="utf-8")
             air.meta(name="viewport", content="width=device-width, initial-scale=1")
-
+            with air.title():
+                air("FlickFinder")
             air.link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.12.1/css/all.css", crossorigin="anonymous")
             air.link(rel="stylesheet", href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}")
             air.link(rel="stylesheet", href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css")
@@ -38,12 +39,27 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
                 air.append("{% if currentUserId %}")
-                with air.div(klass="right"):
-                    air("Connected as {{ currentUserId }}")
+                with air.button(klass="right disconnectButton", type="submit"):
+                    air("Disconnect (connected as {{ currentUserId }})")
                 air.append("{% else %}")
                 with air.a(href="/account.html", klass="right"):
                     air("Account")
                 air.append("{% endif %}")
+            with air.script():
+                air.append("""
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/main.html"; 
+                },
+            });
+        });
+        });
+        """)
         with air.body():
             air.append("<!-- Search bar -->")
             with air.div(klass="search-container"):

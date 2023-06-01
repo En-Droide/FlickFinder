@@ -20,6 +20,8 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
         with air.head():
             air.meta(charset="utf-8")
             air.meta(name="viewport", content="width=device-width, initial-scale=1")
+            with air.title():
+                air("FlickFinder")
 
             air.link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.12.1/css/all.css", crossorigin="anonymous")
             air.link(rel="stylesheet", href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}")
@@ -37,8 +39,28 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
                     air("About")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
+                air.append("{% if currentUserId %}")
+                with air.button(klass="right disconnectButton", type="submit"):
+                    air("Disconnect (connected as {{ currentUserId }})")
+                air.append("{% else %}")
                 with air.a(href="/account.html", klass="right"):
                     air("Account")
+                air.append("{% endif %}")
+            with air.script():
+                air.append("""
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/main.html"; 
+                },
+            });
+        });
+        });
+        """)
         
         with air.body():
             air.append("<!-- Search bar -->")
