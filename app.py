@@ -33,7 +33,7 @@ from create_similar_movies import SimilarPageCreation
 from create_main import MainPageCreation
 from scrap import *
 
-currentUserId = 1
+currentUserId = None
 
 app = Flask(__name__, instance_path=instance_path)
 app.config["TEMPLATES_AUTO_RELOAD"] = True

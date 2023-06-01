@@ -80,7 +80,9 @@
           <h3 class="stars_rating">
             Rating:&ensp;{{ meanRating }}&emsp;
           </h3>
-          <button id="btn" class="btn_rating" type="submit">Your rate</button>
+          {% if currentUserId %}
+          <button id="btn" class="btn_rating" type="submit">Give your rating</button>
+          {% endif %}
         </div>
       </div>
     </div>
@@ -146,7 +148,7 @@
         popupStars[i].addEventListener("click", function () {
           if (this.checked) {
             var rating = this.getAttribute("data-rating");
-            //alert("You rated the movie " + rating + " stars!");
+            alert("You rated the movie " + rating + " stars!");
       
             // Close the pop-up after rating
             //document.getElementById("popup").style.display = "none";
