@@ -4,9 +4,9 @@ import os
 import sys
 import pandas as pd
 
-project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -60,6 +60,7 @@ def createPage():
     similarity_movieFilmList = getMovieCorrelations(tfidf_movieFilmList[0], movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[:8]
     print("similarity : \n", similarity_movieFilmList, "\n")
     global failed_scraps
+    soup = None
     for movie in (tfidf_movieFilmList[:4] + similarity_movieFilmList[:4]):
         if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
             movieId = getMovieId(movie, movies_df)
@@ -70,6 +71,10 @@ def createPage():
             if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
             
         if movie not in df_movie_info['title'].values:
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
             scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
     SimilarPageCreation(tfidf_movies=tfidf_movieFilmList,
                         similarity_movies=similarity_movieFilmList,

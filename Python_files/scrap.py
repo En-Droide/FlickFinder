@@ -31,8 +31,8 @@ def scrape_and_create_movie_csv(path,soup,movieTitle):
     director_name = director_element.text.strip() if director_element else f"Director name not found on the page for {movieTitle}."
 
     # Scrape synopsis
-    synopsis_element = soup.find('span', attrs={'data-testid': 'plot-xs_to_m'})
-    synopsis = synopsis_element.text.strip() if synopsis_element else f"Synopsis not found on the page for {movieTitle}."
+    synopsis_element = soup.find('span', attrs={'data-testid': 'plot-xl'})
+    synopsis_xl = synopsis_element.text.strip() if synopsis_element else f"Synopsis not found on the page for {movieTitle}."
 
     # Scrape additional information
     extracted_texts = []
@@ -48,7 +48,7 @@ def scrape_and_create_movie_csv(path,soup,movieTitle):
     df = pd.DataFrame({
         "title": [movieTitle],
         "director": [director_name],
-        "synopsis": [synopsis],
+        "synopsis_xl": [synopsis_xl],
         "informations": [", ".join(extracted_texts)]
     })
     df.to_csv(path, mode='a', index=False, header=False)
@@ -59,7 +59,7 @@ def informations_movies (movieTitle, df_movie_info):
     try:
         informations_movieDate = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(0).str.strip().values[0]
         informations_movieTime =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'informations'].str.split(",").str.get(-1).str.strip().values[0]
-        informations_movieSynopsis =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'synopsis'].values[0]
+        informations_movieSynopsis =  df_movie_info.loc[df_movie_info['title'] == movieTitle, 'synopsis_xl'].values[0]
         informations_movieDirector = df_movie_info.loc[df_movie_info['title'] == movieTitle, 'director'].values[0]
     except:
         informations_movieDate = ""
