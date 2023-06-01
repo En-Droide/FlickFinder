@@ -26,9 +26,14 @@
         FlickFinder
       </div>
       {% if currentUserId %}
-      <button class="right disconnectButton" type="submit">
-        Disconnect (connected as {{ currentUserId }})
-      </button>
+      <div class="right">
+        <a href="/myratings.html">
+          My Ratings
+        </a>
+        <button class="disconnectButton" type="submit">
+          Disconnect (connected as {{ currentUserId }})
+        </button>
+      </div>
       {% else %}
       <a href="/account.html" class="right">
         Account
@@ -322,7 +327,7 @@
     <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Terminator 2: Judgment Day (1991)" id="Terminator 2: Judgment Day (1991)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Terminator 2: Judgment Day (1991)" />
+        <img src="{{ url_for('static', filename='Images/scrap/Terminator 2: Judgment Day (1991).jpg') }}" alt="Movie: Terminator 2: Judgment Day (1991)" />
       </a>
       <script>
         
