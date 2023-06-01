@@ -2,8 +2,6 @@ from airium import Airium
 import os
 from math import *
 
-# file_path ='C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\html\\v2\\HTML_files\\output.html'
-# movies = ["The Shawshank Redemption","The Godfather","The Dark Knight","Pulp Fiction","Fight Club","Goodfellas","Inception","The Matrix","Interstellar","Forrest Gump"]
 ROW_SIZE = 4
 
 
@@ -11,7 +9,7 @@ def NumberOfGrid(movies):
     return ceil(len(movies)/4)
 
 
-def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
+def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path, row_size = ROW_SIZE):
     delete_file(file_path)
     air = Airium()
 
@@ -22,6 +20,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
             air.meta(name="viewport", content="width=device-width, initial-scale=1")
             with air.title():
                 air("FlickFinder")
+
             air.link(rel="stylesheet", href="https://use.fontawesome.com/releases/v5.12.1/css/all.css", crossorigin="anonymous")
             air.link(rel="stylesheet", href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}")
             air.link(rel="stylesheet", href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css")
@@ -63,6 +62,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         });
         });
         """)
+        
         with air.body():
             air.append("<!-- Search bar -->")
             with air.div(klass="search-container"):
@@ -94,13 +94,16 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         });
         });
         """)
-            for i in range(len(movies)):
-                movieTitle = movies[i].replace("'", "&quot;")
+            
+            air.append('<h3 class="Titlegrid">Recommendation based on the content (TFIDF) :</h3>')
+            for i in range(len(tfidf_movies)):
+                movieTitle = tfidf_movies[i].replace("'", "&quot;")
                 if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
                     imPath = f'Images/scrap/{movieTitle}.jpg'
                 else:
                     imPath = 'Images/placeholder.png'
-                if(i % row_size == 0): air.append('<div class="movie-grid">')
+                if(i % row_size == 0):
+                    air.append('<div class="movie-grid">')
                 # with air.div(klass="movie-grid"):
                 with air.div(klass="moviecontainer"):
                     with air.a(href=f"/_movie/{movieTitle}", id=f"{movieTitle}"):
@@ -118,14 +121,41 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                     air.h3(_t=movieTitle)
                     air.h6(_t="Genre")
                     air.p(_t="Synopsys")
-                if(i%row_size == row_size-1 or i == len(movies)-1): air.append('</div>')
+                if(i%row_size == row_size-1 or i == len(tfidf_movies)-1): air.append('</div>')
+
+        air.append('<h3 class="Titlegrid">Recommendation based on the movie similarities (Correlation) :</h3>')
+        for i in range(len(similarity_movies)):
+            movieTitle = similarity_movies[i].replace("'", "&quot;")
+            if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
+                imPath = f'Images/scrap/{movieTitle}.jpg'
+            else:
+                imPath = 'Images/placeholder.png'
+            if(i % row_size == 0):
+                air.append('<div class="movie-grid">')
+            # with air.div(klass="movie-grid"):
+            with air.div(klass="moviecontainer"):
+                with air.a(href=f"/_movie/{movieTitle}", id=f"{movieTitle}"):
+                    air.img(src=f"{{{{ url_for('static', filename='{imPath}') }}}}", alt=f"Movie: {movieTitle}")
+                with air.script():
+                    air.append("""
+    $(document).ready(function() {{
+        $("a[href='/_movie/{movieTitle}']").click(function(event) {{
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/{movieTitle}";
+        }});
+    }});
+                    """.format(movieTitle=movieTitle))
+                air.h3(_t=movieTitle)
+                air.h6(_t="Genre")
+                air.p(_t="Synopsys")
+            if(i%row_size == row_size-1 or i == len(similarity_movies)-1): air.append('</div>')
 
         with air.footer():
             with air.div(klass="container"):
-                air.h3(_t="About Us, The Recommendation website")
+                air.h3(_t="The Recommendation website")
                 air.break_source_line()
                 air.img(src="{{ url_for('static',filename='Images/ESME.jpg') }}", alt="Me", klass="w3-image", style="display: block; margin: auto", width="100", height="100")
-                air.h4(_t="<b>hello</b>")
                 air.h6(_t="<i>By Matteo Gentili and Robin Lotode</i>")
                 with air.ul():
                     with air.li():
@@ -163,5 +193,3 @@ def delete_file(file_path):
         print("File deleted successfully.")
     except OSError as e:
         print(f"Error deleting the file: {e}")
-# PageCreation()
-#delete_file(file_path)

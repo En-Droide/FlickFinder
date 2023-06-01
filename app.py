@@ -28,8 +28,7 @@ from handle_movielens import *
 from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast, match_title
 from collab import *
 from collab_similarities import getMovieCorrelations
-from create_similar_movies import SimilarPageCreation
-from create_main import MainPageCreation
+from create_pages import *
 from scrap import *
 
 currentUserId = None
@@ -122,15 +121,21 @@ def movie_page2(movieTitle):
 
 @app.route('/myratings.html')
 def my_ratings():
-    render_template("myratings_dynamic.html", currentUserId=currentUserId, currentUserRatings=currentUserRatings)
+    MyRatingsPageCreation(currentUserId=currentUserId,
+                    currentUserRatings=currentUserRatings,
+                    file_path=templates_path + "myratings.html",
+                    images_path=images_path, row_size=4)
+    return render_template("myratings.html", currentUserId=currentUserId)
 
 @app.route("/_login", methods=["POST"])
 def login():
     userId = request.form.get("userId")
-    print("connected as", userId)
     global currentUserId, currentUserRatings
     currentUserId = userId
-    currentUserRatings = userRatings_df[userRatings_df["userId"] == currentUserId]
+    print("connected as", currentUserId)
+    currentUserRatings = userRatings_df[userRatings_df["userId"] == int(currentUserId)]
+    currentUserRatings["movieTitle"] = currentUserRatings["movieId"].apply(lambda id: getMovieTitle(movieId=id, movies_df=movies_df))
+    print(currentUserRatings)
     return "Done!"
 
 @app.route("/_disconnect", methods=["POST"])

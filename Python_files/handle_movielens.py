@@ -112,7 +112,8 @@ def read_movielens(path, size):
 
 
 if(__name__ == "__main__"):
-    movies, links, tags, userRatings, movieRatings = read_movielens(path="csv_files/ml-latest/", size=100000)
+    movies, links, tags, userRatings, movieRatings = read_movielens(path="csv_files/ml-latest/", size=1000000)
     print("csv read\n")
+    print(userRatings.head(5))
     top = getTopNMoviesByNbOfRatings(10, movies, movieRatings)
     print(top)
