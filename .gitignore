@@ -6,6 +6,8 @@ Python_files/python/csv_files/ml-latest-small/
 static/images/scrap/
 templates/main.html
 templates/similar_movies.html
+templates/myratings.html
+templates/mypredictions.html
 *.h5  # Pandas.HDFStore files
 
 
