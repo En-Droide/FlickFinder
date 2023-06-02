@@ -116,6 +116,7 @@ body {
  .disconnectButton:active {
   transform: scale(0.75);
  }
+ 
 /* Genres movie */
 
 .tag_drama {

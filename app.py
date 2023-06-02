@@ -103,6 +103,10 @@ def movie_page(movieTitle):
     df_movie_info = pd.read_csv(info_movie_path_csv)    
     informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector = informations_movies (movieTitle, df_movie_info)
 
+    movieCorrelations,similar_movies = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=40)
+    print("moviecorr = "+str((similar_movies).sort()))
+    # movieRatings = getMovieRatings
+
     # print(informations_movieTime)
     return render_template('movie_page_dynamic.html',
                             movieTitle=movieTitle,

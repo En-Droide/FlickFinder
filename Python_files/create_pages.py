@@ -30,7 +30,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
-                    air("My Predictions")
+                    air("Our Selection for You")
                 air.append("{% endif %}")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
@@ -42,7 +42,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }} ")
+                                    air("Connected as {{ currentUserId }}&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -97,6 +97,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         });
         });
         """)
+            air.append('<h2 class="Titlegrid">Popular Movies :</h2>')          
             for i in range(len(movies)):
                 movieTitle = movies[i].replace("'", "&quot;")
                 if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
@@ -184,7 +185,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
-                    air("My Predictions")
+                    air("Our Selection for You")
                 air.append("{% endif %}")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
@@ -196,7 +197,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }} ")
+                                    air("Connected as {{ currentUserId }}&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -253,7 +254,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
         });
         """)
             
-            air.append('<h3 class="Titlegrid">Recommendation based on the content (TFIDF) :</h3>')
+            air.append('<h2 class="Titlegrid">Discover Movies with Similar Themes and Content :</h2>')
             for i in range(len(tfidf_movies)):
                 movieTitle = tfidf_movies[i].replace("'", "&quot;")
                 if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
@@ -281,7 +282,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
                     # air.p(_t="Synopsys")
                 if(i%row_size == row_size-1 or i == len(tfidf_movies)-1): air.append('</div>')
 
-        air.append('<h3 class="Titlegrid">Recommendation based on the movie similarities (Correlation) :</h3>')
+        air.append('<h2 class="Titlegrid">Discover Movies you might Like:</h2>')
         for i in range(len(similarity_movies)):
             movieTitle = similarity_movies[i].replace("'", "&quot;")
             if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):
@@ -369,7 +370,7 @@ def MyRatingsPageCreation(currentUserId, currentUserRatings, file_path, images_p
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
-                    air("My Predictions")
+                    air("Our Selection for You")
                 air.append("{% endif %}")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
@@ -381,7 +382,7 @@ def MyRatingsPageCreation(currentUserId, currentUserRatings, file_path, images_p
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }} ")
+                                    air("Connected as {{ currentUserId }}&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -493,7 +494,7 @@ def MyPredictionsPageCreation(currentUserId, userPredictions, file_path, images_
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
-                    air("My Predictions")
+                    air("Our Selection for You")
                 air.append("{% endif %}")
                 with air.div(klass="Flickfinder"):
                     air("FlickFinder")
@@ -505,7 +506,7 @@ def MyPredictionsPageCreation(currentUserId, userPredictions, file_path, images_
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }} ")
+                                    air("Connected as {{ currentUserId }}&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -530,7 +531,7 @@ def MyPredictionsPageCreation(currentUserId, userPredictions, file_path, images_
         });
         """)
         with air.body(style="margin-top: 10%;"):
-
+            air.append('<h2 class="Titlegrid">Movies based on Your ratings :</h2>')
             for i in range(len(userPredictions)):
                 movieTitle = userPredictions.iloc[i]["movieTitle"].replace("'", "&quot;")
                 if(os.path.exists(images_path+'scrap\\'+movieTitle+'.jpg')):

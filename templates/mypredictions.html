@@ -21,7 +21,7 @@
       </a>
       {% if currentUserId %}
       <a href="/mypredictions.html">
-        My Predictions
+        Our Selection for You
       </a>
       {% endif %}
       <div class="Flickfinder">
@@ -36,7 +36,7 @@
           <div>
             <span class="DisconnectConnectText">
               <p>
-                Connected as {{ currentUserId }} 
+                Connected as {{ currentUserId }}&ensp;
               </p>
             </span>
           </div>
@@ -73,6 +73,7 @@
     </script>
   </header>
   <body style="margin-top: 10%;">
+    <h2 class="Titlegrid">Movies based on Your ratings :</h2>
     <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Shawshank Redemption, The (1994)" id="Shawshank Redemption, The (1994)">
@@ -91,67 +92,27 @@
       </script>
       <h3>Shawshank Redemption, The (1994)</h3>
       <h6>Predicted rating :</h6>
-      <p>4.58</p>
+      <p>4.68</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Casablanca (1942)" id="Casablanca (1942)">
-        <img src="{{ url_for('static', filename='Images/scrap/Casablanca (1942).jpg') }}" alt="Movie: Casablanca (1942)" />
+      <a href="/_movie/Silence of the Lambs, The (1991)" id="Silence of the Lambs, The (1991)">
+        <img src="{{ url_for('static', filename='Images/scrap/Silence of the Lambs, The (1991).jpg') }}" alt="Movie: Silence of the Lambs, The (1991)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Casablanca (1942)']").click(function(event) {
+            $("a[href='/_movie/Silence of the Lambs, The (1991)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Casablanca (1942)";
+                window.location.href = "/_movie/Silence of the Lambs, The (1991)";
             });
         });
                         
       </script>
-      <h3>Casablanca (1942)</h3>
+      <h3>Silence of the Lambs, The (1991)</h3>
       <h6>Predicted rating :</h6>
-      <p>4.49</p>
+      <p>4.66</p>
     </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
-        <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Forrest Gump (1994)";
-            });
-        });
-                        
-      </script>
-      <h3>Forrest Gump (1994)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.41</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Sixth Sense, The (1999)" id="Sixth Sense, The (1999)">
-        <img src="{{ url_for('static', filename='Images/scrap/Sixth Sense, The (1999).jpg') }}" alt="Movie: Sixth Sense, The (1999)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Sixth Sense, The (1999)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Sixth Sense, The (1999)";
-            });
-        });
-                        
-      </script>
-      <h3>Sixth Sense, The (1999)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.41</p>
-    </div>
-    </div>
-    <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Schindler&quot;s List (1993)" id="Schindler&quot;s List (1993)">
         <img src="{{ url_for('static', filename='Images/scrap/Schindler&quot;s List (1993).jpg') }}" alt="Movie: Schindler&quot;s List (1993)" />
@@ -169,688 +130,104 @@
       </script>
       <h3>Schindler&quot;s List (1993)</h3>
       <h6>Predicted rating :</h6>
-      <p>4.4</p>
+      <p>4.51</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/It&quot;s a Wonderful Life (1946)" id="It&quot;s a Wonderful Life (1946)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: It&quot;s a Wonderful Life (1946)" />
+      <a href="/_movie/Goodfellas (1990)" id="Goodfellas (1990)">
+        <img src="{{ url_for('static', filename='Images/scrap/Goodfellas (1990).jpg') }}" alt="Movie: Goodfellas (1990)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/It&quot;s a Wonderful Life (1946)']").click(function(event) {
+            $("a[href='/_movie/Goodfellas (1990)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/It&quot;s a Wonderful Life (1946)";
+                window.location.href = "/_movie/Goodfellas (1990)";
             });
         });
                         
       </script>
-      <h3>It&quot;s a Wonderful Life (1946)</h3>
+      <h3>Goodfellas (1990)</h3>
       <h6>Predicted rating :</h6>
-      <p>4.38</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/To Kill a Mockingbird (1962)" id="To Kill a Mockingbird (1962)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: To Kill a Mockingbird (1962)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/To Kill a Mockingbird (1962)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/To Kill a Mockingbird (1962)";
-            });
-        });
-                        
-      </script>
-      <h3>To Kill a Mockingbird (1962)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.36</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Godfather, The (1972)" id="Godfather, The (1972)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Godfather, The (1972)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Godfather, The (1972)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Godfather, The (1972)";
-            });
-        });
-                        
-      </script>
-      <h3>Godfather, The (1972)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.34</p>
+      <p>4.48</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Paths of Glory (1957)" id="Paths of Glory (1957)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Paths of Glory (1957)" />
+      <a href="/_movie/Saving Private Ryan (1998)" id="Saving Private Ryan (1998)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Saving Private Ryan (1998)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Paths of Glory (1957)']").click(function(event) {
+            $("a[href='/_movie/Saving Private Ryan (1998)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Paths of Glory (1957)";
+                window.location.href = "/_movie/Saving Private Ryan (1998)";
             });
         });
                         
       </script>
-      <h3>Paths of Glory (1957)</h3>
+      <h3>Saving Private Ryan (1998)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.46</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/L.A. Confidential (1997)" id="L.A. Confidential (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: L.A. Confidential (1997)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/L.A. Confidential (1997)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/L.A. Confidential (1997)";
+            });
+        });
+                        
+      </script>
+      <h3>L.A. Confidential (1997)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.37</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Unforgiven (1992)" id="Unforgiven (1992)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Unforgiven (1992)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Unforgiven (1992)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Unforgiven (1992)";
+            });
+        });
+                        
+      </script>
+      <h3>Unforgiven (1992)</h3>
       <h6>Predicted rating :</h6>
       <p>4.31</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Toy Story 2 (1999)" id="Toy Story 2 (1999)">
-        <img src="{{ url_for('static', filename='Images/scrap/Toy Story 2 (1999).jpg') }}" alt="Movie: Toy Story 2 (1999)" />
+      <a href="/_movie/American History X (1998)" id="American History X (1998)">
+        <img src="{{ url_for('static', filename='Images/scrap/American History X (1998).jpg') }}" alt="Movie: American History X (1998)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Toy Story 2 (1999)']").click(function(event) {
+            $("a[href='/_movie/American History X (1998)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Toy Story 2 (1999)";
+                window.location.href = "/_movie/American History X (1998)";
             });
         });
                         
       </script>
-      <h3>Toy Story 2 (1999)</h3>
+      <h3>American History X (1998)</h3>
       <h6>Predicted rating :</h6>
-      <p>4.26</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Rear Window (1954)" id="Rear Window (1954)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Rear Window (1954)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Rear Window (1954)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Rear Window (1954)";
-            });
-        });
-                        
-      </script>
-      <h3>Rear Window (1954)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.26</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Seven Samurai (Shichinin no samurai) (1954)" id="Seven Samurai (Shichinin no samurai) (1954)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Seven Samurai (Shichinin no samurai) (1954)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Seven Samurai (Shichinin no samurai) (1954)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Seven Samurai (Shichinin no samurai) (1954)";
-            });
-        });
-                        
-      </script>
-      <h3>Seven Samurai (Shichinin no samurai) (1954)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.25</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Shining, The (1980)" id="Shining, The (1980)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Shining, The (1980)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Shining, The (1980)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Shining, The (1980)";
-            });
-        });
-                        
-      </script>
-      <h3>Shining, The (1980)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.19</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Boondock Saints, The (2000)" id="Boondock Saints, The (2000)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Boondock Saints, The (2000)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Boondock Saints, The (2000)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Boondock Saints, The (2000)";
-            });
-        });
-                        
-      </script>
-      <h3>Boondock Saints, The (2000)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.19</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Gladiator (2000)" id="Gladiator (2000)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Gladiator (2000)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Gladiator (2000)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Gladiator (2000)";
-            });
-        });
-                        
-      </script>
-      <h3>Gladiator (2000)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.15</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)" id="Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)";
-            });
-        });
-                        
-      </script>
-      <h3>Dr. Strangelove or: How I Learned to Stop Worrying and Love the Bomb (1964)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.14</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Dead Poets Society (1989)" id="Dead Poets Society (1989)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Dead Poets Society (1989)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Dead Poets Society (1989)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Dead Poets Society (1989)";
-            });
-        });
-                        
-      </script>
-      <h3>Dead Poets Society (1989)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.11</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Crash (2004)" id="Crash (2004)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Crash (2004)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Crash (2004)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Crash (2004)";
-            });
-        });
-                        
-      </script>
-      <h3>Crash (2004)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.1</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Gandhi (1982)" id="Gandhi (1982)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Gandhi (1982)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Gandhi (1982)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Gandhi (1982)";
-            });
-        });
-                        
-      </script>
-      <h3>Gandhi (1982)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.09</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Green Mile, The (1999)" id="Green Mile, The (1999)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Green Mile, The (1999)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Green Mile, The (1999)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Green Mile, The (1999)";
-            });
-        });
-                        
-      </script>
-      <h3>Green Mile, The (1999)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.08</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Blade Runner (1982)" id="Blade Runner (1982)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Blade Runner (1982)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Blade Runner (1982)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Blade Runner (1982)";
-            });
-        });
-                        
-      </script>
-      <h3>Blade Runner (1982)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.08</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Fight Club (1999)" id="Fight Club (1999)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Fight Club (1999)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Fight Club (1999)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Fight Club (1999)";
-            });
-        });
-                        
-      </script>
-      <h3>Fight Club (1999)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.08</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Finding Nemo (2003)" id="Finding Nemo (2003)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Finding Nemo (2003)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Finding Nemo (2003)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Finding Nemo (2003)";
-            });
-        });
-                        
-      </script>
-      <h3>Finding Nemo (2003)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.07</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Brazil (1985)" id="Brazil (1985)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Brazil (1985)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Brazil (1985)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Brazil (1985)";
-            });
-        });
-                        
-      </script>
-      <h3>Brazil (1985)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.06</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Ocean&quot;s Eleven (2001)" id="Ocean&quot;s Eleven (2001)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Ocean&quot;s Eleven (2001)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Ocean&quot;s Eleven (2001)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Ocean&quot;s Eleven (2001)";
-            });
-        });
-                        
-      </script>
-      <h3>Ocean&quot;s Eleven (2001)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.06</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Toy Story (1995)" id="Toy Story (1995)">
-        <img src="{{ url_for('static', filename='Images/scrap/Toy Story (1995).jpg') }}" alt="Movie: Toy Story (1995)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Toy Story (1995)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Toy Story (1995)";
-            });
-        });
-                        
-      </script>
-      <h3>Toy Story (1995)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.06</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Touching the Void (2003)" id="Touching the Void (2003)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Touching the Void (2003)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Touching the Void (2003)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Touching the Void (2003)";
-            });
-        });
-                        
-      </script>
-      <h3>Touching the Void (2003)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.06</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Three Colors: Red (Trois couleurs: Rouge) (1994)" id="Three Colors: Red (Trois couleurs: Rouge) (1994)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Three Colors: Red (Trois couleurs: Rouge) (1994)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Three Colors: Red (Trois couleurs: Rouge) (1994)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Three Colors: Red (Trois couleurs: Rouge) (1994)";
-            });
-        });
-                        
-      </script>
-      <h3>Three Colors: Red (Trois couleurs: Rouge) (1994)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.06</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/The Hunger Games (2012)" id="The Hunger Games (2012)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: The Hunger Games (2012)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/The Hunger Games (2012)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/The Hunger Games (2012)";
-            });
-        });
-                        
-      </script>
-      <h3>The Hunger Games (2012)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.04</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/The Man from Nowhere (2010)" id="The Man from Nowhere (2010)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: The Man from Nowhere (2010)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/The Man from Nowhere (2010)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/The Man from Nowhere (2010)";
-            });
-        });
-                        
-      </script>
-      <h3>The Man from Nowhere (2010)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.03</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Seven (a.k.a. Se7en) (1995)" id="Seven (a.k.a. Se7en) (1995)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Seven (a.k.a. Se7en) (1995)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Seven (a.k.a. Se7en) (1995)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Seven (a.k.a. Se7en) (1995)";
-            });
-        });
-                        
-      </script>
-      <h3>Seven (a.k.a. Se7en) (1995)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.02</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Back to the Future (1985)" id="Back to the Future (1985)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Back to the Future (1985)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Back to the Future (1985)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Back to the Future (1985)";
-            });
-        });
-                        
-      </script>
-      <h3>Back to the Future (1985)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.01</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Braveheart (1995)" id="Braveheart (1995)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Braveheart (1995)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Braveheart (1995)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Braveheart (1995)";
-            });
-        });
-                        
-      </script>
-      <h3>Braveheart (1995)</h3>
-      <h6>Predicted rating :</h6>
-      <p>4.01</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Louis C.K.: Hilarious (2010)" id="Louis C.K.: Hilarious (2010)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Louis C.K.: Hilarious (2010)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Louis C.K.: Hilarious (2010)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Louis C.K.: Hilarious (2010)";
-            });
-        });
-                        
-      </script>
-      <h3>Louis C.K.: Hilarious (2010)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.99</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Incredibles, The (2004)" id="Incredibles, The (2004)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Incredibles, The (2004)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Incredibles, The (2004)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Incredibles, The (2004)";
-            });
-        });
-                        
-      </script>
-      <h3>Incredibles, The (2004)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.97</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Scarface (1983)" id="Scarface (1983)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Scarface (1983)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Scarface (1983)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Scarface (1983)";
-            });
-        });
-                        
-      </script>
-      <h3>Scarface (1983)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.97</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Boot, Das (Boat, The) (1981)" id="Boot, Das (Boat, The) (1981)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Boot, Das (Boat, The) (1981)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Boot, Das (Boat, The) (1981)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Boot, Das (Boat, The) (1981)";
-            });
-        });
-                        
-      </script>
-      <h3>Boot, Das (Boat, The) (1981)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.96</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Sound of Music, The (1965)" id="Sound of Music, The (1965)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Sound of Music, The (1965)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Sound of Music, The (1965)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Sound of Music, The (1965)";
-            });
-        });
-                        
-      </script>
-      <h3>Sound of Music, The (1965)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.95</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Requiem for a Dream (2000)" id="Requiem for a Dream (2000)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Requiem for a Dream (2000)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Requiem for a Dream (2000)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Requiem for a Dream (2000)";
-            });
-        });
-                        
-      </script>
-      <h3>Requiem for a Dream (2000)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.94</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/13 Assassins (Jûsan-nin no shikaku) (2010)" id="13 Assassins (Jûsan-nin no shikaku) (2010)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: 13 Assassins (Jûsan-nin no shikaku) (2010)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/13 Assassins (Jûsan-nin no shikaku) (2010)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/13 Assassins (Jûsan-nin no shikaku) (2010)";
-            });
-        });
-                        
-      </script>
-      <h3>13 Assassins (Jûsan-nin no shikaku) (2010)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.93</p>
+      <p>4.3</p>
     </div>
     </div>
     <div class="movie-grid">
@@ -871,67 +248,280 @@
       </script>
       <h3>Lord of the Rings: The Fellowship of the Ring, The (2001)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.91</p>
+      <p>4.22</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Monty Python and the Holy Grail (1975)" id="Monty Python and the Holy Grail (1975)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Monty Python and the Holy Grail (1975)" />
+      <a href="/_movie/Killing Fields, The (1984)" id="Killing Fields, The (1984)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Killing Fields, The (1984)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Monty Python and the Holy Grail (1975)']").click(function(event) {
+            $("a[href='/_movie/Killing Fields, The (1984)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Monty Python and the Holy Grail (1975)";
+                window.location.href = "/_movie/Killing Fields, The (1984)";
             });
         });
                         
       </script>
-      <h3>Monty Python and the Holy Grail (1975)</h3>
+      <h3>Killing Fields, The (1984)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.91</p>
+      <p>4.18</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/My Fair Lady (1964)" id="My Fair Lady (1964)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: My Fair Lady (1964)" />
+      <a href="/_movie/Matrix, The (1999)" id="Matrix, The (1999)">
+        <img src="{{ url_for('static', filename='Images/scrap/Matrix, The (1999).jpg') }}" alt="Movie: Matrix, The (1999)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/My Fair Lady (1964)']").click(function(event) {
+            $("a[href='/_movie/Matrix, The (1999)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/My Fair Lady (1964)";
+                window.location.href = "/_movie/Matrix, The (1999)";
             });
         });
                         
       </script>
-      <h3>My Fair Lady (1964)</h3>
+      <h3>Matrix, The (1999)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.9</p>
+      <p>4.14</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/No Country for Old Men (2007)" id="No Country for Old Men (2007)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: No Country for Old Men (2007)" />
+      <a href="/_movie/Back to the Future (1985)" id="Back to the Future (1985)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Back to the Future (1985)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/No Country for Old Men (2007)']").click(function(event) {
+            $("a[href='/_movie/Back to the Future (1985)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/No Country for Old Men (2007)";
+                window.location.href = "/_movie/Back to the Future (1985)";
             });
         });
                         
       </script>
-      <h3>No Country for Old Men (2007)</h3>
+      <h3>Back to the Future (1985)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.89</p>
+      <p>4.14</p>
     </div>
     </div>
     <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Sting, The (1973)" id="Sting, The (1973)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Sting, The (1973)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Sting, The (1973)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Sting, The (1973)";
+            });
+        });
+                        
+      </script>
+      <h3>Sting, The (1973)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.12</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Heat (1995)" id="Heat (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Heat (1995)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Heat (1995)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Heat (1995)";
+            });
+        });
+                        
+      </script>
+      <h3>Heat (1995)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.11</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Braveheart (1995)" id="Braveheart (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Braveheart (1995)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Braveheart (1995)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Braveheart (1995)";
+            });
+        });
+                        
+      </script>
+      <h3>Braveheart (1995)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.11</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Rear Window (1954)" id="Rear Window (1954)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Rear Window (1954)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Rear Window (1954)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Rear Window (1954)";
+            });
+        });
+                        
+      </script>
+      <h3>Rear Window (1954)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.1</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Casablanca (1942)" id="Casablanca (1942)">
+        <img src="{{ url_for('static', filename='Images/scrap/Casablanca (1942).jpg') }}" alt="Movie: Casablanca (1942)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Casablanca (1942)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Casablanca (1942)";
+            });
+        });
+                        
+      </script>
+      <h3>Casablanca (1942)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.1</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Star Wars: Episode IV - A New Hope (1977)" id="Star Wars: Episode IV - A New Hope (1977)">
+        <img src="{{ url_for('static', filename='Images/scrap/Star Wars: Episode IV - A New Hope (1977).jpg') }}" alt="Movie: Star Wars: Episode IV - A New Hope (1977)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Star Wars: Episode IV - A New Hope (1977)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Star Wars: Episode IV - A New Hope (1977)";
+            });
+        });
+                        
+      </script>
+      <h3>Star Wars: Episode IV - A New Hope (1977)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.1</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Sling Blade (1996)" id="Sling Blade (1996)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Sling Blade (1996)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Sling Blade (1996)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Sling Blade (1996)";
+            });
+        });
+                        
+      </script>
+      <h3>Sling Blade (1996)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.08</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Once (2006)" id="Once (2006)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Once (2006)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Once (2006)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Once (2006)";
+            });
+        });
+                        
+      </script>
+      <h3>Once (2006)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.07</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Shine (1996)" id="Shine (1996)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Shine (1996)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Shine (1996)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Shine (1996)";
+            });
+        });
+                        
+      </script>
+      <h3>Shine (1996)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.06</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/American Graffiti (1973)" id="American Graffiti (1973)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: American Graffiti (1973)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/American Graffiti (1973)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/American Graffiti (1973)";
+            });
+        });
+                        
+      </script>
+      <h3>American Graffiti (1973)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.05</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Princess Bride, The (1987)" id="Princess Bride, The (1987)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Princess Bride, The (1987)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Princess Bride, The (1987)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Princess Bride, The (1987)";
+            });
+        });
+                        
+      </script>
+      <h3>Princess Bride, The (1987)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.04</p>
+    </div>
     <div class="moviecontainer">
       <a href="/_movie/Psycho (1960)" id="Psycho (1960)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Psycho (1960)" />
@@ -949,650 +539,1139 @@
       </script>
       <h3>Psycho (1960)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.88</p>
+      <p>4.02</p>
     </div>
+    </div>
+    <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Bourne Ultimatum, The (2007)" id="Bourne Ultimatum, The (2007)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Bourne Ultimatum, The (2007)" />
+      <a href="/_movie/Rain Man (1988)" id="Rain Man (1988)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Rain Man (1988)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Bourne Ultimatum, The (2007)']").click(function(event) {
+            $("a[href='/_movie/Rain Man (1988)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Bourne Ultimatum, The (2007)";
+                window.location.href = "/_movie/Rain Man (1988)";
             });
         });
                         
       </script>
-      <h3>Bourne Ultimatum, The (2007)</h3>
+      <h3>Rain Man (1988)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.88</p>
+      <p>4.02</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/House of Sand and Fog (2003)" id="House of Sand and Fog (2003)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: House of Sand and Fog (2003)" />
+      <a href="/_movie/Raging Bull (1980)" id="Raging Bull (1980)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Raging Bull (1980)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/House of Sand and Fog (2003)']").click(function(event) {
+            $("a[href='/_movie/Raging Bull (1980)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/House of Sand and Fog (2003)";
+                window.location.href = "/_movie/Raging Bull (1980)";
             });
         });
                         
       </script>
-      <h3>House of Sand and Fog (2003)</h3>
+      <h3>Raging Bull (1980)</h3>
+      <h6>Predicted rating :</h6>
+      <p>4.02</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Blade Runner (1982)" id="Blade Runner (1982)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Blade Runner (1982)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Blade Runner (1982)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Blade Runner (1982)";
+            });
+        });
+                        
+      </script>
+      <h3>Blade Runner (1982)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.99</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Indiana Jones and the Last Crusade (1989)" id="Indiana Jones and the Last Crusade (1989)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Indiana Jones and the Last Crusade (1989)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Indiana Jones and the Last Crusade (1989)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Indiana Jones and the Last Crusade (1989)";
+            });
+        });
+                        
+      </script>
+      <h3>Indiana Jones and the Last Crusade (1989)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.98</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Boogie Nights (1997)" id="Boogie Nights (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Boogie Nights (1997)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Boogie Nights (1997)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Boogie Nights (1997)";
+            });
+        });
+                        
+      </script>
+      <h3>Boogie Nights (1997)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.92</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/40-Year-Old Virgin, The (2005)" id="40-Year-Old Virgin, The (2005)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: 40-Year-Old Virgin, The (2005)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/40-Year-Old Virgin, The (2005)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/40-Year-Old Virgin, The (2005)";
+            });
+        });
+                        
+      </script>
+      <h3>40-Year-Old Virgin, The (2005)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.92</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/In Like Flint (1967)" id="In Like Flint (1967)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: In Like Flint (1967)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/In Like Flint (1967)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/In Like Flint (1967)";
+            });
+        });
+                        
+      </script>
+      <h3>In Like Flint (1967)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.91</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Aladdin (1992)" id="Aladdin (1992)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Aladdin (1992)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Aladdin (1992)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Aladdin (1992)";
+            });
+        });
+                        
+      </script>
+      <h3>Aladdin (1992)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.89</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Paris, Texas (1984)" id="Paris, Texas (1984)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Paris, Texas (1984)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Paris, Texas (1984)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Paris, Texas (1984)";
+            });
+        });
+                        
+      </script>
+      <h3>Paris, Texas (1984)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.89</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Say Anything... (1989)" id="Say Anything... (1989)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Say Anything... (1989)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Say Anything... (1989)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Say Anything... (1989)";
+            });
+        });
+                        
+      </script>
+      <h3>Say Anything... (1989)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.87</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Donnie Darko (2001)" id="Donnie Darko (2001)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Donnie Darko (2001)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Donnie Darko (2001)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Donnie Darko (2001)";
+            });
+        });
+                        
+      </script>
+      <h3>Donnie Darko (2001)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.87</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Into the Woods (1991)" id="Into the Woods (1991)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Into the Woods (1991)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Into the Woods (1991)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Into the Woods (1991)";
+            });
+        });
+                        
+      </script>
+      <h3>Into the Woods (1991)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.86</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Name of the Rose, The (Name der Rose, Der) (1986)" id="Name of the Rose, The (Name der Rose, Der) (1986)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Name of the Rose, The (Name der Rose, Der) (1986)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Name of the Rose, The (Name der Rose, Der) (1986)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Name of the Rose, The (Name der Rose, Der) (1986)";
+            });
+        });
+                        
+      </script>
+      <h3>Name of the Rose, The (Name der Rose, Der) (1986)</h3>
       <h6>Predicted rating :</h6>
       <p>3.86</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Lost in Translation (2003)" id="Lost in Translation (2003)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Lost in Translation (2003)" />
+      <a href="/_movie/Monsters, Inc. (2001)" id="Monsters, Inc. (2001)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Monsters, Inc. (2001)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Lost in Translation (2003)']").click(function(event) {
+            $("a[href='/_movie/Monsters, Inc. (2001)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Lost in Translation (2003)";
+                window.location.href = "/_movie/Monsters, Inc. (2001)";
             });
         });
                         
       </script>
-      <h3>Lost in Translation (2003)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.85</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Aftershock (Tangshan dadizhen) (2010)" id="Aftershock (Tangshan dadizhen) (2010)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Aftershock (Tangshan dadizhen) (2010)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Aftershock (Tangshan dadizhen) (2010)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Aftershock (Tangshan dadizhen) (2010)";
-            });
-        });
-                        
-      </script>
-      <h3>Aftershock (Tangshan dadizhen) (2010)</h3>
+      <h3>Monsters, Inc. (2001)</h3>
       <h6>Predicted rating :</h6>
       <p>3.84</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Repulsion (1965)" id="Repulsion (1965)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Repulsion (1965)" />
+      <a href="/_movie/Kelly&quot;s Heroes (1970)" id="Kelly&quot;s Heroes (1970)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kelly&quot;s Heroes (1970)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Repulsion (1965)']").click(function(event) {
+            $("a[href='/_movie/Kelly&quot;s Heroes (1970)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Repulsion (1965)";
+                window.location.href = "/_movie/Kelly&quot;s Heroes (1970)";
             });
         });
                         
       </script>
-      <h3>Repulsion (1965)</h3>
+      <h3>Kelly&quot;s Heroes (1970)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.82</p>
+      <p>3.83</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Time to Kill, A (1996)" id="Time to Kill, A (1996)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Time to Kill, A (1996)" />
+      <a href="/_movie/Napoleon Dynamite (2004)" id="Napoleon Dynamite (2004)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Napoleon Dynamite (2004)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Time to Kill, A (1996)']").click(function(event) {
+            $("a[href='/_movie/Napoleon Dynamite (2004)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Time to Kill, A (1996)";
+                window.location.href = "/_movie/Napoleon Dynamite (2004)";
             });
         });
                         
       </script>
-      <h3>Time to Kill, A (1996)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.81</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Blood Diamond (2006)" id="Blood Diamond (2006)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Blood Diamond (2006)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Blood Diamond (2006)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Blood Diamond (2006)";
-            });
-        });
-                        
-      </script>
-      <h3>Blood Diamond (2006)</h3>
+      <h3>Napoleon Dynamite (2004)</h3>
       <h6>Predicted rating :</h6>
       <p>3.8</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Ghost (1990)" id="Ghost (1990)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Ghost (1990)" />
+      <a href="/_movie/Amistad (1997)" id="Amistad (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Amistad (1997)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Ghost (1990)']").click(function(event) {
+            $("a[href='/_movie/Amistad (1997)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Ghost (1990)";
+                window.location.href = "/_movie/Amistad (1997)";
             });
         });
                         
       </script>
-      <h3>Ghost (1990)</h3>
+      <h3>Amistad (1997)</h3>
       <h6>Predicted rating :</h6>
       <p>3.8</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Patriot, The (2000)" id="Patriot, The (2000)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Patriot, The (2000)" />
+      <a href="/_movie/Field of Dreams (1989)" id="Field of Dreams (1989)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Field of Dreams (1989)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Patriot, The (2000)']").click(function(event) {
+            $("a[href='/_movie/Field of Dreams (1989)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Patriot, The (2000)";
+                window.location.href = "/_movie/Field of Dreams (1989)";
             });
         });
                         
       </script>
-      <h3>Patriot, The (2000)</h3>
+      <h3>Field of Dreams (1989)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.79</p>
+      <p>3.77</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Good Morning, Vietnam (1987)" id="Good Morning, Vietnam (1987)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Good Morning, Vietnam (1987)" />
+      <a href="/_movie/Secret of Roan Inish, The (1994)" id="Secret of Roan Inish, The (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Secret of Roan Inish, The (1994)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Good Morning, Vietnam (1987)']").click(function(event) {
+            $("a[href='/_movie/Secret of Roan Inish, The (1994)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Good Morning, Vietnam (1987)";
+                window.location.href = "/_movie/Secret of Roan Inish, The (1994)";
             });
         });
                         
       </script>
-      <h3>Good Morning, Vietnam (1987)</h3>
+      <h3>Secret of Roan Inish, The (1994)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.79</p>
+      <p>3.77</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/300 (2007)" id="300 (2007)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: 300 (2007)" />
+      <a href="/_movie/13 Assassins (Jûsan-nin no shikaku) (2010)" id="13 Assassins (Jûsan-nin no shikaku) (2010)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: 13 Assassins (Jûsan-nin no shikaku) (2010)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/300 (2007)']").click(function(event) {
+            $("a[href='/_movie/13 Assassins (Jûsan-nin no shikaku) (2010)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/300 (2007)";
+                window.location.href = "/_movie/13 Assassins (Jûsan-nin no shikaku) (2010)";
             });
         });
                         
       </script>
-      <h3>300 (2007)</h3>
+      <h3>13 Assassins (Jûsan-nin no shikaku) (2010)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.79</p>
+      <p>3.73</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Secondhand Lions (2003)" id="Secondhand Lions (2003)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Secondhand Lions (2003)" />
+      <a href="/_movie/Swimming with Sharks (1995)" id="Swimming with Sharks (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Swimming with Sharks (1995)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Secondhand Lions (2003)']").click(function(event) {
+            $("a[href='/_movie/Swimming with Sharks (1995)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Secondhand Lions (2003)";
+                window.location.href = "/_movie/Swimming with Sharks (1995)";
             });
         });
                         
       </script>
-      <h3>Secondhand Lions (2003)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.76</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Grifters, The (1990)" id="Grifters, The (1990)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Grifters, The (1990)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Grifters, The (1990)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Grifters, The (1990)";
-            });
-        });
-                        
-      </script>
-      <h3>Grifters, The (1990)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.76</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Frequency (2000)" id="Frequency (2000)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Frequency (2000)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Frequency (2000)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Frequency (2000)";
-            });
-        });
-                        
-      </script>
-      <h3>Frequency (2000)</h3>
+      <h3>Swimming with Sharks (1995)</h3>
       <h6>Predicted rating :</h6>
       <p>3.73</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Alien (1979)" id="Alien (1979)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Alien (1979)" />
+      <a href="/_movie/Caddyshack (1980)" id="Caddyshack (1980)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Caddyshack (1980)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Alien (1979)']").click(function(event) {
+            $("a[href='/_movie/Caddyshack (1980)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Alien (1979)";
+                window.location.href = "/_movie/Caddyshack (1980)";
             });
         });
                         
       </script>
-      <h3>Alien (1979)</h3>
+      <h3>Caddyshack (1980)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.72</p>
+      <p>3.68</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Young Frankenstein (1974)" id="Young Frankenstein (1974)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Young Frankenstein (1974)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Young Frankenstein (1974)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Young Frankenstein (1974)";
+            });
+        });
+                        
+      </script>
+      <h3>Young Frankenstein (1974)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.67</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Speed (1994)" id="Speed (1994)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Speed (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Speed (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Speed (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Speed (1994)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.64</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Hustler White (1996)" id="Hustler White (1996)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Hustler White (1996)" />
+      <a href="/_movie/(500) Days of Summer (2009)" id="(500) Days of Summer (2009)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: (500) Days of Summer (2009)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Hustler White (1996)']").click(function(event) {
+            $("a[href='/_movie/(500) Days of Summer (2009)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Hustler White (1996)";
+                window.location.href = "/_movie/(500) Days of Summer (2009)";
             });
         });
                         
       </script>
-      <h3>Hustler White (1996)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.72</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/S.P.L.: Kill Zone (Saat po long) (2005)" id="S.P.L.: Kill Zone (Saat po long) (2005)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: S.P.L.: Kill Zone (Saat po long) (2005)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/S.P.L.: Kill Zone (Saat po long) (2005)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/S.P.L.: Kill Zone (Saat po long) (2005)";
-            });
-        });
-                        
-      </script>
-      <h3>S.P.L.: Kill Zone (Saat po long) (2005)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.72</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Déjà Vu (Deja Vu) (2006)" id="Déjà Vu (Deja Vu) (2006)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Déjà Vu (Deja Vu) (2006)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Déjà Vu (Deja Vu) (2006)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Déjà Vu (Deja Vu) (2006)";
-            });
-        });
-                        
-      </script>
-      <h3>Déjà Vu (Deja Vu) (2006)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.71</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Equilibrium (2002)" id="Equilibrium (2002)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Equilibrium (2002)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Equilibrium (2002)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Equilibrium (2002)";
-            });
-        });
-                        
-      </script>
-      <h3>Equilibrium (2002)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.71</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Horseman on the Roof, The (Hussard sur le toit, Le) (1995)" id="Horseman on the Roof, The (Hussard sur le toit, Le) (1995)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Horseman on the Roof, The (Hussard sur le toit, Le) (1995)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Horseman on the Roof, The (Hussard sur le toit, Le) (1995)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Horseman on the Roof, The (Hussard sur le toit, Le) (1995)";
-            });
-        });
-                        
-      </script>
-      <h3>Horseman on the Roof, The (Hussard sur le toit, Le) (1995)</h3>
-      <h6>Predicted rating :</h6>
-      <p>3.65</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Topaz (1969)" id="Topaz (1969)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Topaz (1969)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Topaz (1969)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Topaz (1969)";
-            });
-        });
-                        
-      </script>
-      <h3>Topaz (1969)</h3>
+      <h3>(500) Days of Summer (2009)</h3>
       <h6>Predicted rating :</h6>
       <p>3.64</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Truth About Cats & Dogs, The (1996)" id="Truth About Cats & Dogs, The (1996)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Truth About Cats & Dogs, The (1996)" />
+      <a href="/_movie/Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)" id="Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Truth About Cats & Dogs, The (1996)']").click(function(event) {
+            $("a[href='/_movie/Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Truth About Cats & Dogs, The (1996)";
+                window.location.href = "/_movie/Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)";
             });
         });
                         
       </script>
-      <h3>Truth About Cats & Dogs, The (1996)</h3>
+      <h3>Nosferatu (Nosferatu, eine Symphonie des Grauens) (1922)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.6</p>
+      <p>3.64</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Sleepless in Seattle (1993)" id="Sleepless in Seattle (1993)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Sleepless in Seattle (1993)" />
+      <a href="/_movie/Clue (1985)" id="Clue (1985)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Clue (1985)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Sleepless in Seattle (1993)']").click(function(event) {
+            $("a[href='/_movie/Clue (1985)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Sleepless in Seattle (1993)";
+                window.location.href = "/_movie/Clue (1985)";
             });
         });
                         
       </script>
-      <h3>Sleepless in Seattle (1993)</h3>
+      <h3>Clue (1985)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.58</p>
+      <p>3.63</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Friends of Eddie Coyle, The (1973)" id="Friends of Eddie Coyle, The (1973)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Friends of Eddie Coyle, The (1973)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Friends of Eddie Coyle, The (1973)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Friends of Eddie Coyle, The (1973)";
+            });
+        });
+                        
+      </script>
+      <h3>Friends of Eddie Coyle, The (1973)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.63</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Man Without a Face, The (1993)" id="Man Without a Face, The (1993)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Man Without a Face, The (1993)" />
+      <a href="/_movie/Pump Up the Volume (1990)" id="Pump Up the Volume (1990)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Pump Up the Volume (1990)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Man Without a Face, The (1993)']").click(function(event) {
+            $("a[href='/_movie/Pump Up the Volume (1990)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Man Without a Face, The (1993)";
+                window.location.href = "/_movie/Pump Up the Volume (1990)";
             });
         });
                         
       </script>
-      <h3>Man Without a Face, The (1993)</h3>
+      <h3>Pump Up the Volume (1990)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.54</p>
+      <p>3.63</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Copycat (1995)" id="Copycat (1995)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Copycat (1995)" />
+      <a href="/_movie/Blade Runner 2049 (2017)" id="Blade Runner 2049 (2017)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Blade Runner 2049 (2017)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Copycat (1995)']").click(function(event) {
+            $("a[href='/_movie/Blade Runner 2049 (2017)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Copycat (1995)";
+                window.location.href = "/_movie/Blade Runner 2049 (2017)";
             });
         });
                         
       </script>
-      <h3>Copycat (1995)</h3>
+      <h3>Blade Runner 2049 (2017)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.63</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/There&quot;s Something About Mary (1998)" id="There&quot;s Something About Mary (1998)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: There&quot;s Something About Mary (1998)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/There&quot;s Something About Mary (1998)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/There&quot;s Something About Mary (1998)";
+            });
+        });
+                        
+      </script>
+      <h3>There&quot;s Something About Mary (1998)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.62</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Hunger (2008)" id="Hunger (2008)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Hunger (2008)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Hunger (2008)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Hunger (2008)";
+            });
+        });
+                        
+      </script>
+      <h3>Hunger (2008)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.59</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Unbreakable (2000)" id="Unbreakable (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Unbreakable (2000)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Unbreakable (2000)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Unbreakable (2000)";
+            });
+        });
+                        
+      </script>
+      <h3>Unbreakable (2000)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.57</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Independence Day (a.k.a. ID4) (1996)" id="Independence Day (a.k.a. ID4) (1996)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Independence Day (a.k.a. ID4) (1996)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Independence Day (a.k.a. ID4) (1996)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Independence Day (a.k.a. ID4) (1996)";
+            });
+        });
+                        
+      </script>
+      <h3>Independence Day (a.k.a. ID4) (1996)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.57</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Robin Hood (1973)" id="Robin Hood (1973)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Robin Hood (1973)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Robin Hood (1973)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Robin Hood (1973)";
+            });
+        });
+                        
+      </script>
+      <h3>Robin Hood (1973)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.57</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Sleeping Beauty (1959)" id="Sleeping Beauty (1959)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Sleeping Beauty (1959)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Sleeping Beauty (1959)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Sleeping Beauty (1959)";
+            });
+        });
+                        
+      </script>
+      <h3>Sleeping Beauty (1959)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.53</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/City Slickers (1991)" id="City Slickers (1991)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: City Slickers (1991)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/City Slickers (1991)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/City Slickers (1991)";
+            });
+        });
+                        
+      </script>
+      <h3>City Slickers (1991)</h3>
       <h6>Predicted rating :</h6>
       <p>3.51</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Road Warrior, The (Mad Max 2) (1981)" id="Road Warrior, The (Mad Max 2) (1981)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Road Warrior, The (Mad Max 2) (1981)" />
+      <a href="/_movie/Mulholland Drive (2001)" id="Mulholland Drive (2001)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Mulholland Drive (2001)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Road Warrior, The (Mad Max 2) (1981)']").click(function(event) {
+            $("a[href='/_movie/Mulholland Drive (2001)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Road Warrior, The (Mad Max 2) (1981)";
+                window.location.href = "/_movie/Mulholland Drive (2001)";
             });
         });
                         
       </script>
-      <h3>Road Warrior, The (Mad Max 2) (1981)</h3>
+      <h3>Mulholland Drive (2001)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.49</p>
+      <p>3.51</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Torn Curtain (1966)" id="Torn Curtain (1966)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Torn Curtain (1966)" />
+      <a href="/_movie/Benny & Joon (1993)" id="Benny & Joon (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Benny & Joon (1993)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Torn Curtain (1966)']").click(function(event) {
+            $("a[href='/_movie/Benny & Joon (1993)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Torn Curtain (1966)";
+                window.location.href = "/_movie/Benny & Joon (1993)";
             });
         });
                         
       </script>
-      <h3>Torn Curtain (1966)</h3>
+      <h3>Benny & Joon (1993)</h3>
       <h6>Predicted rating :</h6>
       <p>3.48</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Anastasia (1997)" id="Anastasia (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Anastasia (1997)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Anastasia (1997)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Anastasia (1997)";
+            });
+        });
+                        
+      </script>
+      <h3>Anastasia (1997)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.42</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Prometheus (2012)" id="Prometheus (2012)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Prometheus (2012)" />
+      <a href="/_movie/Die Hard: With a Vengeance (1995)" id="Die Hard: With a Vengeance (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Die Hard: With a Vengeance (1995)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Prometheus (2012)']").click(function(event) {
+            $("a[href='/_movie/Die Hard: With a Vengeance (1995)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Prometheus (2012)";
+                window.location.href = "/_movie/Die Hard: With a Vengeance (1995)";
             });
         });
                         
       </script>
-      <h3>Prometheus (2012)</h3>
+      <h3>Die Hard: With a Vengeance (1995)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.43</p>
+      <p>3.4</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Rat Race (2001)" id="Rat Race (2001)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Rat Race (2001)" />
+      <a href="/_movie/Vanilla Sky (2001)" id="Vanilla Sky (2001)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Vanilla Sky (2001)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Rat Race (2001)']").click(function(event) {
+            $("a[href='/_movie/Vanilla Sky (2001)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Rat Race (2001)";
+                window.location.href = "/_movie/Vanilla Sky (2001)";
             });
         });
                         
       </script>
-      <h3>Rat Race (2001)</h3>
+      <h3>Vanilla Sky (2001)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.39</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Love Exposure (Ai No Mukidashi) (2008)" id="Love Exposure (Ai No Mukidashi) (2008)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Love Exposure (Ai No Mukidashi) (2008)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Love Exposure (Ai No Mukidashi) (2008)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Love Exposure (Ai No Mukidashi) (2008)";
+            });
+        });
+                        
+      </script>
+      <h3>Love Exposure (Ai No Mukidashi) (2008)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.38</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Tree of Life, The (2011)" id="Tree of Life, The (2011)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Tree of Life, The (2011)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Tree of Life, The (2011)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Tree of Life, The (2011)";
+            });
+        });
+                        
+      </script>
+      <h3>Tree of Life, The (2011)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.37</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Kids (1995)" id="Kids (1995)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kids (1995)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Kids (1995)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Kids (1995)";
+            });
+        });
+                        
+      </script>
+      <h3>Kids (1995)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.37</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Robin Hood: Prince of Thieves (1991)" id="Robin Hood: Prince of Thieves (1991)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Robin Hood: Prince of Thieves (1991)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Robin Hood: Prince of Thieves (1991)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Robin Hood: Prince of Thieves (1991)";
+            });
+        });
+                        
+      </script>
+      <h3>Robin Hood: Prince of Thieves (1991)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.37</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Logan&quot;s Run (1976)" id="Logan&quot;s Run (1976)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Logan&quot;s Run (1976)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Logan&quot;s Run (1976)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Logan&quot;s Run (1976)";
+            });
+        });
+                        
+      </script>
+      <h3>Logan&quot;s Run (1976)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.36</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Pretty in Pink (1986)" id="Pretty in Pink (1986)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Pretty in Pink (1986)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Pretty in Pink (1986)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Pretty in Pink (1986)";
+            });
+        });
+                        
+      </script>
+      <h3>Pretty in Pink (1986)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.33</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Beverly Hills Cop II (1987)" id="Beverly Hills Cop II (1987)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Beverly Hills Cop II (1987)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Beverly Hills Cop II (1987)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Beverly Hills Cop II (1987)";
+            });
+        });
+                        
+      </script>
+      <h3>Beverly Hills Cop II (1987)</h3>
       <h6>Predicted rating :</h6>
       <p>3.33</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Liar Liar (1997)" id="Liar Liar (1997)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Liar Liar (1997)" />
+      <a href="/_movie/Austin Powers: The Spy Who Shagged Me (1999)" id="Austin Powers: The Spy Who Shagged Me (1999)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Austin Powers: The Spy Who Shagged Me (1999)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Liar Liar (1997)']").click(function(event) {
+            $("a[href='/_movie/Austin Powers: The Spy Who Shagged Me (1999)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Liar Liar (1997)";
+                window.location.href = "/_movie/Austin Powers: The Spy Who Shagged Me (1999)";
             });
         });
                         
       </script>
-      <h3>Liar Liar (1997)</h3>
+      <h3>Austin Powers: The Spy Who Shagged Me (1999)</h3>
       <h6>Predicted rating :</h6>
       <p>3.32</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Resident Evil: Apocalypse (2004)" id="Resident Evil: Apocalypse (2004)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Resident Evil: Apocalypse (2004)" />
+      <a href="/_movie/Operation Petticoat (1959)" id="Operation Petticoat (1959)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Operation Petticoat (1959)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Resident Evil: Apocalypse (2004)']").click(function(event) {
+            $("a[href='/_movie/Operation Petticoat (1959)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Resident Evil: Apocalypse (2004)";
+                window.location.href = "/_movie/Operation Petticoat (1959)";
             });
         });
                         
       </script>
-      <h3>Resident Evil: Apocalypse (2004)</h3>
+      <h3>Operation Petticoat (1959)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.16</p>
+      <p>3.29</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Mystery Men (1999)" id="Mystery Men (1999)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Mystery Men (1999)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Mystery Men (1999)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Mystery Men (1999)";
+            });
+        });
+                        
+      </script>
+      <h3>Mystery Men (1999)</h3>
+      <h6>Predicted rating :</h6>
+      <p>3.21</p>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Odd Couple II, The (1998)" id="Odd Couple II, The (1998)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Odd Couple II, The (1998)" />
+      <a href="/_movie/Beach, The (2000)" id="Beach, The (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Beach, The (2000)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Odd Couple II, The (1998)']").click(function(event) {
+            $("a[href='/_movie/Beach, The (2000)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Odd Couple II, The (1998)";
+                window.location.href = "/_movie/Beach, The (2000)";
             });
         });
                         
       </script>
-      <h3>Odd Couple II, The (1998)</h3>
+      <h3>Beach, The (2000)</h3>
       <h6>Predicted rating :</h6>
-      <p>3.04</p>
+      <p>3.12</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Battleship (2012)" id="Battleship (2012)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Battleship (2012)" />
+      <a href="/_movie/How the Grinch Stole Christmas (a.k.a. The Grinch) (2000)" id="How the Grinch Stole Christmas (a.k.a. The Grinch) (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: How the Grinch Stole Christmas (a.k.a. The Grinch) (2000)" />
       </a>
       <script>
         
         $(document).ready(function() {
-            $("a[href='/_movie/Battleship (2012)']").click(function(event) {
+            $("a[href='/_movie/How the Grinch Stole Christmas (a.k.a. The Grinch) (2000)']").click(function(event) {
                 event.preventDefault();
                 // alert("yes");
-                window.location.href = "/_movie/Battleship (2012)";
+                window.location.href = "/_movie/How the Grinch Stole Christmas (a.k.a. The Grinch) (2000)";
             });
         });
                         
       </script>
-      <h3>Battleship (2012)</h3>
+      <h3>How the Grinch Stole Christmas (a.k.a. The Grinch) (2000)</h3>
       <h6>Predicted rating :</h6>
-      <p>2.87</p>
+      <p>2.89</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Star Wars: Episode II - Attack of the Clones (2002)" id="Star Wars: Episode II - Attack of the Clones (2002)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Star Wars: Episode II - Attack of the Clones (2002)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Star Wars: Episode II - Attack of the Clones (2002)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Star Wars: Episode II - Attack of the Clones (2002)";
+            });
+        });
+                        
+      </script>
+      <h3>Star Wars: Episode II - Attack of the Clones (2002)</h3>
+      <h6>Predicted rating :</h6>
+      <p>2.86</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Romy and Michele&quot;s High School Reunion (1997)" id="Romy and Michele&quot;s High School Reunion (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Romy and Michele&quot;s High School Reunion (1997)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Romy and Michele&quot;s High School Reunion (1997)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Romy and Michele&quot;s High School Reunion (1997)";
+            });
+        });
+                        
+      </script>
+      <h3>Romy and Michele&quot;s High School Reunion (1997)</h3>
+      <h6>Predicted rating :</h6>
+      <p>2.8</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Charlie&quot;s Angels (2000)" id="Charlie&quot;s Angels (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Charlie&quot;s Angels (2000)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Charlie&quot;s Angels (2000)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Charlie&quot;s Angels (2000)";
+            });
+        });
+                        
+      </script>
+      <h3>Charlie&quot;s Angels (2000)</h3>
+      <h6>Predicted rating :</h6>
+      <p>2.79</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002)" id="Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002)";
+            });
+        });
+                        
+      </script>
+      <h3>Men in Black II (a.k.a. MIIB) (a.k.a. MIB 2) (2002)</h3>
+      <h6>Predicted rating :</h6>
+      <p>2.75</p>
     </div>
     </div>
   </body>
