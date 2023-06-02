@@ -63,9 +63,9 @@ body {
   border: none;
   cursor: pointer;
   overflow: hidden;
-  outline: 0;
-  margin-right: 0%;
   text-align: center;
+  display: block;
+  padding: 0;
 }
 
 .disconnectButton div {
@@ -83,7 +83,7 @@ body {
   align-items: center;
   /* justify-content: space-between; */
   height: 40px;
-  padding: 0.28em ;
+  padding: 0.28em 0em;
   text-align: center;
   
  }
