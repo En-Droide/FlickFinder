@@ -4,9 +4,9 @@ import os
 import sys
 import pandas as pd
 
-project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -88,8 +88,7 @@ def similar_movies():
 
 @app.route('/_movie/<movieTitle>')
 def movie_page(movieTitle):
-    print(movieTitle)
-    # movieTitle="Toy Story (1995)"
+    print("movie: ", movieTitle)
     if not(isMovieInDataset(movieTitle, movies_df)):
         abort(404)
     list_movie_genres, list_movie_cast = get_movie_genres_cast(tfidf_df, movieTitle)
@@ -103,11 +102,44 @@ def movie_page(movieTitle):
     df_movie_info = pd.read_csv(info_movie_path_csv)    
     informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector = informations_movies (movieTitle, df_movie_info)
 
-    movieCorrelations,similar_movies = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=40)
-    print("moviecorr = "+str((similar_movies).sort()))
-    # movieRatings = getMovieRatings
+    
+    similarity_movieFilmList = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[1:6]
+    print("similarity : \n", similarity_movieFilmList, "\n")
+    global failed_scraps
+    soup = None
+    for movie in (similarity_movieFilmList):
+        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+            
+        if movie not in df_movie_info['title'].values:
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+    if currentUserId is not None :
+        for movie in (similarity_movieFilmList):
+            if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+                movieId = getMovieId(movie, movies_df)
+                movieLink = getMovieImdbLink(movieId, links_df)
+                print(movieLink)
+                soup = request_soup(movieLink)
+                response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+                if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+                
+            if movie not in df_movie_info['title'].values:
+                movieId = getMovieId(movie, movies_df)
+                movieLink = getMovieImdbLink(movieId, links_df)
+                print(movieLink)
+                soup = request_soup(movieLink)
+                scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
 
-    # print(informations_movieTime)
+            
     return render_template('movie_page_dynamic.html',
                             movieTitle=movieTitle,
                             listgenre=list_movie_genres,
@@ -118,7 +150,9 @@ def movie_page(movieTitle):
                             movie_Time = informations_movieTime,
                             movie_Synopsis = informations_movieSynopsis,
                             movie_Director = informations_movieDirector,
-                            currentUserId=currentUserId)
+                            currentUserId=currentUserId,
+                            similarity_movieFilmList=similarity_movieFilmList
+                            )
 
 @app.route('/myratings.html')
 def my_ratings():

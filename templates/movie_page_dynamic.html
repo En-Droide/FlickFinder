@@ -169,7 +169,6 @@
           if (this.checked) {
             var rating = this.getAttribute("data-rating");
             // alert("You rated the movie " + rating + " stars!");
-      
             // Close the pop-up after rating
             document.getElementById("popup").style.display = "none";
           }
@@ -185,26 +184,27 @@
     </script>
     <h3 class="Titlegrid">Movies you might like :</h3>
     <div class="movie-grid">
-      {%for i in (range(5)):%}
+      {%for movie in (similarity_movieFilmList):%}
         <div class="moviecontainer">
-          <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
-            <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
+          <a href="/_movie/'~movie~'" id="'~movie~'">
+            <img src="{{ url_for('static', filename='Images/scrap/'~movie~'.jpg') }}" alt="Movie: '~movie~'" />
           </a>
           <script>
             
             $(document).ready(function() {
-                $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
+                $("a[href='/_movie/'~movieTitle~'']").click(function(event) {
                     event.preventDefault();
                     // alert("yes");
-                    window.location.href = "/_movie/Forrest Gump (1994)";
+                    window.location.href = "/_movie/'~movie~'";
                 });
             });
                             
           </script>
         </div>
       {%endfor%}
-    </div>  
-    <h3 class="Titlegrid">Users also liked :</h3>
+    </div> 
+     
+    <!-- <h3 class="Titlegrid">Users also liked :</h3>
     <div class="movie-grid">
       {%for i in (range(5)):%}
         <div class="moviecontainer">
@@ -223,7 +223,7 @@
                             
           </script>
         </div>
-      {%endfor%}
+      {%endfor%} -->
     </div>
       
 
