@@ -4,9 +4,9 @@ import os
 import sys
 import pandas as pd
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -138,7 +138,7 @@ def my_predictions():
                                                          model=model,
                                                          userAmount=10,
                                                          ratingsPerUser=10)
-    print("user similarities : \n", user_similarities_movies["movieTitle"][:10], "\n")
+    print("user similarities : \n", user_similarities_movies["movieTitle"].iloc[:10], "\n")
     global failed_scraps
     for movie in user_similarities_movies["movieTitle"].values[:4]:
         if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
@@ -149,8 +149,8 @@ def my_predictions():
             response = scrap_image(soup, images_path=images_path, movieTitle=movie)
             if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
             
-        if movie not in df_movie_info['title'].values:
-            scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+            if movie not in df_movie_info['title'].values:
+                scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
     MyPredictionsPageCreation(currentUserId=currentUserId,
                             userPredictions=user_similarities_movies,
                             file_path=templates_path + "mypredictions.html",
