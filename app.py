@@ -102,7 +102,6 @@ def movie_page(movieTitle):
     df_movie_info = pd.read_csv(info_movie_path_csv)    
     informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector = informations_movies (movieTitle, df_movie_info)
 
-    
     similarity_movieFilmList = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[1:6]
     print("similarity : \n", similarity_movieFilmList, "\n")
     global failed_scraps
@@ -122,8 +121,13 @@ def movie_page(movieTitle):
             print(movieLink)
             soup = request_soup(movieLink)
             scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+
+    similarPredictions_movieFilmList = []
     if currentUserId is not None :
-        for movie in (similarity_movieFilmList):
+        similarPredictions_movieFilmList = getMovieSimilarPredictions(currentUserId, movieTitle, movies_df, movieRatings_df, userRatingsMatrix, model, 6, 40)["movieTitle"].to_list()[1:]
+        print("similarity : \n", similarPredictions_movieFilmList, "\n")
+        soup = None
+        for movie in (similarPredictions_movieFilmList):
             if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
                 movieId = getMovieId(movie, movies_df)
                 movieLink = getMovieImdbLink(movieId, links_df)
@@ -151,7 +155,8 @@ def movie_page(movieTitle):
                             movie_Synopsis = informations_movieSynopsis,
                             movie_Director = informations_movieDirector,
                             currentUserId=currentUserId,
-                            similarity_movieFilmList=similarity_movieFilmList
+                            similarity_movieFilmList=similarity_movieFilmList,
+                            similarPredictions_movieFilmList =similarPredictions_movieFilmList
                             )
 
 @app.route('/myratings.html')

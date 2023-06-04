@@ -186,46 +186,68 @@
     <div class="movie-grid">
       {%for movie in (similarity_movieFilmList):%}
         <div class="moviecontainer">
-          <a href="/_movie/'~movie~'" id="'~movie~'">
-            <img src="{{ url_for('static', filename='Images/scrap/'~movie~'.jpg') }}" alt="Movie: '~movie~'" />
+          <a href="/_movie/{{movie}}" id="{{movie}}">
+            {% if os.path.exists(images_path + "scrap\\" + movie + ".jpg") %}
+            <img
+              src="{{ url_for('static', filename='Images/scrap/'~movie~'.jpg') }}"
+              alt="{{ movie }}"
+            />
+            {% else %}
+            <img
+              src="{{ url_for('static', filename='Images/placeholder.png') }}"
+              alt="{{ movie }}"
+            />
+            {% endif %}
           </a>
           <script>
             
             $(document).ready(function() {
-                $("a[href='/_movie/'~movieTitle~'']").click(function(event) {
+                $("a[href='/_movie/{{movie}}']").click(function(event) {
                     event.preventDefault();
                     // alert("yes");
-                    window.location.href = "/_movie/'~movie~'";
+                    window.location.href = "/_movie/{{movie}}";
                 });
             });
                             
           </script>
+          <h3>{{movie}}</h3>
         </div>
       {%endfor%}
     </div> 
-     
-    <!-- <h3 class="Titlegrid">Users also liked :</h3>
-    <div class="movie-grid">
-      {%for i in (range(5)):%}
-        <div class="moviecontainer">
-          <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
-            <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
-          </a>
-          <script>
-            
-            $(document).ready(function() {
-                $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
-                    event.preventDefault();
-                    // alert("yes");
-                    window.location.href = "/_movie/Forrest Gump (1994)";
-                });
-            });
-                            
-          </script>
-        </div>
-      {%endfor%} -->
-    </div>
-      
+      {% if currentUserId %}
+      <h3 class="Titlegrid">Users also liked :</h3>
+      <div class="movie-grid">
+        {%for movie in (similarPredictions_movieFilmList):%}
+          <div class="moviecontainer">
+            <a href="/_movie/{{movie}}" id="{{movie}}">
+              {% if os.path.exists(images_path + "scrap\\" + movie + ".jpg") %}
+              <img
+                src="{{ url_for('static', filename='Images/scrap/'~movie~'.jpg') }}"
+                alt="{{ movie }}"
+              />
+              {% else %}
+              <img
+                src="{{ url_for('static', filename='Images/placeholder.png') }}"
+                alt="{{ movie }}"
+              />
+              {% endif %}
+            </a>
+            <script>
+              
+              $(document).ready(function() {
+                  $("a[href='/_movie/{{movie}}']").click(function(event) {
+                      event.preventDefault();
+                      // alert("yes");
+                      window.location.href = "/_movie/{{movie}}";
+                  });
+              });
+                              
+            </script>
+            <h3>{{movie}}</h3>
+          </div>
+        {%endfor%}
+      </div>
+      {% endif %}
 
     {% endif %}
   </body>

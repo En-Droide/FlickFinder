@@ -11,7 +11,7 @@ from collab_similarities import *
 
 
 def getMovieSimilarPredictions(userId, movieTitle, movies_df, movieRatings_df, userRatingsMatrix, model, size, minRatings):
-    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix)
+    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatings)
     topSimilar = matrixCorr[matrixCorr["nb of ratings"] >= minRatings].head(size)
     topSimilar["prediction"] = topSimilar.apply(lambda row: model.predict(userId, row["movieId"])[3], axis=1)
     topSimilar.sort_values("prediction", ascending=False, inplace=True)
