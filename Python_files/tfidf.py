@@ -121,5 +121,4 @@ def setup_tfidf(file_name):
     print(" tfidf_matrix done")
     return tfidf_matrix, df
 
-    
 # print(start_tfidf("C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\python\\out_big_data.csv","Toy Story"))

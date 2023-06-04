@@ -42,7 +42,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }}&ensp;")
+                                    air("Connected&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -197,7 +197,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }}&ensp;")
+                                    air("Connected&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -382,7 +382,7 @@ def MyRatingsPageCreation(currentUserId, currentUserRatings, file_path, images_p
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }}&ensp;")
+                                    air("Connected&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
@@ -506,7 +506,7 @@ def MyPredictionsPageCreation(currentUserId, userPredictions, file_path, images_
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
-                                    air("Connected as {{ currentUserId }}&ensp;")
+                                    air("Connected&ensp;")
                         with air.div():
                             with air.span(klass="DisconnectConnectText"):
                                 with air.p():
