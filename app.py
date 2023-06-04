@@ -4,9 +4,9 @@ import os
 import sys
 import pandas as pd
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -219,7 +219,7 @@ if __name__ == '__main__':
             print("tfidf setup!\n")
         if is_handle_movielens_onStart:
             print("setting up movielens dataset...")
-            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, size=1000000)
+            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, ratings_name="ratings_edit.csv")
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
             print("\nmaking MovieMatrix...")

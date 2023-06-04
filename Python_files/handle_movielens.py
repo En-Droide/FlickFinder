@@ -20,14 +20,14 @@ def readRatings(file, size):
     return ratings
 
 
-def readCSVs(resourcePath, size):
+def readCSVs(resourcePath, ratings_name, size):
     movies = readBigCSV(resourcePath + "movies.csv")
     print(" movies df made")
     links = readBigCSV(resourcePath + "links.csv")
-    print(" links df made")
+    # print(" links df made")
     tags = readBigCSV(resourcePath + "tags.csv")
-    print(" tags df made")
-    userRatings = readRatings(resourcePath + "ratings.csv", size)
+    # print(" tags df made")
+    userRatings = readRatings(resourcePath + ratings_name, size)
     print(" userRatings df made")
 
     movies = movies.set_index("movieId")
@@ -105,9 +105,9 @@ def getUserTopRatings(userId, movies_df, ratings_df, n):
     return topMovies[["userId", "movieId","movieTitle", "rating"]]
     
     
-def read_movielens(path, size):
+def read_movielens(path, ratings_name, size=999999999999):
     movies, links, tags, userRatings, movieRatings =\
-        readCSVs(resourcePath=path, size=size)
+        readCSVs(resourcePath=path, ratings_name=ratings_name, size=size)
     return movies, links, tags, userRatings, movieRatings
 
 
