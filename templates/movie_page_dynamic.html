@@ -100,6 +100,7 @@
           <h3 class="stars_rating">
             Rating :&ensp;{{ meanRating }}&emsp;
           </h3>
+          {% if currentUserId %}
           {% if (currentUserRatings["movieTitle"] == movieTitle).any() %}
           <h3 class="stars_rating" id="myRating">
             &ensp;&ensp;Your rating :&ensp;{{ currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle)]["rating"].values[0] }}&emsp;
@@ -107,7 +108,6 @@
           {% else %}
           <h3 class="stars_rating" id="myRating">&ensp;&ensp;Your rating :&ensp;?&emsp;</h3>
           {% endif %}
-          {% if currentUserId %}
           <button id="btn" class="btn_rating" type="submit">Give your rating</button>
           {% endif %}
         </div>
@@ -163,10 +163,12 @@
         </div>
       </div>
     </div>
+    {% if currentUserId %}
     {% if (currentUserRatings["movieTitle"] == movieTitle).any() %}
     <script>ratingVariable = "{{ currentUserRatings.loc[(currentUserRatings['movieTitle'] == movieTitle)]['rating'].values[0] }}";</script>
     {% else %}
     <script>ratingVariable = 0;</script>
+    {% endif %}
     {% endif %}
     <script>
       // JavaScript code to handle button click event and show the pop-up
