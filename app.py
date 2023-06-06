@@ -4,9 +4,9 @@ import os
 import sys
 import pandas as pd
 
-# project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -42,11 +42,11 @@ log.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
-    return render_template("main.html", currentUserId=currentUserId)
+    return render_template("home.html", currentUserId=currentUserId)
 
-@app.route("/main.html")
+@app.route("/home.html")
 def main():
-    return render_template("main.html", currentUserId=currentUserId)
+    return render_template("home.html", currentUserId=currentUserId)
 
 @app.route("/account.html")
 def account():
@@ -262,10 +262,10 @@ if __name__ == '__main__':
             df_movie_info = pd.read_csv(info_movie_path_csv)
             print("\nmovie informations read")
         if is_create_main_onStart:
-            print("\ncreating main.html...")
+            print("\ncreating home.html...")
             topMovies = getTopNMoviesByNbOfRatings(20, movies_df, movieRatings_df)["movieTitle"].to_list()
-            MainPageCreation(movies=topMovies, file_path=templates_path + "main.html", images_path=images_path, row_size=4)
-            print("main page created!\n")
+            MainPageCreation(movies=topMovies, file_path=templates_path + "home.html", images_path=images_path, row_size=4)
+            print("home page created!\n")
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
 

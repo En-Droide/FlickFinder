@@ -10,7 +10,7 @@
 
   <body>
     <div class="topnav">
-      <a href="main.html">Home</a>
+      <a href="home.html">Home</a>
       {% if currentUserId %}
       <a href="/mypredictions.html">My Predictions</a>
       {% endif %}
@@ -38,7 +38,7 @@
                     type: "POST",
                     crossDomain: true,
                     success: function () {
-                        window.location.href = "/main.html"; 
+                        window.location.href = "/home.html"; 
                     },
                 });
             });
@@ -57,7 +57,7 @@
       </div>
 
       <div class="signup">
-        <form method="POST" action="main.html"></form>
+        <form method="POST" action="home.html"></form>
         <label for="chk" aria-hidden="true">Sign up</label>
         <input type="text" name="txt" placeholder="Username" required="" />
         <input type="email" name="email" placeholder="Email" required="" />
@@ -86,7 +86,7 @@
             data: formData,
             dataType: "text",
             success: function (data) {
-                window.location.href = "/main.html"; 
+                window.location.href = "/home.html"; 
             },
           });
         }

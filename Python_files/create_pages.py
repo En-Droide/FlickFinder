@@ -26,7 +26,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
         air.append("<!-- Top navigation bar -->") 
         with air.header():
             with air.div(klass="topnav"):
-                with air.a(href="/main.html"):
+                with air.a(href="/home.html"):
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
@@ -60,7 +60,7 @@ def MainPageCreation(movies, file_path, images_path, row_size = ROW_SIZE):
                 type: "POST",
                 crossDomain: true,
                 success: function () {
-                    window.location.href = "/main.html"; 
+                    window.location.href = "/home.html"; 
                 },
             });
         });
@@ -180,7 +180,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
         air.append("<!-- Top navigation bar -->") 
         with air.header():
             with air.div(klass="topnav"):
-                with air.a(href="/main.html"):
+                with air.a(href="/home.html"):
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
@@ -214,7 +214,7 @@ def SimilarPageCreation(tfidf_movies, similarity_movies, file_path, images_path,
                 type: "POST",
                 crossDomain: true,
                 success: function () {
-                    window.location.href = "/main.html"; 
+                    window.location.href = "/home.html"; 
                 },
             });
         });
@@ -365,7 +365,7 @@ def MyRatingsPageCreation(currentUserId, currentUserRatings, file_path, images_p
         air.append("<!-- Top navigation bar -->") 
         with air.header():
             with air.div(klass="topnav"):
-                with air.a(href="/main.html"):
+                with air.a(href="/home.html"):
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
@@ -399,7 +399,7 @@ def MyRatingsPageCreation(currentUserId, currentUserRatings, file_path, images_p
                 type: "POST",
                 crossDomain: true,
                 success: function () {
-                    window.location.href = "/main.html"; 
+                    window.location.href = "/home.html"; 
                 },
             });
         });
@@ -488,7 +488,7 @@ def MyPredictionsPageCreation(currentUserId, userPredictions, file_path, images_
         air.append("<!-- Top navigation bar -->") 
         with air.header():
             with air.div(klass="topnav"):
-                with air.a(href="/main.html"):
+                with air.a(href="/home.html"):
                     air("Home")
                 air.append("{% if currentUserId %}")
                 with air.a(href="/mypredictions.html"):
@@ -522,7 +522,7 @@ def MyPredictionsPageCreation(currentUserId, userPredictions, file_path, images_
                 type: "POST",
                 crossDomain: true,
                 success: function () {
-                    window.location.href = "/main.html"; 
+                    window.location.href = "/home.html"; 
                 },
             });
         });

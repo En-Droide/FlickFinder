@@ -13,7 +13,7 @@
   <!-- Top navigation bar -->
   <header>
     <div class="topnav">
-      <a href="/main.html"> Home </a>
+      <a href="/home.html"> Home </a>
       {% if currentUserId %}
       <a href="/mypredictions.html">Our Selection for You</a>
       {% endif %}
@@ -55,7 +55,7 @@
                 type: "POST",
                 crossDomain: true,
                 success: function () {
-                    window.location.href = "/main.html"; 
+                    window.location.href = "/home.html"; 
                 },
             });
         });

@@ -16,7 +16,7 @@
   <!-- Top navigation bar -->
   <header>
     <div class="topnav">
-      <a href="/main.html">
+      <a href="/home.html">
         Home
       </a>
       {% if currentUserId %}
@@ -64,7 +64,7 @@
                 type: "POST",
                 crossDomain: true,
                 success: function () {
-                    window.location.href = "/main.html"; 
+                    window.location.href = "/home.html"; 
                 },
             });
         });
@@ -90,42 +90,6 @@
                         
       </script>
       <h3>Waiting for Guffman (1996)</h3>
-      <p>My rating : 5.0</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
-        <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Forrest Gump (1994)";
-            });
-        });
-                        
-      </script>
-      <h3>Forrest Gump (1994)</h3>
-      <p>My rating : 5.0</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Do the Right Thing (1989)" id="Do the Right Thing (1989)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Do the Right Thing (1989)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Do the Right Thing (1989)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Do the Right Thing (1989)";
-            });
-        });
-                        
-      </script>
-      <h3>Do the Right Thing (1989)</h3>
       <p>My rating : 4.5</p>
     </div>
     <div class="moviecontainer">
@@ -146,8 +110,24 @@
       <h3>Weird Science (1985)</h3>
       <p>My rating : 4.5</p>
     </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Do the Right Thing (1989)" id="Do the Right Thing (1989)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Do the Right Thing (1989)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Do the Right Thing (1989)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Do the Right Thing (1989)";
+            });
+        });
+                        
+      </script>
+      <h3>Do the Right Thing (1989)</h3>
+      <p>My rating : 4.5</p>
     </div>
-    <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Better Off Dead... (1985)" id="Better Off Dead... (1985)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Better Off Dead... (1985)" />
@@ -166,6 +146,8 @@
       <h3>Better Off Dead... (1985)</h3>
       <p>My rating : 4.0</p>
     </div>
+    </div>
+    <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/¡Three Amigos! (1986)" id="¡Three Amigos! (1986)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: ¡Three Amigos! (1986)" />
@@ -203,44 +185,6 @@
       <p>My rating : 4.0</p>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)" id="Three Colors: Blue (Trois couleurs: Bleu) (1993)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Three Colors: Blue (Trois couleurs: Bleu) (1993)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)";
-            });
-        });
-                        
-      </script>
-      <h3>Three Colors: Blue (Trois couleurs: Bleu) (1993)</h3>
-      <p>My rating : 3.5</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Kalifornia (1993)" id="Kalifornia (1993)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kalifornia (1993)" />
-      </a>
-      <script>
-        
-        $(document).ready(function() {
-            $("a[href='/_movie/Kalifornia (1993)']").click(function(event) {
-                event.preventDefault();
-                // alert("yes");
-                window.location.href = "/_movie/Kalifornia (1993)";
-            });
-        });
-                        
-      </script>
-      <h3>Kalifornia (1993)</h3>
-      <p>My rating : 3.5</p>
-    </div>
-    <div class="moviecontainer">
       <a href="/_movie/Nurse Betty (2000)" id="Nurse Betty (2000)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Nurse Betty (2000)" />
       </a>
@@ -276,6 +220,44 @@
       <h3>Running Man, The (1987)</h3>
       <p>My rating : 3.5</p>
     </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Kalifornia (1993)" id="Kalifornia (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kalifornia (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Kalifornia (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Kalifornia (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Kalifornia (1993)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)" id="Three Colors: Blue (Trois couleurs: Bleu) (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Three Colors: Blue (Trois couleurs: Bleu) (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Three Colors: Blue (Trois couleurs: Bleu) (1993)</h3>
+      <p>My rating : 3.5</p>
+    </div>
     <div class="moviecontainer">
       <a href="/_movie/Stigmata (1999)" id="Stigmata (1999)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Stigmata (1999)" />
@@ -294,8 +276,6 @@
       <h3>Stigmata (1999)</h3>
       <p>My rating : 3.0</p>
     </div>
-    </div>
-    <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/Event Horizon (1997)" id="Event Horizon (1997)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Event Horizon (1997)" />
@@ -314,6 +294,8 @@
       <h3>Event Horizon (1997)</h3>
       <p>My rating : 2.5</p>
     </div>
+    </div>
+    <div class="movie-grid">
     <div class="moviecontainer">
       <a href="/_movie/RoboCop 2 (1990)" id="RoboCop 2 (1990)">
         <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: RoboCop 2 (1990)" />
@@ -348,6 +330,24 @@
                         
       </script>
       <h3>Hollow Man (2000)</h3>
+      <p>My rating : 2.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
+        <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Forrest Gump (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Forrest Gump (1994)</h3>
       <p>My rating : 2.0</p>
     </div>
     <div class="moviecontainer">
@@ -395,7 +395,6 @@
       <h3>About Us, The Recommendation website</h3>
 
       <img src="{{ url_for('static',filename='Images/ESME.jpg') }}" alt="Me" class="w3-image" style="display: block; margin: auto" width="100" height="100" />
-      <h4><b>hello</b></h4>
       <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
       <ul>
         <li>
