@@ -4,9 +4,9 @@ import os
 import sys
 import pandas as pd
 
-#project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
-project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
+# project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
@@ -21,7 +21,7 @@ images_path = instance_path + "static\\Images\\"
 python_path = instance_path + "Python_files\\"
 sys.path.insert(1, python_path)
 movieLens_path = python_path + "csv_files\\ml-latest\\"
-rating_path = movieLens_path + "ratings.csv"
+ratings_name = "ratings_edit.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
 info_movie_path_csv = project_path + "static\\Csv_files\\movies_informations.csv"
 
@@ -155,6 +155,7 @@ def movie_page(movieTitle):
                             movie_Synopsis = informations_movieSynopsis,
                             movie_Director = informations_movieDirector,
                             currentUserId=currentUserId,
+                            currentUserRatings=currentUserRatings,
                             similarity_movieFilmList=similarity_movieFilmList,
                             similarPredictions_movieFilmList =similarPredictions_movieFilmList
                             )
@@ -162,7 +163,7 @@ def movie_page(movieTitle):
 @app.route('/myratings.html')
 def my_ratings():
     MyRatingsPageCreation(currentUserId=currentUserId,
-                    currentUserRatings=currentUserRatings,
+                    currentUserRatings=currentUserRatings.sort_values("rating", ascending=False),
                     file_path=templates_path + "myratings.html",
                     images_path=images_path, row_size=4)
     return render_template("myratings.html", currentUserId=currentUserId)
@@ -196,6 +197,29 @@ def my_predictions():
                             images_path=images_path, row_size=4)
     return render_template("mypredictions.html", currentUserId=currentUserId)
 
+@app.route("/_rate", methods=["POST"])
+def rate():
+    rating = int(request.form.get("rating"))
+    movieTitle = request.form.get("movieTitle")
+    movieId = getMovieId(movieTitle, movies_df)
+    print(movieTitle, movieId, rating)
+    global currentUserRatings, userRatings_df
+    if (currentUserRatings["movieTitle"] == movieTitle).any():
+        currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle), "rating"] = rating
+        userRatings_df.loc[(userRatings_df["userId"] == currentUserId) & (userRatings_df["movieId"] == movieId), "rating"] = rating
+        print("existing : updated")
+        print(currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle), "rating"].values)
+    else:
+        new_rating = {"userId": currentUserId, "movieId": movieId, "rating": rating}
+        userRatings_df.loc[len(userRatings_df)] = new_rating
+        new_rating["movieTitle"] = movieTitle
+        currentUserRatings.loc[len(currentUserRatings)] = new_rating
+        print("new : added")
+    # print(userRatings_df[(userRatings_df["userId"] == currentUserId)])
+    # print(currentUserRatings[["movieTitle", "rating"]])
+    userRatings_df.to_csv(movieLens_path + ratings_name)
+    return "Done!"
+
 @app.route("/_login", methods=["POST"])
 def login():
     userId = request.form.get("userId")
@@ -224,7 +248,7 @@ if __name__ == '__main__':
             print("tfidf setup!\n")
         if is_handle_movielens_onStart:
             print("setting up movielens dataset...")
-            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, ratings_name="ratings_edit.csv")
+            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, ratings_name=ratings_name)
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
             print("\nmaking MovieMatrix...")

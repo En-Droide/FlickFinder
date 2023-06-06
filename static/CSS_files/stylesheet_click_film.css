@@ -421,8 +421,8 @@ body {
 }
 
 .synopsis-container {
-  margin-left: 10%;
-  margin-right: 22%;
+  margin-left: 5%;
+  margin-right: 5%;
   max-width: 100%;
   flex: 2;
   text-align: justify;
@@ -458,7 +458,7 @@ body {
 
 /*button rating*/
 .btn_rating {
-  margin-left: 30%;
+  margin-left: 10%;
   padding: 1.5% 5%;
   text-transform: uppercase;
   border-radius: 8px;

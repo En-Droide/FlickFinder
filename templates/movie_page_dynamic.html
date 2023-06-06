@@ -98,8 +98,15 @@
         </p>
         <div class="rate">
           <h3 class="stars_rating">
-            Rating:&ensp;{{ meanRating }}&emsp;
+            Rating :&ensp;{{ meanRating }}&emsp;
           </h3>
+          {% if (currentUserRatings["movieTitle"] == movieTitle).any() %}
+          <h3 class="stars_rating" id="myRating">
+            &ensp;&ensp;Your rating :&ensp;{{ currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle)]["rating"].values[0] }}&emsp;
+          </h3>
+          {% else %}
+          <h3 class="stars_rating" id="myRating">&ensp;&ensp;Your rating :&ensp;?&emsp;</h3>
+          {% endif %}
           {% if currentUserId %}
           <button id="btn" class="btn_rating" type="submit">Give your rating</button>
           {% endif %}
@@ -156,23 +163,54 @@
         </div>
       </div>
     </div>
-
+    {% if (currentUserRatings["movieTitle"] == movieTitle).any() %}
+    <script>ratingVariable = "{{ currentUserRatings.loc[(currentUserRatings['movieTitle'] == movieTitle)]['rating'].values[0] }}";</script>
+    {% else %}
+    <script>ratingVariable = 0;</script>
+    {% endif %}
     <script>
       // JavaScript code to handle button click event and show the pop-up
       document.getElementById("btn").addEventListener("click", function () {
         document.getElementById("popup").style.display = "block";
+        for (var i=0; i<5; i++) {
+          popupStars[i].checked = false;
+        }
+        for (var i=0; i<ratingVariable; i++) {
+          popupStars[4-i].checked = true;
+        }
+        console.log(ratingVariable);
       });
-
+      
       var popupStars = document.querySelectorAll(".popup-content .star");
       for (var i = 0; i < popupStars.length; i++) {
         popupStars[i].addEventListener("click", function () {
           if (this.checked) {
             var rating = this.getAttribute("data-rating");
+            ratingVariable = rating;
+            document.getElementById("myRating").innerHTML = "&ensp;&ensp;Your rating :&ensp;"+rating+"&emsp;";
             // alert("You rated the movie " + rating + " stars!");
+            var formData = {
+              rating: rating,
+              movieTitle: "{{ movieTitle }}"
+            };
+            $.ajax({
+                url: "/_rate",
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                dataType: "text",
+                success: function (data) {
+                    ratingVariable = rating;
+                },
+            });
             // Close the pop-up after rating
             document.getElementById("popup").style.display = "none";
           }
         });
+        // if (i < ratingVariable) {
+        //     // Set the ratingVariable number of stars as checked/selected
+        //     popupStars[i].checked = true;
+        //   }
       }
 
       window.addEventListener("click", function (event) {
@@ -182,7 +220,7 @@
         }
       });
     </script>
-    <h3 class="Titlegrid">Movies you might like :</h3>
+    <h3 class="Titlegrid">Similar movies you might like :</h3>
     <div class="movie-grid">
       {%for movie in (similarity_movieFilmList):%}
         <div class="moviecontainer">
@@ -215,7 +253,7 @@
       {%endfor%}
     </div> 
       {% if currentUserId %}
-      <h3 class="Titlegrid">Users also liked :</h3>
+      <h3 class="Titlegrid">Users like you also liked :</h3>
       <div class="movie-grid">
         {%for movie in (similarPredictions_movieFilmList):%}
           <div class="moviecontainer">
