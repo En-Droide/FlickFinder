@@ -117,3 +117,8 @@ if(__name__ == "__main__"):
     print(userRatings.head(5))
     top = getTopNMoviesByNbOfRatings(10, movies, movieRatings)
     print(top)
+    ratingsTemp = pd.merge(userRatings, movies, on='movieId')
+    userCount = pd.DataFrame(ratingsTemp.groupby('userId')['rating'].mean()).rename(columns={"rating": "mean rating"})
+    userCount["nb of ratings"] = pd.DataFrame(
+        ratingsTemp.groupby('userId')['rating'].count())
+    print(userCount.describe())

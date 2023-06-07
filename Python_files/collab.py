@@ -28,7 +28,7 @@ def getUserSimilarPredictions(userId, movies_df, userRatings_df, movieRatings_df
     return correlatedMovies
 
 if(__name__ == "__main__"):
-    movies, links, tags, userRatings, movieRatings = readCSVs(resourcePath="csv_files/ml-latest/", size=100000)
+    movies, links, tags, userRatings, movieRatings = readCSVs(resourcePath="csv_files/ml-latest/", ratings_name="ratings.csv", size=100000)
     print("csv read\n")
     print("making MovieMatrix...")
     print("movieMatrix done!\n")

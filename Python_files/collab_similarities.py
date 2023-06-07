@@ -40,38 +40,33 @@ def getUserCorrelatedMovies(userList, movies_df, userRatings_df, n):
 
 if(__name__ == "__main__"):
     warnings.filterwarnings("ignore")
-    movies, links, tags, userRatings, movieRatings = readCSVs(resourcePath="csv_files/ml-latest/", size=100000)
+    movies, links, tags, userRatings, movieRatings = readCSVs(resourcePath="csv_files/ml-latest/", ratings_name="ratings.csv", size=100000)
     print("csv read\n")
     print("making MovieMatrix...")
     userRatingsMatrix = getUserRatingsMatrix(userRatings)
     print("movieMatrix done!\n")
     
-    # movieTitle = 'Matrix, The (1999)'
-    # movieId = getMovieId(movieTitle, movies)
-    # matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix, minRatingAmount=40)
-    # print("\n\nMovies similar to : " + movieTitle)
-    # with pd.option_context('display.max_rows', None, 'display.max_columns', None):
-    #     print(matrixCorr[1:6])
-    # print("\n")
-    
-    userId = 1
-    matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
-    print("\n\nUsers similar to : " + str(userId))
-    
-    print(matrixCorr2.head(10))
+    movieTitle = 'Matrix, The (1999)'
+    movieId = getMovieId(movieTitle, movies)
+    matrixCorr, matrixSimilar = getMovieCorrelations(movieTitle, movies, movieRatings, userRatingsMatrix, minRatingAmount=40)
+    print("\n\nMovies similar to : " + movieTitle)
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(matrixCorr[1:6])
     print("\n")
     
-    # userId = 10
-    # matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
+    userId = 10
+    matrixCorr2, matrixSimilar2 = getUserCorrelations(userId, movies, movieRatings, userRatingsMatrix)
     
-    # print("\n\nUsers similar to : " + str(userId))
-    # print(matrixCorr2.head(10))
-    # print("\nUser's top ratings : ")
-    # print(getUserTopRatings(userId, movies, userRatings, 5))
-    # for i in range(1, 4):
-    #     print("\nUser", matrixCorr2.iloc[i].name, "top ratings : ")
-    #     print(getUserTopRatings(matrixCorr2.iloc[i].name, movies, userRatings, 5))
+    print("\n\nUsers similar to : " + str(userId))
+    print(matrixCorr2.head(10))
+    print("\nUser's top ratings : ")
+    with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+        print(getUserTopRatings(userId, movies, userRatings, 5))
+    for i in range(1, 4):
+        print("\nUser", matrixCorr2.iloc[i].name, "top ratings : ")
+        with pd.option_context('display.max_rows', None, 'display.max_columns', None):
+            print(getUserTopRatings(matrixCorr2.iloc[i].name, movies, userRatings, 5))
     
-    # print("Top rated movies from the most similar users :")
-    # corrList = getUserCorrelatedMovies(matrixCorr2.index[:5], movies, userRatings, 10).sort_values("movieId")
-    # print(corrList)
+    print("Top rated movies from the most similar users :")
+    corrList = getUserCorrelatedMovies(matrixCorr2.index[:5], movies, userRatings, 10).sort_values("movieId")
+    print(corrList)
