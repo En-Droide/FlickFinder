@@ -10,23 +10,24 @@ def readBigCSV(file):
     return df
 
 
-def readRatings(file):
+def readRatings(file, size):
     mylist = []
     for chunk in pd.read_csv(file, chunksize=20000, encoding='utf8',
-                             usecols=["userId", "movieId", "rating"]):
+                             usecols=["userId", "movieId", "rating"],
+                             nrows=size):
         mylist.append(chunk)
     ratings = pd.concat(mylist, axis=0)
     return ratings
 
 
-def readCSVs(resourcePath, size):
+def readCSVs(resourcePath, ratings_name, size):
     movies = readBigCSV(resourcePath + "movies.csv")
     print(" movies df made")
     links = readBigCSV(resourcePath + "links.csv")
-    print(" links df made")
+    # print(" links df made")
     tags = readBigCSV(resourcePath + "tags.csv")
-    print(" tags df made")
-    userRatings = readRatings(resourcePath + "ratings.csv")[:size]
+    # print(" tags df made")
+    userRatings = readRatings(resourcePath + ratings_name, size)
     print(" userRatings df made")
 
     movies = movies.set_index("movieId")
@@ -78,22 +79,46 @@ def searchTitle(title: str, movies_df):
     return movies_df[movies_df["title"].str.contains(title, case=False)].drop("genres", axis=1)
 
 
-def getMovieMatrix(frame):
+def getUserRatingsMatrix(frame):
     movieMat = frame.pivot_table(
         index='userId', columns='movieId', values='rating')
     return movieMat
 
 
-def addRowsToDataframe(df: pd.DataFrame, new_rows: list):
-    return pd.concat([df, pd.DataFrame(data=new_rows, columns=df.columns)])
+# def addRowsToDataframe(df: pd.DataFrame, new_rows: list):
+#     return pd.concat([df, pd.DataFrame(data=new_rows, columns=df.columns)]).reindex(df.index)
 
 
 def isMovieInDataset(movieTitle, movies_df):
     return len(movies_df[movies_df["title"] == movieTitle]) == 1
 
 
-def read_movielens(path, size):
+def getTopNMoviesByNbOfRatings(n, movies_df, movieRatings_df):
+    topMovies = movieRatings_df.sort_values("nb of ratings", ascending=False)[:n]
+    topMovies["movieTitle"] = topMovies.apply(lambda row: getMovieTitle(row.name, movies_df), axis=1)
+    return topMovies
+
+
+def getUserTopRatings(userId, movies_df, ratings_df, n):
+    topMovies = ratings_df[ratings_df["userId"] == userId].sort_values("rating", ascending=False)[:n]
+    topMovies["movieTitle"] = topMovies.apply(lambda row: getMovieTitle(row["movieId"], movies_df), axis=1)
+    return topMovies[["userId", "movieId","movieTitle", "rating"]]
+    
+    
+def read_movielens(path, ratings_name, size=999999999999):
     movies, links, tags, userRatings, movieRatings =\
-        readCSVs(resourcePath=path, size=size)
+        readCSVs(resourcePath=path, ratings_name=ratings_name, size=size)
     return movies, links, tags, userRatings, movieRatings
 
+
+if(__name__ == "__main__"):
+    movies, links, tags, userRatings, movieRatings = read_movielens(path="csv_files/ml-latest/", ratings_name="ratings.csv", size=1000000)
+    print("csv read\n")
+    print(userRatings.head(5))
+    top = getTopNMoviesByNbOfRatings(10, movies, movieRatings)
+    print(top)
+    ratingsTemp = pd.merge(userRatings, movies, on='movieId')
+    userCount = pd.DataFrame(ratingsTemp.groupby('userId')['rating'].mean()).rename(columns={"rating": "mean rating"})
+    userCount["nb of ratings"] = pd.DataFrame(
+        ratingsTemp.groupby('userId')['rating'].count())
+    print(userCount.describe())

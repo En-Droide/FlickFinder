@@ -3,6 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      FlickFinder
+    </title>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
     <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
@@ -13,19 +16,61 @@
   <!-- Top navigation bar -->
   <header>
     <div class="topnav">
-      <a href="/main.html">
+      <a href="/home.html">
         Home
       </a>
-      <a href="/about.html">
-        About
+      {% if currentUserId %}
+      <a href="/mypredictions.html">
+        Our Selection for You
       </a>
+      {% endif %}
       <div class="Flickfinder">
         FlickFinder
       </div>
+      {% if currentUserId %}
+      <div class="right">
+        <a href="/myratings.html">
+          My Ratings
+        </a>
+        <button class="disconnectButton" type="submit">
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Connected&ensp;
+              </p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Disconnect
+              </p>
+            </span>
+          </div>
+        </button>
+      </div>
+      {% else %}
       <a href="/account.html" class="right">
         Account
       </a>
+      {% endif %}
     </div>
+    <script>
+      
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/home.html"; 
+                },
+            });
+        });
+        });
+        
+    </script>
   </header>
   <body>
     <!-- Search bar -->
@@ -60,183 +105,294 @@
         
       </script>
     </div>
+    <h2 class="Titlegrid">Discover Movies with Similar Themes and Content :</h2>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Carlito&quot;s Way (1993)">
-        <img src="{{ url_for('static', filename='Images/scrap/Carlito&quot;s Way (1993).jpg') }}" alt="Movie: Carlito&quot;s Way (1993)" />
+      <a href="/_movie/Spider-Man 2 (2004)" id="Spider-Man 2 (2004)">
+        <img src="{{ url_for('static', filename='Images/scrap/Spider-Man 2 (2004).jpg') }}" alt="Movie: Spider-Man 2 (2004)" />
       </a>
-      <h3>Carlito&quot;s Way (1993)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Spider-Man 2 (2004)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Spider-Man 2 (2004)";
+            });
+        });
+                        
+      </script>
+      <h3>Spider-Man 2 (2004)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Goodfellas (1990)">
-        <img src="{{ url_for('static', filename='Images/scrap/Goodfellas (1990).jpg') }}" alt="Movie: Goodfellas (1990)" />
+      <a href="/_movie/Spider-Man (2002)" id="Spider-Man (2002)">
+        <img src="{{ url_for('static', filename='Images/scrap/Spider-Man (2002).jpg') }}" alt="Movie: Spider-Man (2002)" />
       </a>
-      <h3>Goodfellas (1990)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Spider-Man (2002)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Spider-Man (2002)";
+            });
+        });
+                        
+      </script>
+      <h3>Spider-Man (2002)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Donnie Brasco (1997)">
-        <img src="{{ url_for('static', filename='Images/scrap/Donnie Brasco (1997).jpg') }}" alt="Movie: Donnie Brasco (1997)" />
+      <a href="/_movie/Untitled Spider-Man Reboot (2017)" id="Untitled Spider-Man Reboot (2017)">
+        <img src="{{ url_for('static', filename='Images/scrap/Untitled Spider-Man Reboot (2017).jpg') }}" alt="Movie: Untitled Spider-Man Reboot (2017)" />
       </a>
-      <h3>Donnie Brasco (1997)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Untitled Spider-Man Reboot (2017)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Untitled Spider-Man Reboot (2017)";
+            });
+        });
+                        
+      </script>
+      <h3>Untitled Spider-Man Reboot (2017)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Casino (1995)">
-        <img src="{{ url_for('static', filename='Images/scrap/Casino (1995).jpg') }}" alt="Movie: Casino (1995)" />
+      <a href="/_movie/Amazing Spider-Man, The (2012)" id="Amazing Spider-Man, The (2012)">
+        <img src="{{ url_for('static', filename='Images/scrap/Amazing Spider-Man, The (2012).jpg') }}" alt="Movie: Amazing Spider-Man, The (2012)" />
       </a>
-      <h3>Casino (1995)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Paid in Full (2002)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Paid in Full (2002)" />
-      </a>
-      <h3>Paid in Full (2002)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/New Jack City (1991)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: New Jack City (1991)" />
-      </a>
-      <h3>New Jack City (1991)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Scarface (1983)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Scarface (1983)" />
-      </a>
-      <h3>Scarface (1983)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Godfather, The (1972)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Godfather, The (1972)" />
-      </a>
-      <h3>Godfather, The (1972)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/King of New York (1990)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: King of New York (1990)" />
-      </a>
-      <h3>King of New York (1990)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Piñero (2001)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Piñero (2001)" />
-      </a>
-      <h3>Piñero (2001)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Godfather: Part III, The (1990)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Godfather: Part III, The (1990)" />
-      </a>
-      <h3>Godfather: Part III, The (1990)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Kill the Irishman (2011)">
-        <img src="{{ url_for('static', filename='Images/scrap/Kill the Irishman (2011).jpg') }}" alt="Movie: Kill the Irishman (2011)" />
-      </a>
-      <h3>Kill the Irishman (2011)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Amazing Spider-Man, The (2012)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Amazing Spider-Man, The (2012)";
+            });
+        });
+                        
+      </script>
+      <h3>Amazing Spider-Man, The (2012)</h3>
     </div>
     </div>
     <div class="movie-grid">
     <div class="moviecontainer">
-      <a href="/_movie/Central Park Five, The (2012)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Central Park Five, The (2012)" />
+      <a href="/_movie/Captain America: Civil War (2016)" id="Captain America: Civil War (2016)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Captain America: Civil War (2016)" />
       </a>
-      <h3>Central Park Five, The (2012)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Captain America: Civil War (2016)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Captain America: Civil War (2016)";
+            });
+        });
+                        
+      </script>
+      <h3>Captain America: Civil War (2016)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/State of Grace (1990)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: State of Grace (1990)" />
+      <a href="/_movie/The Amazing Spider-Man 2 (2014)" id="The Amazing Spider-Man 2 (2014)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: The Amazing Spider-Man 2 (2014)" />
       </a>
-      <h3>State of Grace (1990)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/The Amazing Spider-Man 2 (2014)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/The Amazing Spider-Man 2 (2014)";
+            });
+        });
+                        
+      </script>
+      <h3>The Amazing Spider-Man 2 (2014)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/Frank Serpico (2017)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Frank Serpico (2017)" />
+      <a href="/_movie/Avengers, The (2012)" id="Avengers, The (2012)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Avengers, The (2012)" />
       </a>
-      <h3>Frank Serpico (2017)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Avengers, The (2012)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Avengers, The (2012)";
+            });
+        });
+                        
+      </script>
+      <h3>Avengers, The (2012)</h3>
     </div>
     <div class="moviecontainer">
-      <a href="/_movie/New York, I Love You (2009)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: New York, I Love You (2009)" />
+      <a href="/_movie/Avengers: Age of Ultron (2015)" id="Avengers: Age of Ultron (2015)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Avengers: Age of Ultron (2015)" />
       </a>
-      <h3>New York, I Love You (2009)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    </div>
-    <div class="movie-grid">
-    <div class="moviecontainer">
-      <a href="/_movie/Gloria (1980)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Gloria (1980)" />
-      </a>
-      <h3>Gloria (1980)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Code of Silence (1985)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Code of Silence (1985)" />
-      </a>
-      <h3>Code of Silence (1985)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Untouchables, The (1987)">
-        <img src="{{ url_for('static', filename='Images/scrap/Untouchables, The (1987).jpg') }}" alt="Movie: Untouchables, The (1987)" />
-      </a>
-      <h3>Untouchables, The (1987)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
-    </div>
-    <div class="moviecontainer">
-      <a href="/_movie/Bait (2000)">
-        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Bait (2000)" />
-      </a>
-      <h3>Bait (2000)</h3>
-      <h6>Genre</h6>
-      <p>Synopsys</p>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Avengers: Age of Ultron (2015)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Avengers: Age of Ultron (2015)";
+            });
+        });
+                        
+      </script>
+      <h3>Avengers: Age of Ultron (2015)</h3>
     </div>
     </div>
   </body>
+  <h2 class="Titlegrid">Discover Movies you might Like:</h2>
+  <div class="movie-grid">
+  <div class="moviecontainer">
+    <a href="/_movie/Spider-Man 2 (2004)" id="Spider-Man 2 (2004)">
+      <img src="{{ url_for('static', filename='Images/scrap/Spider-Man 2 (2004).jpg') }}" alt="Movie: Spider-Man 2 (2004)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Spider-Man 2 (2004)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Spider-Man 2 (2004)";
+        });
+    });
+                    
+    </script>
+    <h3>Spider-Man 2 (2004)</h3>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Eddie (1996)" id="Eddie (1996)">
+      <img src="{{ url_for('static', filename='Images/scrap/Eddie (1996).jpg') }}" alt="Movie: Eddie (1996)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Eddie (1996)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Eddie (1996)";
+        });
+    });
+                    
+    </script>
+    <h3>Eddie (1996)</h3>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Great White Hype, The (1996)" id="Great White Hype, The (1996)">
+      <img src="{{ url_for('static', filename='Images/scrap/Great White Hype, The (1996).jpg') }}" alt="Movie: Great White Hype, The (1996)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Great White Hype, The (1996)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Great White Hype, The (1996)";
+        });
+    });
+                    
+    </script>
+    <h3>Great White Hype, The (1996)</h3>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Chamber, The (1996)" id="Chamber, The (1996)">
+      <img src="{{ url_for('static', filename='Images/scrap/Chamber, The (1996).jpg') }}" alt="Movie: Chamber, The (1996)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Chamber, The (1996)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Chamber, The (1996)";
+        });
+    });
+                    
+    </script>
+    <h3>Chamber, The (1996)</h3>
+  </div>
+  </div>
+  <div class="movie-grid">
+  <div class="moviecontainer">
+    <a href="/_movie/Atlantic City (1980)" id="Atlantic City (1980)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Atlantic City (1980)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Atlantic City (1980)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Atlantic City (1980)";
+        });
+    });
+                    
+    </script>
+    <h3>Atlantic City (1980)</h3>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Malice (1993)" id="Malice (1993)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Malice (1993)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Malice (1993)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Malice (1993)";
+        });
+    });
+                    
+    </script>
+    <h3>Malice (1993)</h3>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Until the End of the World (Bis ans Ende der Welt) (1991)" id="Until the End of the World (Bis ans Ende der Welt) (1991)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Until the End of the World (Bis ans Ende der Welt) (1991)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Until the End of the World (Bis ans Ende der Welt) (1991)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Until the End of the World (Bis ans Ende der Welt) (1991)";
+        });
+    });
+                    
+    </script>
+    <h3>Until the End of the World (Bis ans Ende der Welt) (1991)</h3>
+  </div>
+  <div class="moviecontainer">
+    <a href="/_movie/Stuart Saves His Family (1995)" id="Stuart Saves His Family (1995)">
+      <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Stuart Saves His Family (1995)" />
+    </a>
+    <script>
+      
+    $(document).ready(function() {
+        $("a[href='/_movie/Stuart Saves His Family (1995)']").click(function(event) {
+            event.preventDefault();
+            // alert("yes");
+            window.location.href = "/_movie/Stuart Saves His Family (1995)";
+        });
+    });
+                    
+    </script>
+    <h3>Stuart Saves His Family (1995)</h3>
+  </div>
+  </div>
   <footer>
     <div class="container">
-      <h3>About Us, The Recommendation website</h3>
+      <h3>The Recommendation website</h3>
 
       <img src="{{ url_for('static',filename='Images/ESME.jpg') }}" alt="Me" class="w3-image" style="display: block; margin: auto" width="100" height="100" />
-      <h4><b>hello</b></h4>
       <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
       <ul>
         <li>

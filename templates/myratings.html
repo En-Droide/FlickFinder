@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      FlickFinder
+    </title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.12.1/css/all.css" crossorigin="anonymous" />
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_main.css') }}" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css" />
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
+  </head>
+  <!-- Top navigation bar -->
+  <header>
+    <div class="topnav">
+      <a href="/home.html">
+        Home
+      </a>
+      {% if currentUserId %}
+      <a href="/mypredictions.html">
+        Our Selection for You
+      </a>
+      {% endif %}
+      <div class="Flickfinder">
+        FlickFinder
+      </div>
+      {% if currentUserId %}
+      <div class="right">
+        <a href="/myratings.html">
+          My Ratings
+        </a>
+        <button class="disconnectButton" type="submit">
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Connected&ensp;
+              </p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Disconnect
+              </p>
+            </span>
+          </div>
+        </button>
+      </div>
+      {% else %}
+      <a href="/account.html" class="right">
+        Account
+      </a>
+      {% endif %}
+    </div>
+    <script>
+      
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/home.html"; 
+                },
+            });
+        });
+        });
+        
+    </script>
+  </header>
+  <body style="margin-top: 10%;">
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Waiting for Guffman (1996)" id="Waiting for Guffman (1996)">
+        <img src="{{ url_for('static', filename='Images/scrap/Waiting for Guffman (1996).jpg') }}" alt="Movie: Waiting for Guffman (1996)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Waiting for Guffman (1996)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Waiting for Guffman (1996)";
+            });
+        });
+                        
+      </script>
+      <h3>Waiting for Guffman (1996)</h3>
+      <p>My rating : 4.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Weird Science (1985)" id="Weird Science (1985)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Weird Science (1985)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Weird Science (1985)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Weird Science (1985)";
+            });
+        });
+                        
+      </script>
+      <h3>Weird Science (1985)</h3>
+      <p>My rating : 4.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Do the Right Thing (1989)" id="Do the Right Thing (1989)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Do the Right Thing (1989)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Do the Right Thing (1989)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Do the Right Thing (1989)";
+            });
+        });
+                        
+      </script>
+      <h3>Do the Right Thing (1989)</h3>
+      <p>My rating : 4.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Better Off Dead... (1985)" id="Better Off Dead... (1985)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Better Off Dead... (1985)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Better Off Dead... (1985)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Better Off Dead... (1985)";
+            });
+        });
+                        
+      </script>
+      <h3>Better Off Dead... (1985)</h3>
+      <p>My rating : 4.0</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/¡Three Amigos! (1986)" id="¡Three Amigos! (1986)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: ¡Three Amigos! (1986)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/¡Three Amigos! (1986)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/¡Three Amigos! (1986)";
+            });
+        });
+                        
+      </script>
+      <h3>¡Three Amigos! (1986)</h3>
+      <p>My rating : 4.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Falling Down (1993)" id="Falling Down (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Falling Down (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Falling Down (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Falling Down (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Falling Down (1993)</h3>
+      <p>My rating : 4.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Nurse Betty (2000)" id="Nurse Betty (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Nurse Betty (2000)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Nurse Betty (2000)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Nurse Betty (2000)";
+            });
+        });
+                        
+      </script>
+      <h3>Nurse Betty (2000)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Running Man, The (1987)" id="Running Man, The (1987)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Running Man, The (1987)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Running Man, The (1987)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Running Man, The (1987)";
+            });
+        });
+                        
+      </script>
+      <h3>Running Man, The (1987)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Kalifornia (1993)" id="Kalifornia (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Kalifornia (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Kalifornia (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Kalifornia (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Kalifornia (1993)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)" id="Three Colors: Blue (Trois couleurs: Bleu) (1993)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Three Colors: Blue (Trois couleurs: Bleu) (1993)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Three Colors: Blue (Trois couleurs: Bleu) (1993)";
+            });
+        });
+                        
+      </script>
+      <h3>Three Colors: Blue (Trois couleurs: Bleu) (1993)</h3>
+      <p>My rating : 3.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Stigmata (1999)" id="Stigmata (1999)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Stigmata (1999)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Stigmata (1999)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Stigmata (1999)";
+            });
+        });
+                        
+      </script>
+      <h3>Stigmata (1999)</h3>
+      <p>My rating : 3.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Event Horizon (1997)" id="Event Horizon (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Event Horizon (1997)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Event Horizon (1997)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Event Horizon (1997)";
+            });
+        });
+                        
+      </script>
+      <h3>Event Horizon (1997)</h3>
+      <p>My rating : 2.5</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/RoboCop 2 (1990)" id="RoboCop 2 (1990)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: RoboCop 2 (1990)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/RoboCop 2 (1990)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/RoboCop 2 (1990)";
+            });
+        });
+                        
+      </script>
+      <h3>RoboCop 2 (1990)</h3>
+      <p>My rating : 2.5</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Hollow Man (2000)" id="Hollow Man (2000)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Hollow Man (2000)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Hollow Man (2000)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Hollow Man (2000)";
+            });
+        });
+                        
+      </script>
+      <h3>Hollow Man (2000)</h3>
+      <p>My rating : 2.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Forrest Gump (1994)" id="Forrest Gump (1994)">
+        <img src="{{ url_for('static', filename='Images/scrap/Forrest Gump (1994).jpg') }}" alt="Movie: Forrest Gump (1994)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Forrest Gump (1994)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Forrest Gump (1994)";
+            });
+        });
+                        
+      </script>
+      <h3>Forrest Gump (1994)</h3>
+      <p>My rating : 2.0</p>
+    </div>
+    <div class="moviecontainer">
+      <a href="/_movie/Weekend at Bernie&quot;s (1989)" id="Weekend at Bernie&quot;s (1989)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Weekend at Bernie&quot;s (1989)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Weekend at Bernie&quot;s (1989)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Weekend at Bernie&quot;s (1989)";
+            });
+        });
+                        
+      </script>
+      <h3>Weekend at Bernie&quot;s (1989)</h3>
+      <p>My rating : 1.5</p>
+    </div>
+    </div>
+    <div class="movie-grid">
+    <div class="moviecontainer">
+      <a href="/_movie/Spawn (1997)" id="Spawn (1997)">
+        <img src="{{ url_for('static', filename='Images/placeholder.png') }}" alt="Movie: Spawn (1997)" />
+      </a>
+      <script>
+        
+        $(document).ready(function() {
+            $("a[href='/_movie/Spawn (1997)']").click(function(event) {
+                event.preventDefault();
+                // alert("yes");
+                window.location.href = "/_movie/Spawn (1997)";
+            });
+        });
+                        
+      </script>
+      <h3>Spawn (1997)</h3>
+      <p>My rating : 1.5</p>
+    </div>
+    </div>
+  </body>
+  <footer>
+    <div class="container">
+      <h3>About Us, The Recommendation website</h3>
+
+      <img src="{{ url_for('static',filename='Images/ESME.jpg') }}" alt="Me" class="w3-image" style="display: block; margin: auto" width="100" height="100" />
+      <h6><i>By Matteo Gentili and Robin Lotode</i></h6>
+      <ul>
+        <li>
+          <a href="#">
+            <i class="fab fa-facebook" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-twitter" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-google-plus-g" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-linkedin" aria-hidden="true"></i>
+          </a>
+        </li>
+        <li>
+          <a href="#">
+            <i class="fab fa-instagram" aria-hidden="true"></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </footer>
+</html>

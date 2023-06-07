@@ -2,13 +2,18 @@ from flask import Flask, render_template, request, abort
 import logging
 import os
 import sys
+import pandas as pd
 
 project_path = "C:\\Users\\lotod\\OneDrive\\Bureau\\GIT\\FlickFinder\\"
+# project_path = "C:\\Users\\lotod\\Desktop\\GIT\\FlickFinder\\"
 # project_path = "C:\\Users\\MatyG\\Documents\\Annee_2022_2023\\Projet_films\\FlickFinder\\"
 
 is_setup_tfidf_onStart = True
 is_handle_movielens_onStart = True
-is_getMovieMatrix_onStart = False
+is_getMovieMatrix_onStart = True
+is_setup_recommendation_model_onStart = True
+is_create_main_onStart = True
+is_setup_movie_informations = True
 
 instance_path = project_path
 templates_path = instance_path + "templates\\"
@@ -16,16 +21,19 @@ images_path = instance_path + "static\\Images\\"
 python_path = instance_path + "Python_files\\"
 sys.path.insert(1, python_path)
 movieLens_path = python_path + "csv_files\\ml-latest\\"
-rating_path = movieLens_path + "ratings.csv"
+ratings_name = "ratings_edit.csv"
 outBigData_path = python_path + "csv_files\\out_big_data.csv"
+info_movie_path_csv = project_path + "static\\Csv_files\\movies_informations.csv"
 
+from handle_movielens import *
+from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast, match_title
+from collab import *
+from collab_similarities import getMovieCorrelations
+from create_pages import *
+from scrap import *
 
-from handle_movielens import read_movielens, getMovieMatrix, getMovieId, getMovieImdbLink, getMovieRatingsByIndex, isMovieInDataset
-from tfidf import start_tfidf, setup_tfidf, get_movie_genres_cast
-from create_similar_movies import PageCreation
-from scrap import scrap_image
-from create_movie_page import open_movie_page
-
+currentUserId = None
+currentUserRatings = None
 
 app = Flask(__name__, instance_path=instance_path)
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -34,48 +42,53 @@ log.setLevel(logging.ERROR)
 
 @app.route("/")
 def home():
-    return render_template("main.html")
+    return render_template("home.html", currentUserId=currentUserId)
 
-@app.route("/main.html")
+@app.route("/home.html")
 def main():
-    return render_template("main.html")
-
-@app.route("/about.html")
-def about():
-    return render_template("about.html")
+    return render_template("home.html", currentUserId=currentUserId)
 
 @app.route("/account.html")
 def account():
-    return render_template("account.html")
-
-@app.route("/exemple_movie_page.html")
-def moviePage():
-    return render_template("exemple_movie_page.html")
+    return render_template("account.html", currentUserId=currentUserId)
 
 @app.route("/_tfidf", methods=["POST"])
 def createPage():
     movieTitle = request.form.get("searchText")
-    movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=19)
-    print(movieFilmList)
+    tfidf_movieFilmList = start_tfidf(tfidf_df, tfidf_matrix, movieTitle, size=7)
+    print("tfidf : \n", tfidf_movieFilmList, "\n")
+    similarity_movieFilmList = getMovieCorrelations(tfidf_movieFilmList[0], movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[:8]
+    print("similarity : \n", similarity_movieFilmList, "\n")
     global failed_scraps
-    for movie in movieFilmList[:4]:
+    soup = None
+    for movie in (tfidf_movieFilmList[:4] + similarity_movieFilmList[:4]):
         if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
             movieId = getMovieId(movie, movies_df)
             movieLink = getMovieImdbLink(movieId, links_df)
             print(movieLink)
-            response = scrap_image(movieLink, images_path=images_path, movieTitle=movie)
+            soup = request_soup(movieLink)
+            response = scrap_image(soup, images_path=images_path, movieTitle=movie)
             if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
-    PageCreation(movies=movieFilmList, file_path=templates_path + "similar_movies.html", images_path=images_path, row_size=4)
+            
+        if movie not in df_movie_info['title'].values:
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+    SimilarPageCreation(tfidf_movies=tfidf_movieFilmList,
+                        similarity_movies=similarity_movieFilmList,
+                        file_path=templates_path + "similar_movies.html",
+                        images_path=images_path, row_size=4)
     return "Done!"
 
 @app.route('/similar_movies.html')
 def similar_movies():
-    return render_template('similar_movies.html')
+    return render_template('similar_movies.html', currentUserId=currentUserId)
 
 @app.route('/_movie/<movieTitle>')
 def movie_page(movieTitle):
-    print(movieTitle)
-    # movieTitle="Toy Story (1995)"
+    print("movie: ", movieTitle)
     if not(isMovieInDataset(movieTitle, movies_df)):
         abort(404)
     list_movie_genres, list_movie_cast = get_movie_genres_cast(tfidf_df, movieTitle)
@@ -85,23 +98,192 @@ def movie_page(movieTitle):
     except IndexError:
         print("ERROR : no ratings found in current sample")
         mean_rating_movie = "error"
-    open_movie_page(file_path=templates_path+"movie_page.html", movieTitle=movieTitle, listgenre=list_movie_genres, listcast=list_movie_cast, meanRating=mean_rating_movie)
-    return render_template('movie_page.html')
+    movieTitle = movieTitle.replace("'", "&quot;")
+    df_movie_info = pd.read_csv(info_movie_path_csv)    
+    informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector = informations_movies (movieTitle, df_movie_info)
+
+    similarity_movieFilmList = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[:10]
+    if movieTitle in similarity_movieFilmList: similarity_movieFilmList.remove(movieTitle)
+    similarity_movieFilmList = similarity_movieFilmList[:5]
+    print("similarity : \n", similarity_movieFilmList, "\n")
+    global failed_scraps
+    soup = None
+    for movie in (similarity_movieFilmList + [movieTitle]):
+        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+            
+        if movie not in df_movie_info['title'].values:
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+
+    similarPredictions_movieFilmList = []
+    if currentUserId is not None :
+        similarPredictions_movieFilmList = getMovieSimilarPredictions(currentUserId, movieTitle, movies_df, movieRatings_df, userRatingsMatrix, model, 10, 40)["movieTitle"].to_list()
+        if movieTitle in similarPredictions_movieFilmList: similarPredictions_movieFilmList.remove(movieTitle)
+        similarPredictions_movieFilmList = similarPredictions_movieFilmList[:5]
+        print("similarity pred : \n", similarPredictions_movieFilmList, "\n")
+        soup = None
+        for movie in (similarPredictions_movieFilmList):
+            if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+                movieId = getMovieId(movie, movies_df)
+                movieLink = getMovieImdbLink(movieId, links_df)
+                print(movieLink)
+                soup = request_soup(movieLink)
+                response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+                if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+                
+            if movie not in df_movie_info['title'].values:
+                movieId = getMovieId(movie, movies_df)
+                movieLink = getMovieImdbLink(movieId, links_df)
+                print(movieLink)
+                soup = request_soup(movieLink)
+                scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+
+            
+    return render_template('movie_page_dynamic.html',
+                            movieTitle=movieTitle,
+                            listgenre=list_movie_genres,
+                            listcast=list_movie_cast,
+                            meanRating=mean_rating_movie,
+                            images_path=images_path,
+                            movie_Date = informations_movieDate,
+                            movie_Time = informations_movieTime,
+                            movie_Synopsis = informations_movieSynopsis,
+                            movie_Director = informations_movieDirector,
+                            currentUserId=currentUserId,
+                            currentUserRatings=currentUserRatings,
+                            similarity_movieFilmList=similarity_movieFilmList,
+                            similarPredictions_movieFilmList =similarPredictions_movieFilmList
+                            )
+
+@app.route('/myratings.html')
+def my_ratings():
+    MyRatingsPageCreation(currentUserId=currentUserId,
+                    currentUserRatings=currentUserRatings.sort_values("rating", ascending=False),
+                    file_path=templates_path + "myratings.html",
+                    images_path=images_path, row_size=4)
+    return render_template("myratings.html", currentUserId=currentUserId)
+
+@app.route("/mypredictions.html")
+def my_predictions():
+    user_similarities_movies = getUserSimilarPredictions(userId=currentUserId,
+                                                         movies_df=movies_df,
+                                                         userRatings_df=userRatings_df,
+                                                         movieRatings_df=movieRatings_df,
+                                                         userRatingsMatrix=userRatingsMatrix,
+                                                         model=model,
+                                                         userAmount=10,
+                                                         ratingsPerUser=10)
+    print("user similarities : \n", user_similarities_movies["movieTitle"].iloc[:10], "\n")
+    global failed_scraps
+    for movie in user_similarities_movies["movieTitle"].values[:4]:
+        if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+            movieId = getMovieId(movie, movies_df)
+            movieLink = getMovieImdbLink(movieId, links_df)
+            print(movieLink)
+            soup = request_soup(movieLink)
+            response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+            if response == "ERROR_IMAGE": failed_scraps += [movie]
+            
+            if movie not in df_movie_info['title'].values:
+                scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
+    MyPredictionsPageCreation(currentUserId=currentUserId,
+                            userPredictions=user_similarities_movies,
+                            file_path=templates_path + "mypredictions.html",
+                            images_path=images_path, row_size=4)
+    return render_template("mypredictions.html", currentUserId=currentUserId)
+
+@app.route("/_rate", methods=["POST"])
+def rate():
+    rating = int(request.form.get("rating"))
+    movieTitle = request.form.get("movieTitle")
+    movieId = getMovieId(movieTitle, movies_df)
+    print(movieTitle, movieId, rating)
+    global currentUserRatings, userRatings_df
+    if (currentUserRatings["movieTitle"] == movieTitle).any():
+        currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle), "rating"] = rating
+        userRatings_df.loc[(userRatings_df["userId"] == currentUserId) & (userRatings_df["movieId"] == movieId), "rating"] = rating
+        print("existing : updated")
+        print(currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle), "rating"].values)
+    else:
+        new_rating = {"userId": currentUserId, "movieId": movieId, "rating": rating}
+        userRatings_df.loc[len(userRatings_df)] = new_rating
+        new_rating["movieTitle"] = movieTitle
+        currentUserRatings.loc[len(currentUserRatings)] = new_rating
+        print("new : added")
+    # print(userRatings_df[(userRatings_df["userId"] == currentUserId)])
+    # print(currentUserRatings[["movieTitle", "rating"]])
+    userRatings_df.to_csv(movieLens_path + ratings_name)
+    return "Done!"
+
+@app.route("/_login", methods=["POST"])
+def login():
+    userId = request.form.get("userId")
+    global currentUserId, currentUserRatings
+    currentUserId = int(userId)
+    print("connected as", currentUserId)
+    currentUserRatings = userRatings_df[userRatings_df["userId"] == currentUserId].sort_values("rating", ascending=False)
+    currentUserRatings["movieTitle"] = currentUserRatings["movieId"].apply(lambda id: getMovieTitle(movieId=id, movies_df=movies_df))
+    return "Done!"
+
+@app.route("/_disconnect", methods=["POST"])
+def disconnect():
+    global currentUserId
+    currentUserId = None
+    print("disconnecting..")
+    return "Done!"
+
+@app.context_processor
+def handle_context():
+    return dict(os=os)
 
 if __name__ == '__main__':
     with app.app_context():
         if is_setup_tfidf_onStart:
             tfidf_matrix, tfidf_df = setup_tfidf(outBigData_path)
-            print("tfidf setup !")
+            print("tfidf setup!\n")
         if is_handle_movielens_onStart:
-            print("\nsetting up movielens dataset...")
-            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, size=1000000)
+            print("setting up movielens dataset...")
+            movies_df, links_df, tags_df, userRatings_df, movieRatings_df = read_movielens(path=movieLens_path, ratings_name=ratings_name)
             print("movielens dataset setup!")
         if is_getMovieMatrix_onStart:
-            print("making MovieMatrix...")
-            movieMatrix = getMovieMatrix(userRatings_df)
+            print("\nmaking MovieMatrix...")
+            userRatingsMatrix = getUserRatingsMatrix(userRatings_df)
             print("movieMatrix done!\n")
+        if is_setup_recommendation_model_onStart:
+            print("\ncreating the prediction model...")
+            model = createModel(userRatings_df, SVD)
+            print("prediction model done!\n")
+        if is_setup_movie_informations:
+            df_movie_info = pd.read_csv(info_movie_path_csv)
+            print("\nmovie informations read")
+        if is_create_main_onStart:
+            print("\ncreating home.html...")
+            topMovies = getTopNMoviesByNbOfRatings(20, movies_df, movieRatings_df)["movieTitle"].to_list()
+            MainPageCreation(movies=topMovies, file_path=templates_path + "home.html", images_path=images_path, row_size=4)
+            print("home page created!\n")
         with open(images_path+"failed_images_scraps.txt", "r") as reader:
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
-        print("link : http://127.0.0.1:5000/")
+
+        print("\nlink : http://127.0.0.1:5000/")
+        # for mov in movieRatings_df.sort_values("nb of ratings", ascending=False).index.values[:300]:
+        #     movie = getMovieTitle(mov, movies_df)
+        #     if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+        #         movieId = getMovieId(movie, movies_df)
+        #         movieLink = getMovieImdbLink(movieId, links_df)
+        #         print(movieLink)
+        #         soup = request_soup(movieLink)
+        #         response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+        #         if response == "ERROR_IMAGE": failed_scraps += [movie]
+            
+        #     if movie not in df_movie_info['title'].values:
+        #         scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
     app.run(debug=False)

@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ movieTitle }}</title>
+    <link rel="stylesheet" href="{{ url_for('static',filename='CSS_files/stylesheet_click_film.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <script src="{{ url_for('static',filename='JS_files/autocomplete.js') }}"></script>
+  </head>
+  <!-- Top navigation bar -->
+  <header>
+    <div class="topnav">
+      <a href="/home.html"> Home </a>
+      {% if currentUserId %}
+      <a href="/mypredictions.html">Our Selection for You</a>
+      {% endif %}
+      <div class="Flickfinder"> FlickFinder </div>
+      {% if currentUserId %}
+      <div class="right">
+        <a href="/myratings.html">
+          My Ratings
+        </a>
+        <button class="disconnectButton" type="submit">
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Connected&ensp;
+              </p>
+            </span>
+          </div>
+          <div>
+            <span class="DisconnectConnectText">
+              <p>
+                Disconnect
+              </p>
+            </span>
+          </div>
+        </button>
+      </div>
+      {% else %}
+      <a href="/account.html" class="right">
+        Account
+      </a>
+      {% endif %}
+    </div>
+    <script>
+      
+        $(document).ready(function () {
+        $(".disconnectButton").click(function () {
+            $.ajax({
+                url: "/_disconnect",
+                type: "POST",
+                crossDomain: true,
+                success: function () {
+                    window.location.href = "/home.html"; 
+                },
+            });
+        });
+        });
+        
+    </script>
+  </header>
+  <body>
+    {% if movieTitle %}
+    <div class="container">
+      <div class="img-container">
+        {% if os.path.exists(images_path + "scrap\\" + movieTitle + ".jpg") %}
+        <img
+          src="{{ url_for('static', filename='Images/scrap/'~movieTitle~'.jpg') }}"
+          alt="{{ movieTitle }}"
+        />
+        {% else %}
+        <img
+          src="{{ url_for('static', filename='Images/placeholder.png') }}"
+          alt="{{ movieTitle }}"
+        />
+        {% endif %}
+      </div>
+      <div class="synopsis-container">
+        <h1>{{ movieTitle }}</h1>
+        {% for genre in listgenre %}
+        <span class="tag_{{ genre }}">{{ genre }}</span>
+        {% endfor %}
+        <p>{{movie_Date}}&emsp;-&emsp;{{movie_Time}}</p>
+        <p>
+          {{movie_Synopsis}}
+        </p>
+        <hr />
+        <p>Director : {{movie_Director}}</p>
+        <hr />
+        <p>
+          Cast:&emsp; {% if listcast[0] == "_error" %} No cast found {% else %}
+          {% for cast in listcast %} {{ cast }} {% if cast != listcast[-1] %} |
+          {% endif %} {% endfor %} {% endif %}
+        </p>
+        <div class="rate">
+          <h3 class="stars_rating">
+            Rating :&ensp;{{ meanRating }}&emsp;
+          </h3>
+          {% if currentUserId %}
+          {% if (currentUserRatings["movieTitle"] == movieTitle).any() %}
+          <h3 class="stars_rating" id="myRating">
+            &ensp;&ensp;Your rating :&ensp;{{ currentUserRatings.loc[(currentUserRatings["movieTitle"] == movieTitle)]["rating"].values[0] }}&emsp;
+          </h3>
+          {% else %}
+          <h3 class="stars_rating" id="myRating">&ensp;&ensp;Your rating :&ensp;?&emsp;</h3>
+          {% endif %}
+          <button id="btn" class="btn_rating" type="submit">Give your rating</button>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+    
+    <!-- Pop-up content -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <h2>Rate&ensp;:&emsp;{{ movieTitle }}</h2>
+        <div class="rating">
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r5"
+            class="star"
+            data-rating="5"
+          />
+          <label for="popup-r5"></label>
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r4"
+            class="star"
+            data-rating="4"
+          />
+          <label for="popup-r4"></label>
+
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r3"
+            class="star"
+            data-rating="3"
+          />
+          <label for="popup-r3"></label>
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r2"
+            class="star"
+            data-rating="2"
+          />
+          <label for="popup-r2"></label>
+          <input
+            type="radio"
+            name="popup-rating"
+            id="popup-r1"
+            class="star"
+            data-rating="1"
+          />
+          <label for="popup-r1"></label>
+        </div>
+      </div>
+    </div>
+    {% if currentUserId %}
+    {% if (currentUserRatings["movieTitle"] == movieTitle).any() %}
+    <script>ratingVariable = "{{ currentUserRatings.loc[(currentUserRatings['movieTitle'] == movieTitle)]['rating'].values[0] }}";</script>
+    {% else %}
+    <script>ratingVariable = 0;</script>
+    {% endif %}
+    {% endif %}
+    <script>
+      // JavaScript code to handle button click event and show the pop-up
+      document.getElementById("btn").addEventListener("click", function () {
+        document.getElementById("popup").style.display = "block";
+        for (var i=0; i<5; i++) {
+          popupStars[i].checked = false;
+        }
+        for (var i=0; i<ratingVariable; i++) {
+          popupStars[4-i].checked = true;
+        }
+        console.log(ratingVariable);
+      });
+      
+      var popupStars = document.querySelectorAll(".popup-content .star");
+      for (var i = 0; i < popupStars.length; i++) {
+        popupStars[i].addEventListener("click", function () {
+          if (this.checked) {
+            var rating = this.getAttribute("data-rating");
+            ratingVariable = rating;
+            document.getElementById("myRating").innerHTML = "&ensp;&ensp;Your rating :&ensp;"+rating+"&emsp;";
+            // alert("You rated the movie " + rating + " stars!");
+            var formData = {
+              rating: rating,
+              movieTitle: "{{ movieTitle }}"
+            };
+            $.ajax({
+                url: "/_rate",
+                type: "POST",
+                crossDomain: true,
+                data: formData,
+                dataType: "text",
+                success: function (data) {
+                    ratingVariable = rating;
+                },
+            });
+            // Close the pop-up after rating
+            document.getElementById("popup").style.display = "none";
+          }
+        });
+        // if (i < ratingVariable) {
+        //     // Set the ratingVariable number of stars as checked/selected
+        //     popupStars[i].checked = true;
+        //   }
+      }
+
+      window.addEventListener("click", function (event) {
+        var popup = document.getElementById("popup");
+        if (event.target == popup) {
+          popup.style.display = "none";
+        }
+      });
+    </script>
+    <h3 class="Titlegrid">Similar movies you might like :</h3>
+    <div class="movie-grid">
+      {%for movie in (similarity_movieFilmList):%}
+        <div class="moviecontainer">
+          <a href="/_movie/{{movie}}" id="{{movie}}">
+            {% if os.path.exists(images_path + "scrap\\" + movie + ".jpg") %}
+            <img
+              src="{{ url_for('static', filename='Images/scrap/'~movie~'.jpg') }}"
+              alt="{{ movie }}"
+            />
+            {% else %}
+            <img
+              src="{{ url_for('static', filename='Images/placeholder.png') }}"
+              alt="{{ movie }}"
+            />
+            {% endif %}
+          </a>
+          <script>
+            
+            $(document).ready(function() {
+                $("a[href='/_movie/{{movie}}']").click(function(event) {
+                    event.preventDefault();
+                    // alert("yes");
+                    window.location.href = "/_movie/{{movie}}";
+                });
+            });
+                            
+          </script>
+          <h3>{{movie}}</h3>
+        </div>
+      {%endfor%}
+    </div> 
+      {% if currentUserId %}
+      <h3 class="Titlegrid">Users like you also liked :</h3>
+      <div class="movie-grid">
+        {%for movie in (similarPredictions_movieFilmList):%}
+          <div class="moviecontainer">
+            <a href="/_movie/{{movie}}" id="{{movie}}">
+              {% if os.path.exists(images_path + "scrap\\" + movie + ".jpg") %}
+              <img
+                src="{{ url_for('static', filename='Images/scrap/'~movie~'.jpg') }}"
+                alt="{{ movie }}"
+              />
+              {% else %}
+              <img
+                src="{{ url_for('static', filename='Images/placeholder.png') }}"
+                alt="{{ movie }}"
+              />
+              {% endif %}
+            </a>
+            <script>
+              
+              $(document).ready(function() {
+                  $("a[href='/_movie/{{movie}}']").click(function(event) {
+                      event.preventDefault();
+                      // alert("yes");
+                      window.location.href = "/_movie/{{movie}}";
+                  });
+              });
+                              
+            </script>
+            <h3>{{movie}}</h3>
+          </div>
+        {%endfor%}
+      </div>
+      {% endif %}
+
+    {% endif %}
+  </body>
+</html>

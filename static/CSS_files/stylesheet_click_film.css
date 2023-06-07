@@ -2,19 +2,25 @@
   font-family: Montserrat;
   src: url('Montserrat-Light.ttf');
   font-weight:lighter;
+  
 }
 *{
   font-family: Montserrat;
   /* border: 1px solid red; */
 }
+html {
+  min-height: 100%
+}
 
 body {
-  /* background-color: #131212; */
+
+  /* background-color: #d61f1f; */
   background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
   color: #f2f2f2;
   /*font-family: "Karma", sans-serif;*/
   margin: 0;
   padding: 0;
+  height: 100%;
 }
 /* Top navigation bar */
 .topnav {
@@ -23,6 +29,7 @@ body {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 2;
 }
 .Flickfinder {
   position: absolute;
@@ -44,58 +51,74 @@ body {
   text-decoration: none;
 }
 .topnav a:hover {
-  color: #165c96;
+  color: #1b75be;
 }
 .right {
+  display: flex;
   position: absolute;
-  left: 95%;
-  transform: translateX(-50%);
-  padding: 14px 16px;
+  float: right;
+  right: 0%;
   text-align: center;
   text-decoration: none;
 }
+.disconnectButton{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  overflow: hidden;
+  outline: 0;
+  margin-right: 0%;
+  text-align: center;
+  padding: 0;
+}
+
+.disconnectButton div {
+  transform: translateY(0px);
+  width: 100%;
+ }
+
+ .disconnectButton,
+ .disconnectButton div {
+  transition: 0.6s cubic-bezier(.20,0.5,.5,1);
+ }
+
+ .disconnectButton div span {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  height: 40px;
+  padding: 0.28em ;
+  text-align: center;
+  
+ }
+ .DisconnectConnectText{
+  justify-content: center;
+ }
+ 
+ .disconnectButton div:nth-child(1) {
+  background-color: #1d1c1a;
+ }
+ 
+ .disconnectButton div:nth-child(2) {
+  background-color: #1b75be;
+  
+ }
+ 
+ .disconnectButton:hover div {
+  transform: translateY(-49.5px);
+ }
+ 
+ .disconnectButton p {
+  font-size: 16px;
+  color: #ffffff;
+ }
+ 
+ .disconnectButton:active {
+  transform: scale(0.75);
+ }
+ 
 /* Genres movie */
 
-/* .tag_comedy {
-  background: rgb(22, 91, 23);
-  border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
-  cursor: pointer;
-}
-
-.tag_comedy:hover {
-  background: rgb(35, 146, 37);
-}
-
-.tag_horror {
-  background: rgb(66, 64, 64);
-  border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
-  cursor: pointer;
-}
-
-.tag_horror:hover {
-  background: rgb(99, 95, 95);
-}
-.tag_thriller {
-  background: rgb(24, 45, 146);
-  border-radius: 10px;
-  padding: 3px 8px;
-  font-size: 14px;
-  margin-right: 4px;
-  line-height: 35px;
-  cursor: pointer;
-}
-
-.tag_thriller:hover {
-  background: rgb(31, 56, 185);
-} */
 .tag_drama {
   background: rgb(255, 87, 51);
   border-radius: 10px;
@@ -236,7 +259,7 @@ body {
   background: rgb(255, 183, 92);
 }
 
-.tag_scifi {
+.tag_sci-fi {
   background: rgb(0, 123, 255);
   border-radius: 10px;
   padding: 3px 8px;
@@ -246,7 +269,7 @@ body {
   cursor: pointer;
 }
 
-.tag_scifi:hover {
+.tag_sci-fi:hover {
   background: rgb(92, 155, 255);
 }
 
@@ -381,32 +404,30 @@ body {
 /* Image movie */
 .container {
   position: relative;
-  margin-top: 150px;
-  margin-left: 150px;
+  margin-top: 10%;
+  margin-left: 5%;
   display: flex;
 }
 
 .img-container {
-  max-width: 30%;
+  max-width: 32%;
 }
 .img-container img {
   max-width: 100%;
   max-height: auto;
-  /* border: 8px solid #7294a4; */
   border-image: linear-gradient(50deg, rgb(253, 253, 253), #ffffff00) 1;
   border-width: 8px;
   border-style: solid;
 }
 
 .synopsis-container {
-  margin-left: 10%;
-  margin-right: 10%;
+  margin-left: 5%;
+  margin-right: 5%;
   max-width: 100%;
   flex: 2;
   text-align: justify;
 }
 .synopsis-container h2 {
-  font-size: 28px;
   margin-top: 0;
 }
 .cast {
@@ -417,92 +438,52 @@ body {
 }
 
 .stars_rating{
-  font-size: 20px;
-  margin: 0%;
-  margin-bottom: 20px;
+  font-size: 100%;
 }
-
 .stars_rating::after {
   content: "★"; /* adds the star symbol after the text */
   color: #f1ca2f; /* sets the color of the star symbol to yellow */
   text-shadow: 0 0 8px #fff9c3;
-  font-size: 25px;
+  font-size: 125%;  
 }
-
+.your_rating {
+  font-size: 100%;
+  padding-top: 1.7%;
+}
 /* movie rating */
-
-.rating-label {
-  display: inline-block;
-  margin-right: 10px;
-}
-
-div.stars {
-  width: 170px;
-  display: inline-block;
-}
 .rate {
-  float: left;
-  height: 46px;
+  align-items: center;
+  display: flex;
 }
 
-.rate:not(:checked) > input {
-  position: absolute;
-  top: -9999px;
-}
-.rate:not(:checked) > label {
-  float: right;
-  width: 1em;
-  overflow: hidden;
-  white-space: nowrap;
-  cursor: pointer;
-  font-size: 30px;
-  color: #a4a4a4;
-}
-.rate:not(:checked) > label:before {
-  content: "★ ";
-}
-.rate > input:checked ~ label {
-  color: #f1ca2f;
-  text-shadow: 0 0 8px #fff9c3;
+/*button rating*/
+.btn_rating {
+  margin-left: 10%;
+  padding: 1.5% 5%;
+  text-transform: uppercase;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  color: #ffffff80;
+  text-shadow: none;
+  background: transparent;
+  box-shadow: transparent;
+  border: 1px solid #ffffff80;
+  transition: 0.5s ease;
+  /* user-select: none; */
 }
 
-.rate:not(:checked) > label:hover,
-.rate:not(:checked) > label:hover ~ label {
-  color: #ffef61;
-  transform: rotate(-15deg) scale(1.3);
-  transition: all 0.25s;
-}
-
-.rate > input:checked + label:hover,
-.rate > input:checked + label:hover ~ label,
-.rate > input:checked ~ label:hover,
-.rate > input:checked ~ label:hover ~ label,
-.rate > label:hover ~ input:checked ~ label {
-  color: #f4e55c;
-}
-
-/* button watchlist */
-button {
-  position: inherit;
-  margin-left: 20%;
-  width: 28%;
-  border-radius: 10px;
-  background-color: transparent;
-  color: #fff;
-  border: none;
-  box-shadow: 0 0 10px 0 rgb(2, 2, 2);
-  letter-spacing: 0.1rem;
-  font-size: 1rem;
-  padding: 1rem 3rem;
-  transition: 0.2s;
-}
-
-.buttonwatchlist:hover {
-  width: 30%;
-  box-shadow: 0 0 20px 0 rgba(22, 92, 150, 1);
-  color: #1c75be;
-  /* letter-spacing: 0.2rem; */
-  padding: 1.1rem 3.1rem;
+.btn_rating:hover{
+  color: #ffffff;
+  background: #0059ff;
+  border: 1px solid #0059ff;
+  text-shadow: 0 0 5px #ffffff,
+              0 0 10px #ffffff,
+              0 0 20px #ffffff;
+  box-shadow: 0 0 5px #004cff,
+              0 0 20px #004cff,
+              0 0 50px #004cff,
+              0 0 100px #004cff;
 }
 /* additionaltext */
 .additional-text {
@@ -512,3 +493,250 @@ button {
   padding: 20px;
   text-align: justify;
 }
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.popup-content {
+  background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
+  margin: 15% auto;
+  padding: 2%;
+  border-radius: 10px;
+  border: 1px solid #888;
+  width: 35%;
+}
+.popup-content h2 {
+  margin-top: 0; 
+}
+
+/*starssssssss*/
+
+  /* CSS for Pop-up */
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .popup-content {
+    background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
+    margin: 15% auto;
+    padding: 2%;
+    border-radius: 10px;
+    border: 1px solid #888;
+    width: 35%;
+  }
+
+  .popup-content h2 {
+    margin-top: 0;
+  }
+
+ /* CSS for Pop-up */
+ .popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.popup-content {
+  background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
+  margin: 15% auto;
+  padding: 2%;
+  border-radius: 10px;
+  border: 1px solid #888;
+  width: 35%;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+}
+
+/* CSS for Star Rating */
+/* CSS for Pop-up */
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.popup-content {
+  background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
+  margin: 15% auto;
+  padding: 2%;
+  border-radius: 10px;
+  border: 1px solid #888;
+  width: 65%;
+}
+
+
+/* CSS for Pop-up */
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+.popup-content {
+  background: radial-gradient(ellipse at bottom, #132336 0%, #131212 100%);
+  margin: 15% auto;
+  padding: 2%;
+  border-radius: 10px;
+  border: 1px solid #888;
+  width: 35%;
+}
+
+.popup-content h2 {
+  margin-top: 0;
+  text-align: center;
+}
+
+/* CSS for Star Rating */
+.popup-content .rating {
+  margin: 10px auto;
+  width: 90%;
+  position: relative;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center; 
+
+}
+
+.popup-content .rating > * {
+  float: none; 
+  display: inline-block;
+}
+
+.popup-content .rating label {
+  height: 30px;
+  width: 15%;
+  display: inline-block; 
+  position: relative;
+  cursor: pointer;
+}
+
+.popup-content .rating label:after {
+  transition: all 0.4s ease-out;
+  -webkit-font-smoothing: antialiased;
+  position: absolute;
+  content: '☆';
+  color: #444;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: 200%;
+  animation: pulse 1s ease;
+}
+
+.popup-content .rating label:hover:after {
+  color: #ffffff;
+  text-shadow: 
+              0 0 5px #ffffff,
+              0 0 10px #facb8e,
+              0 0 20px #fdd76f;
+}
+
+.popup-content .rating input {
+  display: none;
+}
+
+.popup-content .rating input:checked + label:after,
+.popup-content .rating input:checked ~ label:after {
+  content: '☆';
+  color: #444;
+  text-shadow: none;
+}
+
+.popup-content .rating input:checked ~ #popup-r1 + label:after,
+.popup-content .rating input:checked ~ #popup-r2 + label:after,
+.popup-content .rating input:checked ~ #popup-r3 + label:after,
+.popup-content .rating input:checked ~ #popup-r4 + label:after,
+.popup-content .rating input:checked ~ #popup-r5 + label:after,
+.popup-content .rating input:checked + label:after {
+  content: '★';
+  color: #F9BF3B;
+  text-shadow: 0 0 20px #fbfbfa;
+}
+
+/* Animation */
+@keyframes pulse {
+  50% {
+    color: #555;
+    text-shadow: 0 0 15px #555;
+  }
+}
+
+.Titlegrid{
+  padding: 0%;
+  margin-top: 2%;
+  margin-left: 3%;
+  margin-bottom: 2%;
+}
+
+
+.movie-grid {
+  display: grid;
+  grid-gap: 2%;
+  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+  margin: 1% auto;
+  max-width: 80%;
+  padding: 0 20px;
+  align-items: center;
+}
+
+.movie-grid img {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: 100%;
+  height: 90%;
+}
+.moviecontainer{
+  max-width: 275px;
+}
+
+.movie-grid img:hover {
+  transform: scale(1.1) translateZ(0);
+  z-index: 2; /* ensure the hovered image appears on top of the others */
+}
+
+.movie-grid h3 {
+  margin: 10px 0;
+  text-align: center;
+}
+
+
