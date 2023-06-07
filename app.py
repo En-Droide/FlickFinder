@@ -102,7 +102,9 @@ def movie_page(movieTitle):
     df_movie_info = pd.read_csv(info_movie_path_csv)    
     informations_movieDate, informations_movieTime, informations_movieSynopsis, informations_movieDirector = informations_movies (movieTitle, df_movie_info)
 
-    similarity_movieFilmList = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[1:6]
+    similarity_movieFilmList = getMovieCorrelations(movieTitle, movies_df, movieRatings_df, userRatingsMatrix, minRatingAmount=50)[0]["movieTitle"].to_list()[:10]
+    if movieTitle in similarity_movieFilmList: similarity_movieFilmList.remove(movieTitle)
+    similarity_movieFilmList = similarity_movieFilmList[:5]
     print("similarity : \n", similarity_movieFilmList, "\n")
     global failed_scraps
     soup = None
@@ -124,8 +126,10 @@ def movie_page(movieTitle):
 
     similarPredictions_movieFilmList = []
     if currentUserId is not None :
-        similarPredictions_movieFilmList = getMovieSimilarPredictions(currentUserId, movieTitle, movies_df, movieRatings_df, userRatingsMatrix, model, 6, 40)["movieTitle"].to_list()[1:]
-        print("similarity : \n", similarPredictions_movieFilmList, "\n")
+        similarPredictions_movieFilmList = getMovieSimilarPredictions(currentUserId, movieTitle, movies_df, movieRatings_df, userRatingsMatrix, model, 10, 40)["movieTitle"].to_list()
+        if movieTitle in similarPredictions_movieFilmList: similarPredictions_movieFilmList.remove(movieTitle)
+        similarPredictions_movieFilmList = similarPredictions_movieFilmList[:5]
+        print("similarity pred : \n", similarPredictions_movieFilmList, "\n")
         soup = None
         for movie in (similarPredictions_movieFilmList):
             if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
