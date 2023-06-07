@@ -108,7 +108,7 @@ def movie_page(movieTitle):
     print("similarity : \n", similarity_movieFilmList, "\n")
     global failed_scraps
     soup = None
-    for movie in (similarity_movieFilmList):
+    for movie in (similarity_movieFilmList + [movieTitle]):
         if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
             movieId = getMovieId(movie, movies_df)
             movieLink = getMovieImdbLink(movieId, links_df)
@@ -191,7 +191,7 @@ def my_predictions():
             print(movieLink)
             soup = request_soup(movieLink)
             response = scrap_image(soup, images_path=images_path, movieTitle=movie)
-            if response == "ERROR_IMAGE": failed_scraps += [movieTitle]
+            if response == "ERROR_IMAGE": failed_scraps += [movie]
             
             if movie not in df_movie_info['title'].values:
                 scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
@@ -274,4 +274,16 @@ if __name__ == '__main__':
             failed_scraps = [movieTitle.strip() for movieTitle in reader.readlines()]
 
         print("\nlink : http://127.0.0.1:5000/")
+        # for mov in movieRatings_df.sort_values("nb of ratings", ascending=False).index.values[:300]:
+        #     movie = getMovieTitle(mov, movies_df)
+        #     if not(os.path.exists(images_path + "scrap\\" + movie + ".jpg") or movie in failed_scraps):
+        #         movieId = getMovieId(movie, movies_df)
+        #         movieLink = getMovieImdbLink(movieId, links_df)
+        #         print(movieLink)
+        #         soup = request_soup(movieLink)
+        #         response = scrap_image(soup, images_path=images_path, movieTitle=movie)
+        #         if response == "ERROR_IMAGE": failed_scraps += [movie]
+            
+        #     if movie not in df_movie_info['title'].values:
+        #         scrape_and_create_movie_csv(info_movie_path_csv,soup, movie)
     app.run(debug=False)
